@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.text-stroke {
+  text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+
+/* Mostra el menu desplegable */
+.dropdown_item_list.active {
+  display: inline-block;
+}
+
+table,
+th,
+td {
+  border: 1px solid #267373;
+  padding: 0.25rem;
+}
