@@ -9,8 +9,13 @@ const Dashboard = () => {
   const location = useLocation();
   const urlActual = location.pathname;
 
-  const { auth } = useContext(AuthContext);
+  const { auth, setAuth } = useContext(AuthContext);
   const autenticado = localStorage.getItem("token");
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setAuth(null);
+  };
 
   // Arreglo de items para el dropdown (menú desplegable)
   const itemsCitas = [
@@ -27,7 +32,7 @@ const Dashboard = () => {
       anchor: "Calendario de citas",
     },
   ];
-  const itemsPacientes = [
+  const itemsPacientesSecre = [
     {
       slug: "/dashboard/registrarPaciente",
       anchor: "Registrar paciente",
@@ -81,7 +86,7 @@ const Dashboard = () => {
                   {/* <Link to='/dashboard/pacientes' className={`${urlActual === '/dashboard/opiniones' ? 'font-semibold bg-turquesa-fuerte py-3' : 'font-medium'} block hover:font-semibold`}>Pacientes</Link> */}
                   <Dropdown
                     dropdownTitle={"Pacientes"}
-                    items={itemsPacientes}
+                    items={itemsPacientesSecre}
                   />
                 </div>
               </li>
@@ -102,9 +107,7 @@ const Dashboard = () => {
             <Link
               to="/"
               className="px-4 py-3 text-center text-sm text-blanco font-semibold bg-naranja rounded-xl hover:shadow-lg hover:shadow-turquesa-fuerte"
-              onClick={() => {
-                localStorage.removeItem("token");
-              }}
+              onClick={handleLogout}
             >
               Cerrar Sesión
             </Link>
@@ -121,7 +124,7 @@ const Dashboard = () => {
           </p>
           <img src={logoTO} width={40} height={40} />
         </header>
-        <div className="overflow-y-scroll px-8 h-5/6">
+        <div className="overflow-y-scroll px-8 h-5/6 flex flex-col justify-center">
           {autenticado ? <Outlet /> : <Navigate to="/inicioSesion" />}
         </div>
         <footer className="md:h-10">
