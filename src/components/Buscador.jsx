@@ -4,7 +4,7 @@ const Buscador = () => {
   return (
     <div className="my-2 flex justify-center">
       <input
-        className="py-2 pl-2 w-1/3 border border-turquesa-fuerte rounded-l-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
+        className="w-1/2 md:w-1/3 py-2 pl-2 border border-turquesa-fuerte rounded-l-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
         id="buscador"
         type="text"
         placeholder="Buscar paciente por cédula"
