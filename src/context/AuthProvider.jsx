@@ -1,40 +1,71 @@
+import React, { createContext, useEffect, useState } from "react";
 import axios from "axios";
-import { createContext, useEffect, useState } from "react";
 
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [auth, setAuth] = useState({});
+  const [auth, setAuth] = useState(null);
+  const [error, setError] = useState(null);
 
-  // const perfil = async (token) => {
-  //   try {
-  //     const url = `${import.meta.env.VITE_BACKEND_URL}/perfil`;
-  //     const options = {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     };
-  //     const respuesta = await axios.get(url, options);
-  //     setAuth(respuesta.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  useEffect(() => {
+    // Intentar cargar los datos de autenticación desde el localStorage al montar el componente
+    const storedAuth = localStorage.getItem("auth");
+    if (storedAuth) {
+      setAuth(JSON.parse(storedAuth));
+    }
+  }, []);
 
-  // useEffect(() => {
-  //   const token = localStorage.getItem("token");
-  //   if (token) {
-  //     perfil(token)
-  //     // console.log(token)
-  //   }
-  // }, []);
+  const login = async (email, contraseña) => {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/login`,
+        { email, contraseña },
+      );
+      const userData = response.data;
+
+      localStorage.setItem("token", userData.token); // Guardar token en localStorage
+      setAuth(userData);
+      setError(null)
+    } catch (error) {
+      setError(error.response.data.msg)
+      setTimeout(() => {
+        setError(null)
+      },3000)
+    }
+  };
+
+  const fetchUserProfile = async (storedToken) => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/perfil`,
+        {
+          headers: {
+            Authorization: `Bearer ${storedToken}`,
+          },
+        },
+      );
+      console.log(response);
+      setAuth(response.data);
+    } catch (error) {
+      console.error("Error fetching user profile:", error);
+    }
+  };
+
+  // Fetch user profile on component mount and after login
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      fetchUserProfile(token);
+    }
+  }, []);
 
   return (
     <AuthContext.Provider
       value={{
         auth,
-        setAuth,
+        login,
+        error
       }}
     >
       {children}
@@ -43,5 +74,4 @@ const AuthProvider = ({ children }) => {
 };
 
 export { AuthProvider };
-
 export default AuthContext;
