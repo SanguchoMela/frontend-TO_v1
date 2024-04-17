@@ -34,9 +34,9 @@ const InicioSesion = () => {
 
     try {
       await login(email, password);
-      console.log(response)
       navigate("/dashboard");
     } catch (e) {
+      console.log(e);
       setForm({});
     }
   };
@@ -46,9 +46,7 @@ const InicioSesion = () => {
       <Header />
       <div className="w-1/2 h-screen flex justify-center items-center">
         <div className="w-full md:w-1/2">
-          {error && (
-            <Mensaje tipo={mensaje.tipo}>{error}</Mensaje>
-          )}
+          {error && <Mensaje tipo={mensaje.tipo}>{error}</Mensaje>}
           {/* {Object.keys(mensaje).length > 0 && (
             <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>
           )} */}

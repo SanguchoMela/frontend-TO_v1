@@ -25,12 +25,12 @@ const AuthProvider = ({ children }) => {
 
       localStorage.setItem("token", userData.token); // Guardar token en localStorage
       setAuth(userData);
-      setError(null)
+      setError(null);
     } catch (error) {
-      setError(error.response.data.msg)
+      setError(error.response.data.msg);
       setTimeout(() => {
-        setError(null)
-      },3000)
+        setError(null);
+      }, 3000);
     }
   };
 
@@ -65,7 +65,7 @@ const AuthProvider = ({ children }) => {
       value={{
         auth,
         login,
-        error
+        error,
       }}
     >
       {children}
