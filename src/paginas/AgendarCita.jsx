@@ -6,7 +6,6 @@ import TitulosOutlet from "../components/TitulosOutlet";
 import Mensaje from "../components/Alertas/Mensaje";
 
 const AgendarCita = () => {
-
   const navigate = useNavigate();
   const [mensaje, setMensaje] = useState({});
 
@@ -15,7 +14,7 @@ const AgendarCita = () => {
     end: "",
     comentarios: "",
     idPaciente: "",
-    idDoctor: "66136ac2e2bb69d9e5a225fb"
+    idDoctor: "66136ac2e2bb69d9e5a225fb",
   });
 
   const handleChange = (e) => {
@@ -54,17 +53,16 @@ const AgendarCita = () => {
       start: "",
       end: "",
       comentarios: "",
-      idPaciente: "", 
-      idDoctor: "66136ac2e2bb69d9e5a225fb"
-    })
-  }
+      idPaciente: "",
+      idDoctor: "66136ac2e2bb69d9e5a225fb",
+    });
+  };
 
   return (
     <>
       <TitulosOutlet titulo="Agendamiento de citas" />
 
       <form onSubmit={handleSubmit}>
-
         <div className="w-1/2 m-auto my-1">
           {Object.keys(mensaje).length > 0 && (
             <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>
@@ -79,7 +77,9 @@ const AgendarCita = () => {
 
           <div className="mx-6 my-6 grid grid-cols-2 gap-x-10">
             <div>
-              <label className="text-sm font-semibold" htmlFor="idDoctor">ID del doctor</label>
+              <label className="text-sm font-semibold" htmlFor="idDoctor">
+                ID del doctor
+              </label>
               <input
                 className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
                 id="idDoctor"
@@ -90,7 +90,9 @@ const AgendarCita = () => {
               />
             </div>
             <div>
-              <label className="text-sm font-semibold" htmlFor="idPaciente">ID del paciente</label>
+              <label className="text-sm font-semibold" htmlFor="idPaciente">
+                ID del paciente
+              </label>
               <input
                 className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
                 id="idPaciente"
@@ -101,14 +103,13 @@ const AgendarCita = () => {
               />
             </div>
           </div>
-
         </div>
 
         <div>
           <h4 className="text-turquesa-fuerte font-titulos font-semibold">
             Detalle de la cita
           </h4>
-          
+
           <div className="mx-6 mt-3 mb-5 grid grid-cols-2 gap-x-10">
             <div>
               <label className="text-sm font-semibold" htmlFor="start">
@@ -143,14 +144,13 @@ const AgendarCita = () => {
               <textarea
                 className="block w-full p-2 border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
                 name="comentarios"
-                placeholder="Ingresa un comentario solo si es necesario"
+                // placeholder="Ingresa un comentario solo si es necesario"
                 id="comentarios"
                 value={form.comentarios}
                 onChange={handleChange}
               ></textarea>
             </div>
           </div>
-
         </div>
 
         <div className="mx-6 flex justify-end">
@@ -158,11 +158,15 @@ const AgendarCita = () => {
             className="px-3 py-2 text-sm md:text-base md:px-4 text-blanco font-semibold bg-turquesa-fuerte rounded-xl cursor-pointer"
             type="submit"
             value="Agendar"
-            />
-          <div className="ml-3 px-3 py-2 text-sm md:text-base md:px-4 text-blanco font-semibold bg-naranja rounded-xl cursor-pointer" onClick={handleCancel}>Cancelar</div>
+          />
+          <div
+            className="ml-3 px-3 py-2 text-sm md:text-base md:px-4 text-blanco font-semibold bg-naranja rounded-xl cursor-pointer"
+            onClick={handleCancel}
+          >
+            Cancelar
+          </div>
         </div>
-
-      </form> 
+      </form>
     </>
   );
 };
