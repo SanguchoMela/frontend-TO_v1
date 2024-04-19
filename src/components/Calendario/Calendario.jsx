@@ -38,6 +38,7 @@ function Calendario(props) {
       messages={mensajes}
       // views={vistas}
       defaultView="week"
+      selectable={true}
     />
   );
 }
