@@ -1,5 +1,5 @@
 import Formulario from "../components/Perfil/Formulario";
-import TitulosOutlet from "../components/TitulosOutlet";
+import TitulosOutlet from "../components/Estilos/TitulosOutlet";
 
 const RegistrarPaciente = () => {
   return (
@@ -11,9 +11,9 @@ const RegistrarPaciente = () => {
         </p>
         <div className="">
           <Formulario ruta={"/dashboard/perfilPaciente"} />
-          <div className="mt-5 py-2 text-center text-blanco font-bold bg-turquesa-500 rounded-lg hover:bg-turquesa-fuerte">
+          {/* <div className="mt-5 py-2 text-center text-blanco font-bold bg-turquesa-500 rounded-lg hover:bg-turquesa-fuerte">
             Registrar paciente
-          </div>
+          </div> */}
         </div>
       </div>
     </>

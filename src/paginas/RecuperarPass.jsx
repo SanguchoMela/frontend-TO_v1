@@ -32,7 +32,7 @@ const RecuperarPass = () => {
 
   return (
     <>
-      <Header></Header>
+      <Header />
       <div className="w-1/2 h-screen flex justify-center items-center">
         <div className="w-full md:w-1/2">
           {Object.keys(mensaje).length > 0 && (

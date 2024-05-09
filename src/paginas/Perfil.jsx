@@ -2,9 +2,14 @@ import { useState } from "react";
 import CardPerfil from "../components/Perfil/CardPerfil";
 import Contrasena from "../components/Perfil/Contraseña";
 import Formulario from "../components/Perfil/Formulario";
-import TitulosOutlet from "../components/TitulosOutlet";
+import TitulosOutlet from "../components/Estilos/TitulosOutlet";
+import { useContext } from "react";
+import AuthContext from "../context/AuthProvider";
 
 const Perfil = () => {
+
+  const { auth } = useContext(AuthContext); 
+
   return (
     <>
       <TitulosOutlet titulo="Perfil" />
@@ -13,7 +18,7 @@ const Perfil = () => {
           <Formulario />
         </div>
         <div className="w-full md:w-1/2 justify-center px-5">
-          <CardPerfil />
+          <CardPerfil nombre={auth?.nombre} apellido={auth?.apellido} email={auth?.email} />
           <Contrasena />
         </div>
       </div>

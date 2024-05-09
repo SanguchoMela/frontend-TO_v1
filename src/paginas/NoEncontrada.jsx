@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import logoTO from "../assets/imagenes/logoTO.svg";
-import logoAdvertencia from "../assets/iconos/advertencia.png";
+import { TiWarning } from "react-icons/ti";
 
 const NoEncontrada = () => {
   return (
@@ -25,8 +25,8 @@ const NoEncontrada = () => {
           <h1 className="text-lg text-center font-titulos font-semibold">
             Página no encontrada
           </h1>
-          <div className="py-5 flex justify-center">
-            <img src={logoAdvertencia} width={80} />
+          <div className="py-3 flex justify-center">
+            <TiWarning className="text-turquesa-fuerte w-24 h-24" />
           </div>
           <p className="text-center text-sm text-turquesa-fuerte font-medium">
             Lo sentimos, la página que estás buscando no pudo ser encontrada

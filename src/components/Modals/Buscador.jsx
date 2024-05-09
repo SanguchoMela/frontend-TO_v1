@@ -1,4 +1,4 @@
-import logoLupa from "../assets/iconos/lupa.png";
+import { RiSearchLine } from "react-icons/ri";
 
 const Buscador = () => {
   return (
@@ -11,7 +11,7 @@ const Buscador = () => {
         name="buscador"
       />
       <div className="px-2 flex justify-center items-center border-r border-y border-turquesa-fuerte rounded-r-lg">
-        <img src={logoLupa} width={26} />
+        <RiSearchLine className="w-6 text-turquesa-fuerte" />
       </div>
     </div>
   );
