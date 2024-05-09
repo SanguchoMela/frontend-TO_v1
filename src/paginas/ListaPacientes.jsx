@@ -1,6 +1,6 @@
-import Buscador from "../components/Buscador";
+import Buscador from "../components/Modals/Buscador";
 import Tabla from "../components/Tabla";
-import TitulosOutlet from "../components/TitulosOutlet";
+import TitulosOutlet from "../components/Estilos/TitulosOutlet";
 
 const ListaPacientes = () => {
   return (

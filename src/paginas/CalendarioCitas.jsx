@@ -2,12 +2,11 @@ import axios from "axios";
 import moment from "moment";
 import React, { useState, useEffect } from "react";
 import Calendario from "../components/Calendario/Calendario";
-import TitulosOutlet from "../components/TitulosOutlet";
+import TitulosOutlet from "../components/Estilos/TitulosOutlet";
 import Mensaje from "../components/Alertas/Mensaje";
 import ModalCita from "../components/Modals/ModalCita";
 
 const CalendarioCitas = () => {
-
   const [mensaje, setMensaje] = useState({});
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -31,7 +30,7 @@ const CalendarioCitas = () => {
         start: moment(cita.start).toDate(),
         end: moment(cita.end).toDate(),
         title: cita.idPaciente,
-        id: cita._id
+        id: cita._id,
       }));
 
       setEvents(eventosFormateados);
@@ -54,8 +53,8 @@ const CalendarioCitas = () => {
   };
 
   const closeModal = () => {
-    setModalOpen(false)
-  }
+    setModalOpen(false);
+  };
 
   return (
     <>
@@ -70,7 +69,11 @@ const CalendarioCitas = () => {
       </div>
 
       {selectedEvent && (
-        <ModalCita isOpen={modalOpen} onClose={closeModal} idCita={selectedEvent.id} />
+        <ModalCita
+          isOpen={modalOpen}
+          onClose={closeModal}
+          idCita={selectedEvent.id}
+        />
       )}
     </>
   );

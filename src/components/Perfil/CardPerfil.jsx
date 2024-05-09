@@ -1,9 +1,4 @@
-import { useContext } from "react";
-import AuthContext from "../../context/AuthProvider";
-
-const CardPerfil = () => {
-  const { auth } = useContext(AuthContext);
-
+const CardPerfil = ({ nombre, apellido, email }) => {
   return (
     <>
       <div className="relative h-60 my-8">
@@ -13,19 +8,19 @@ const CardPerfil = () => {
           </div>
           <div className="absolute inset-0 flex flex-col justify-center px-8">
             <p>
-              <strong>Nombre:</strong> {auth?.nombre}
+              <strong>Nombre:</strong> {nombre}
             </p>
             <p>
-              <strong>Apellido:</strong> {auth?.apellido}
+              <strong>Apellido:</strong> {apellido}
             </p>
             <p>
               <strong>CI:</strong>{" "}
             </p>
-            <p>
+            {/* <p>
               <strong>Fecha de nacimiento: </strong>{" "}
-            </p>
+            </p> */}
             <p>
-              <strong>Correo electrónico:</strong> {auth?.email}
+              <strong>Correo electrónico:</strong> {email}
             </p>
           </div>
         </div>

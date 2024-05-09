@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link, Outlet, Navigate, useLocation } from "react-router-dom";
 import logoTO from "../assets/imagenes/logoTO.svg";
 import logoUsuario from "../assets/iconos/usuario.png";
@@ -9,7 +9,7 @@ const Dashboard = () => {
   const location = useLocation();
   const urlActual = location.pathname;
 
-  const { auth, setAuth } = useContext(AuthContext);
+  const { auth, setAuth, rol } = useContext(AuthContext);
   const autenticado = localStorage.getItem("token");
 
   const handleLogout = () => {
@@ -24,7 +24,7 @@ const Dashboard = () => {
       anchor: "Agendar cita",
     },
     {
-      slug: "/dashboard/citas",
+      slug: "/dashboard/listaCitas",
       anchor: "Lista de citas",
     },
     {
@@ -41,10 +41,6 @@ const Dashboard = () => {
       slug: "/dashboard/listaPacientes",
       anchor: "Lista de pacientes",
     },
-    {
-      slug: "/dashboard/perfilPaciente",
-      anchor: "Perfil por paciente",
-    },
   ];
 
   return (
@@ -59,7 +55,7 @@ const Dashboard = () => {
               <p>
                 {auth?.nombre} {auth?.apellido}
               </p>
-              <p>{auth?.rol}</p>
+              {rol && <p>{rol}</p>}
             </div>
           </div>
           <div>
@@ -67,29 +63,77 @@ const Dashboard = () => {
               <li className="py-2">
                 <Link
                   to="/dashboard"
-                  className={`${urlActual === "/dashboard" ? "font-semibold bg-turquesa-fuerte py-3" : "font-medium"} block hover:font-semibold`}
+                  className={`${
+                    urlActual === "/dashboard"
+                      ? "font-semibold bg-turquesa-fuerte py-3"
+                      : "font-medium"
+                  } block hover:font-semibold`}
                 >
                   Perfil
                 </Link>
               </li>
-              <li className="py-2">
-                <div
-                  className={`${urlActual === "/dashboard/citas" ? "py-3 bg-turquesa-fuerte font-semibold" : ""}`}
-                >
-                  <Dropdown dropdownTitle={"Citas"} items={itemsCitas} />
-                </div>
-              </li>
-              <li className="pt-2 pb-6">
-                <div
-                  className={`${urlActual === "/dashboard/pacientes" ? "py-3 bg-turquesa-fuerte font-semibold" : ""}`}
-                >
-                  {/* <Link to='/dashboard/pacientes' className={`${urlActual === '/dashboard/opiniones' ? 'font-semibold bg-turquesa-fuerte py-3' : 'font-medium'} block hover:font-semibold`}>Pacientes</Link> */}
-                  <Dropdown
-                    dropdownTitle={"Pacientes"}
-                    items={itemsPacientesSecre}
-                  />
-                </div>
-              </li>
+              {rol === "Secretaria" && (
+                <>
+                  <li className="py-2">
+                    <div
+                      className={`${
+                        urlActual === "/dashboard/citas"
+                          ? "py-3 bg-turquesa-fuerte font-semibold"
+                          : ""
+                      }`}
+                    >
+                      <Dropdown dropdownTitle={"Citas"} items={itemsCitas} />
+                    </div>
+                  </li>
+                  <li className="pt-2 pb-6">
+                    <div
+                      className={`${
+                        urlActual === "/dashboard/registrarPaciente" ||
+                        urlActual === "/dashboard/listaPacientes" ||
+                        urlActual === "/dashboard/perfilPaciente"
+                          ? "py-3 bg-turquesa-fuerte font-semibold"
+                          : ""
+                      }`}
+                    >
+                      {/* <Link to='/dashboard/pacientes' className={`${urlActual === '/dashboard/opiniones' ? 'font-semibold bg-turquesa-fuerte py-3' : 'font-medium'} block hover:font-semibold`}>Pacientes</Link> */}
+                      <Dropdown
+                        dropdownTitle={"Pacientes"}
+                        items={itemsPacientesSecre}
+                      />
+                    </div>
+                  </li>
+                </>
+              )}
+              {/* Menú solo para doctor */}
+              {rol === "Doctor" && (
+                <>
+                  <li className="py-2">
+                    <Link
+                      to="/dashboard/citas"
+                      className={`${
+                        urlActual === "/dashboard/citas"
+                          ? "font-semibold bg-turquesa-fuerte py-3"
+                          : "font-medium"
+                      } block hover:font-semibold`}
+                    >
+                      Citas
+                    </Link>
+                  </li>
+                  <li className="pt-2 pb-6">
+                    <Link
+                      to="/dashboard/listaPacientes"
+                      className={`${
+                        urlActual === "/dashboard/listaPacientes" ||
+                        urlActual === "/dashboard/perfilPaciente/:id"
+                          ? "font-semibold bg-turquesa-fuerte py-3"
+                          : "font-medium"
+                      } block hover:font-semibold`}
+                    >
+                      Pacientes
+                    </Link>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </div>

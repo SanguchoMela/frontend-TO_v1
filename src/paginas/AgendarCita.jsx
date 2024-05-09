@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Buscador from "../components/Buscador";
-import TitulosOutlet from "../components/TitulosOutlet";
+import Buscador from "../components/Modals/Buscador";
+import TitulosOutlet from "../components/Estilos/TitulosOutlet";
 import Mensaje from "../components/Alertas/Mensaje";
 
 const AgendarCita = () => {
