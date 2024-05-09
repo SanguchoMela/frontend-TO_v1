@@ -1,13 +1,15 @@
 import axios from "axios";
 import moment from "moment";
 import Modal from "react-modal";
+import Mensaje from "../Alertas/Mensaje"
 import React, { useEffect, useState } from "react";
 
 Modal.setAppElement("#root");
 
 const ModalCita = ({ isOpen, onClose, idCita }) => {
+
+  const [mensaje, setMensaje] = useState({});
   const [cita, setCita] = useState(null);
-  const [cancelada, setCancelada] = useState(null);
 
   const mostrarCitaId = async () => {
     try {
@@ -23,15 +25,43 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
       const response = await axios.get(url, options);
       const citaData = response.data.data;
 
-      // console.log(citaData)
-
-      if (citaData.isCancelado) {
-        setCancelada(true);
-      }
-
       setCita(citaData);
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const handleCancelarCita = async (id) => {
+    try {
+      const confirmar = window.confirm(
+        "Vas a cancelar la cita, ¿estás seguro de realizar esta acción?"
+      );
+      if (confirmar) {
+        const token = localStorage.getItem("token");
+        const url = `${import.meta.env.VITE_BACKEND_URL}/citas/cancelar/${id}`;
+        const options = {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        };
+
+        const response = await axios.post(url, {}, options);
+
+        setMensaje({ respuesta: response.data.msg, tipo: true });
+        setTimeout(() => {
+          setMensaje({});
+          // window.location.reload();
+          onClose()
+        }, 3000);
+      }
+    } catch (error) {
+      console.log(error);
+      setMensaje({ respuesta: error.response.data.msg, tipo: false });
+      setTimeout(() => {
+        setMensaje({});
+        onClose()
+      }, 3000);
     }
   };
 
@@ -70,6 +100,9 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
     >
       {cita ? (
         <div>
+          {Object.keys(mensaje).length > 0 && (
+            <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>
+          )}
           <div className="flex items-center">
             <h3 className="font-titulos font-bold text-lg text-center flex-1">
               Detalles de la cita
@@ -94,11 +127,25 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
               <strong>Fin:</strong> {moment(cita.end).format("LLLL")}
             </p>
             <p>
-              <strong>Estado:</strong> {cancelada ? "Cancelada" : "Activa"}
+              <strong>Estado:</strong>{" "}
+              {cita.isCancelado ? "Cancelada" : "Activa"}
             </p>
             <p>
               <strong>Comentarios:</strong> {cita.comentarios}
             </p>
+          </div>
+          <div className="mt-3 flex justify-end">
+            <button className="px-4 py-2 text-blanco font-semibold bg-turquesa-fuerte rounded-xl cursor-pointer">
+              Actualizar Cita
+            </button>
+            <button
+              className="ml-3 px-4 py-2 text-blanco font-semibold bg-naranja rounded-xl cursor-pointer"
+              onClick={() => {
+                handleCancelarCita(cita._id);
+              }}
+            >
+              Cancelar Cita
+            </button>
           </div>
         </div>
       ) : (
