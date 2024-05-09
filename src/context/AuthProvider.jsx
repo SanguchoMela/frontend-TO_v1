@@ -6,6 +6,7 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState(null);
   const [error, setError] = useState(null);
+  const [rol, setRol] = useState(null);
 
   useEffect(() => {
     // Intentar cargar los datos de autenticación desde el localStorage al montar el componente
@@ -22,6 +23,12 @@ const AuthProvider = ({ children }) => {
         { email, contraseña },
       );
       const userData = response.data;
+
+      if (response.data.isSecre) {
+        setRol("Secretaria");
+      } else if (response.data.isDoctor) {
+        setRol("Doctor");
+      }
 
       localStorage.setItem("token", userData.token); // Guardar token en localStorage
       setAuth(userData);
@@ -44,8 +51,15 @@ const AuthProvider = ({ children }) => {
           },
         },
       );
-      console.log(response);
+      console.log(response.data.isSecre);
       setAuth(response.data);
+
+      if (response.data.isSecre) {
+        setRol("Secretaria")
+      } else if (response.data.isDoctor) {
+        setRol("Doctor")
+      }
+
     } catch (error) {
       console.error("Error fetching user profile:", error);
     }
@@ -66,6 +80,7 @@ const AuthProvider = ({ children }) => {
         auth,
         login,
         error,
+        rol
       }}
     >
       {children}
