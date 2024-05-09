@@ -1,5 +1,4 @@
 import axios from "axios";
-import moment from "moment";
 import React, { useState, useEffect } from "react";
 import Calendario from "../components/Calendario/Calendario";
 import TitulosOutlet from "../components/Estilos/TitulosOutlet";
@@ -26,11 +25,13 @@ const CalendarioCitas = () => {
       const response = await axios.get(url, options);
       const citas = response.data.data;
 
+      // console.log(citas)
+
       const eventosFormateados = citas.map((cita) => ({
-        start: moment(cita.start).toDate(),
-        end: moment(cita.end).toDate(),
-        title: cita.idPaciente,
         id: cita._id,
+        title: `${cita.idPaciente.nombre} ${cita.idPaciente.apellido}`,
+        start: new Date(cita.start),
+        end: new Date(cita.end),
       }));
 
       setEvents(eventosFormateados);
