@@ -27,6 +27,7 @@ const CalendarioCitas = () => {
 
       // console.log(citas)
 
+      // Formateo de fechas para que coincida con el formato del calendario (moment o new Date)
       const eventosFormateados = citas.map((cita) => ({
         id: cita._id,
         title: `${cita.idPaciente.nombre} ${cita.idPaciente.apellido}`,

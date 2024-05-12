@@ -1,15 +1,26 @@
 import axios from "axios";
 import moment from "moment";
 import Modal from "react-modal";
-import Mensaje from "../Alertas/Mensaje"
+import Mensaje from "../Alertas/Mensaje";
 import React, { useEffect, useState } from "react";
+import ActualizarCitaModal from "./ActualizarCitaModal";
 
 Modal.setAppElement("#root");
 
 const ModalCita = ({ isOpen, onClose, idCita }) => {
-
   const [mensaje, setMensaje] = useState({});
   const [cita, setCita] = useState(null);
+  const [mostrarModalActualizar, setMostrarModalActualizar] = useState(false);
+  const [citaActualizar, setCitaActualizar] = useState(null)
+
+  const handleMostrarModalActualizar = () => {
+    setMostrarModalActualizar(true);
+    setCitaActualizar(idCita)
+  };
+  
+  const handleCerrarModalActualizar = () => {
+    setMostrarModalActualizar(false);
+  };
 
   const mostrarCitaId = async () => {
     try {
@@ -51,8 +62,7 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
         setMensaje({ respuesta: response.data.msg, tipo: true });
         setTimeout(() => {
           setMensaje({});
-          // window.location.reload();
-          onClose()
+          onClose();
         }, 3000);
       }
     } catch (error) {
@@ -60,7 +70,7 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
       setMensaje({ respuesta: error.response.data.msg, tipo: false });
       setTimeout(() => {
         setMensaje({});
-        onClose()
+        // onClose()
       }, 3000);
     }
   };
@@ -100,9 +110,6 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
     >
       {cita ? (
         <div>
-          {Object.keys(mensaje).length > 0 && (
-            <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>
-          )}
           <div className="flex items-center">
             <h3 className="font-titulos font-bold text-lg text-center flex-1">
               Detalles de la cita
@@ -115,7 +122,15 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
             </button>
           </div>
           <hr className="text-turquesa-fuerte border" />
+          <div className="mt-5 mx-10">
+            {Object.keys(mensaje).length > 0 && (
+              <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>
+            )}
+          </div>
           <div className="m-8 p-5 border border-turquesa-fuerte shadow-md">
+            <p>
+              <strong>ID de la cita:</strong> {`${cita._id}`}
+            </p>
             <p>
               <strong>Paciente:</strong>{" "}
               {`${cita.idPaciente.nombre} ${cita.idPaciente.apellido}`}
@@ -135,18 +150,27 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
             </p>
           </div>
           <div className="mt-3 flex justify-end">
-            <button className="px-4 py-2 text-blanco font-semibold bg-turquesa-fuerte rounded-xl cursor-pointer">
+            <button
+              onClick={handleMostrarModalActualizar}
+              className="px-4 py-2 text-blanco font-semibold bg-turquesa-fuerte rounded-xl cursor-pointer"
+            >
               Actualizar Cita
             </button>
             <button
               className="ml-3 px-4 py-2 text-blanco font-semibold bg-naranja rounded-xl cursor-pointer"
               onClick={() => {
-                handleCancelarCita(cita._id);
+                handleCancelarCita(idCita);
               }}
             >
               Cancelar Cita
             </button>
           </div>
+          {mostrarModalActualizar && (
+            <ActualizarCitaModal
+              onClose={handleCerrarModalActualizar}
+              idCita={idCita}
+            />
+          )}
         </div>
       ) : (
         <p>Cargando detalles de la cita...</p>

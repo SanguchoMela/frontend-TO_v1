@@ -19,7 +19,7 @@ const Perfil = () => {
         </div>
         <div className="w-full md:w-1/2 justify-center px-5">
           <CardPerfil nombre={auth?.nombre} apellido={auth?.apellido} email={auth?.email} />
-          <Contrasena />
+          {/* <Contrasena /> */}
         </div>
       </div>
     </>

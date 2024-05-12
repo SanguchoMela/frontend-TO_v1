@@ -51,7 +51,7 @@ const AuthProvider = ({ children }) => {
           },
         },
       );
-      console.log(response.data.isSecre);
+      // console.log(response.data.isSecre);
       setAuth(response.data);
 
       if (response.data.isSecre) {
