@@ -53,7 +53,7 @@ function App() {
                         element={<ListaPacientes />}
                       />
                       <Route
-                        path="perfilPaciente"
+                        path="perfilPaciente/:id"
                         element={<PerfilPaciente />}
                       />
                     </Route>
