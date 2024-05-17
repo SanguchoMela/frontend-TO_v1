@@ -56,40 +56,95 @@ const LandingPage = () => {
               Centro de terapias alternativas
             </h3>
           </div>
-          <div className="flex items-center mx-20 my-20 md:mx-56">
-            <p className="pr-20 text-sm text-turquesa-fuerte md:text-base">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima
-              numquam nesciunt harum ullam corporis pariatur maxime quibusdam, a
-              vitae provident temporibus quam vero consequatur exercitationem
-              qui iure nisi tempore quaerat?
+          <div className="flex items-center m-16 md:m-12 md:mx-56">
+            <p className="pr-32 text-sm text-turquesa-fuerte md:text-base leading-5 text-center">
+              Somos un Centro Terapeutico con especialidades en:
+              <ul className="text-center">
+                <li>Quiropraxia Inka</li>
+                <li>TK Emocional</li>
+                <li>Praxis vertebral Tibetana</li>
+              </ul>
+              <br />
+              Tratamos problemas como:
+              <ul>
+                <li>Escoliosis</li>
+                <li>Saltalgias</li>
+                <li>Nervio Ciático</li>
+                <li>Estrés</li>
+                <li>Crecimiento en adolescentes o niños</li>
+              </ul>
+              <br />
+              Nuestro eslogan principal es: <br />
+              <strong className="font-titulos">Manos que curan con Amor</strong>
             </p>
             <img
               src={equipoTO}
               width={250}
-              className="rounded-xl md:w-4/12"
+              className="rounded-xl md:w-96"
             ></img>
           </div>
         </section>
         {/* Servicios */}
         <section ref={secServicios}>
-          <div className="w-80 text-blanco text-lg font-titulos font-semibold bg-turquesa-300 rounded-r-lg flex justify-center">
+          <div className="w-80 text-blanco md:text-lg text-base font-titulos font-semibold bg-turquesa-300 rounded-r-lg flex justify-center">
             <p className="py-3">Servicios</p>
           </div>
-          <div className="my-8 flex justify-center flex-col md:flex-row md:my-16">
-            <div className="h-60 text-center mx-8 my-6 bg-turquesa-100 md:w-1/5 md:h-96">
-              <p>Quiropraxia Inka</p>
+          <div className="my-8 md:text-base text-sm flex justify-center flex-col md:flex-row md:my-16">
+            <div className="flex flex-col justify-center py-6 px-8 h-60 text-center mx-8 my-6 bg-turquesa-100 md:w-1/5 md:h-96">
+              <p className="font-titulos  font-semibold">Quiropraxia Inka</p>
+              {/* <p className="pt-4">
+                Tratamiento fundado por el Dr. Ivan Reyna Mercado. Se basa en un
+                tratamiento integral no intrusivo de ajustes al sistema
+                Oseo-Muscular que permite mejorar radicalmente la calidad de
+                vida de las personas.
+              </p> */}
+              <ul className="md:pt-3 leading-8">
+                <li>Hernias de disco cervical y lumbar</li>
+                <li>Lumbalgias</li>
+                <li>Cervicalgia</li>
+                <li>Tendinitis</li>
+                <li>Hombro congelado u homalgias</li>
+                <li>Pubialgia</li>
+              </ul>
             </div>
-            <div className="h-60 text-center mx-8 my-6 bg-turquesa-100 md:w-1/5 md:h-96">
-              <p>TK Emocional</p>
+            <div className="flex flex-col justify-center py-6 px-8 h-60 text-center mx-8 my-6 bg-turquesa-100 md:w-1/5 md:h-96 p-6">
+              <p className="font-titulos font-semibold">TK Emocional</p>
+              <ul className="md:pt-3 leading-8">
+                <li>Depresión crónica</li>
+                <li>Enfermedades auto inmunes</li>
+                <li>Insomnio</li>
+                <li>Migraña</li>
+                <li>Y más</li>
+              </ul>
             </div>
-            <div className="h-60 text-center mx-8 my-6 bg-turquesa-100 md:w-1/5 md:h-96">
-              <p>Praxis vertebral tibetana</p>
+            <div className="flex flex-col justify-center py-6 px-8 h-64 text-center mx-8 my-6 bg-turquesa-100 md:w-1/5 md:h-96 p-6">
+              <p className="font-titulos font-semibold">
+                Praxis vertebral tibetana
+              </p>
+              {/* <p>
+                Método manual aplicado en la columna, basado en una Técnica
+                Oriental Tibetana milenaria. Un precursor llamado Yhom Thanm
+                Mnegom Po coincidió con la afirmación que luego hiciera
+                Hipócrates (padre de la medicina) aseverando que en la columna
+                vertebral se encontraba la raíz de casi todas las enfermedades.
+                En Argentina el Dr. Pistacchia corroboró la eficacia de dicho
+                método, fundando en 2000 el Centro de estudios e investigación
+                Praxis Vertebral.
+              </p> */}
+              <ul className="md:pt-3 leading-8">
+                <li>Rectificación cervical</li>
+                <li>Estrechamiento de canal lumbar</li>
+                <li>Hiperlordosis Cervical</li>
+                <li>Hiperlordosis Lumbar</li>
+                <li>Desviación de la columna</li>
+                <li>Desplazamiento de cadera en niños y adultos</li>
+              </ul>
             </div>
           </div>
         </section>
         {/* Opiniones */}
         <section ref={secOpiniones}>
-          <div className="w-80 text-blanco text-lg font-titulos font-semibold bg-turquesa-300 rounded-r-lg flex justify-center">
+          <div className="w-80 text-blanco md:text-lg text-base font-titulos font-semibold bg-turquesa-300 rounded-r-lg flex justify-center">
             <p className="py-3">Opiniones</p>
           </div>
           <div className="my-8 flex justify-center flex-wrap md:flex-nowrap md:mx-52">
@@ -106,7 +161,7 @@ const LandingPage = () => {
         </section>
         {/* Contactos */}
         <section ref={secContactos}>
-          <div className="w-80 text-blanco text-lg font-titulos font-semibold bg-turquesa-300 rounded-r-lg flex justify-center">
+          <div className="w-80 text-blanco md:text-lg text-base font-titulos font-semibold bg-turquesa-300 rounded-r-lg flex justify-center">
             <p className="py-3">Contactos</p>
           </div>
           <div className="my-8 flex justify-center md:mx-52">
@@ -136,17 +191,17 @@ const LandingPage = () => {
         {/* Final */}
         <footer className="bg-turquesa-500 h-52 grid grid-cols-2 place-content-center">
           <div className="mx-7 text-center">
-            <p className="text-naranja text-lg font-bold">
+            <p className="text-naranja md:text-lg text-base font-bold">
               Horarios de Atención
             </p>
             <div className="h-2"></div>
-            <div className="mx-16 text-blanco font-medium">
+            <div className="mx-16 text-blanco md:text-base text-sm font-medium">
               <p>De lunes a viernes de 10:30am a 17:00pm</p>
               <div className="h-2"></div>
               <p>Sábados de 11:00am a 18:00pm</p>
             </div>
           </div>
-          <ul className="text-center text-blanco font-medium">
+          <ul className="text-center text-blanco leading-7 md:text-base text-sm font-medium">
             <li onClick={irInicio} className="cursor-pointer">
               Inicio
             </li>
