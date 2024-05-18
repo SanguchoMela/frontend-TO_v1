@@ -31,14 +31,19 @@ const RestablecerPass = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Endpoint del backend
       const url = `${import.meta.env.VITE_BACKEND_URL}/nueva-password/${token}`;
+      // Pasa los datos del formulario al endpoint
       const respuesta = await axios.post(url, form);
       setForm({});
+      // Mensaje de confirmación
       setMensaje({ respuesta: respuesta.data.msg, tipo: true });
+      // Redirige al inicio de sesión
       setTimeout(() => {
         navigate("/inicioSesion");
       }, 3000);
     } catch (error) {
+      // Manejo y muestra de errores
       setMensaje({ respuesta: error.response.data.msg, tipo: false });
       setForm({});
     }
@@ -46,11 +51,15 @@ const RestablecerPass = () => {
 
   const verifyToken = async () => {
     try {
+      // Endpoint del backend
       const url = `${import.meta.env.VITE_BACKEND_URL}/recuperar-password/${token}`;
       const respuesta = await axios.get(url);
+      // Configurar el token como correcto
       setTokenBack(true);
+      // Mensaje de confirmación
       setMensaje({ respuesta: respuesta.data.msg, tipo: true });
     } catch (error) {
+      // Manejo y muestra de error
       setMensaje({ respuesta: error.response.data.msg, tipo: false });
     }
   };

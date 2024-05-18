@@ -18,11 +18,15 @@ const RecuperarPass = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Endpoint del backend
       const url = `${import.meta.env.VITE_BACKEND_URL}/recuperar-password`;
+      // Envío de correo con el token para restablecer contraseña
       const respuesta = await axios.post(url, mail);
+      // Mensaje de confirmación de envío
       setMensaje({ respuesta: respuesta.data.msg, tipo: true });
       setMail("");
     } catch (error) {
+      // Manejo y muestra de errores
       setMensaje({ respuesta: error.response.data.msg, tipo: false });
       setTimeout(() => {
         setMensaje({});

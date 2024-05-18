@@ -47,8 +47,8 @@ const LandingPage = () => {
       <main className="bg-blanco">
         {/* Presentacion */}
         <section ref={secInicio} className="h-screen grid place-content-center">
-          <div className="text-center">
-            <div className="text-5xl text-stroke font-titulos font-bold  flex justify-center md:text-6xl">
+          <div className="mt-14 text-center">
+            <div className="text-5xl text-stroke font-titulos font-bold flex justify-center md:text-6xl">
               <h2 className="px-2 text-verde-amarillo">Termo</h2>
               <h2 className="px-2 text-naranja">Oasis</h2>
             </div>
@@ -56,8 +56,8 @@ const LandingPage = () => {
               Centro de terapias alternativas
             </h3>
           </div>
-          <div className="flex items-center m-16 md:m-12 md:mx-56">
-            <p className="pr-32 text-sm text-turquesa-fuerte md:text-base leading-5 text-center">
+          <div className="flex items-center m-16 md:m-12">
+            <p className="pr-20 md:pr-56 text-sm text-turquesa-fuerte md:text-base leading-5 text-center">
               Somos un Centro Terapeutico con especialidades en:
               <ul className="text-center">
                 <li>Quiropraxia Inka</li>
@@ -89,8 +89,8 @@ const LandingPage = () => {
           <div className="w-80 text-blanco md:text-lg text-base font-titulos font-semibold bg-turquesa-300 rounded-r-lg flex justify-center">
             <p className="py-3">Servicios</p>
           </div>
-          <div className="my-8 md:text-base text-sm flex justify-center flex-col md:flex-row md:my-16">
-            <div className="flex flex-col justify-center py-6 px-8 h-60 text-center mx-8 my-6 bg-turquesa-100 md:w-1/5 md:h-96">
+          <div className="my-8 md:text-base text-sm flex justify-center flex-col items-center md:flex-row md:my-16">
+            <div className="flex flex-col justify-center py-6 px-8 h-60 text-center mx-8 my-6 bg-turquesa-100 md:w-1/5 w-1/2 md:h-96">
               <p className="font-titulos  font-semibold">Quiropraxia Inka</p>
               {/* <p className="pt-4">
                 Tratamiento fundado por el Dr. Ivan Reyna Mercado. Se basa en un
@@ -107,7 +107,7 @@ const LandingPage = () => {
                 <li>Pubialgia</li>
               </ul>
             </div>
-            <div className="flex flex-col justify-center py-6 px-8 h-60 text-center mx-8 my-6 bg-turquesa-100 md:w-1/5 md:h-96 p-6">
+            <div className="flex flex-col justify-center py-6 px-8 h-60 text-center mx-8 my-6 bg-turquesa-100 md:w-1/5 w-1/2 md:h-96 p-6">
               <p className="font-titulos font-semibold">TK Emocional</p>
               <ul className="md:pt-3 leading-8">
                 <li>Depresión crónica</li>
@@ -117,7 +117,7 @@ const LandingPage = () => {
                 <li>Y más</li>
               </ul>
             </div>
-            <div className="flex flex-col justify-center py-6 px-8 h-64 text-center mx-8 my-6 bg-turquesa-100 md:w-1/5 md:h-96 p-6">
+            <div className="flex flex-col justify-center py-6 px-8 h-64 text-center mx-8 my-6 bg-turquesa-100 md:w-1/5 w-1/2 md:h-96 p-6">
               <p className="font-titulos font-semibold">
                 Praxis vertebral tibetana
               </p>
@@ -147,15 +147,37 @@ const LandingPage = () => {
           <div className="w-80 text-blanco md:text-lg text-base font-titulos font-semibold bg-turquesa-300 rounded-r-lg flex justify-center">
             <p className="py-3">Opiniones</p>
           </div>
-          <div className="my-8 flex justify-center flex-wrap md:flex-nowrap md:mx-52">
-            <div className="w-1/3 h-60  text-center mx-10 my-6  shadow-inner shadow-turquesa-100">
-              <p>Opinion 1</p>
+          <div className="my-8 md:my-16 md:text-base text-sm flex justify-center flex-wrap md:flex-nowrap md:mx-52">
+            <div className="flex flex-col justify-center p-6 w-1/3 h-60  text-center mx-10 my-6  shadow-inner shadow-turquesa-100">
+              <p>
+                "Agradecemos a los especialistas de Termo Oasis, confiamos en
+                sus servicios y agradecemos por la atención brindada a cada uno
+                de nuestros jóvenes."
+              </p>
+              <p className="mt-3 font-semibold text-right leading-5">
+                Club de Basketball <br /> Nightmares
+              </p>
             </div>
-            <div className="w-1/3 h-60 text-center mx-10 my-6  shadow-inner shadow-turquesa-100">
-              <p>Opinion 2</p>
+            <div className="flex flex-col justify-center p-6 w-1/3 h-60 text-center mx-10 my-6  shadow-inner shadow-turquesa-100">
+              <p>
+                "Muy agradecida y bendecida por haberles encontrado a ustedes y
+                que me hayan dado la solución para mi hijo después de haber
+                pasado momentos muy difíciles."
+              </p>
+              <p className="mt-3 font-semibold text-right leading-5">
+                Madre de <br /> Mayquel Saca
+              </p>
             </div>
-            <div className="w-1/3 h-60 text-center mx-10 my-6  shadow-inner shadow-turquesa-100">
-              <p>Opinion 3</p>
+            <div className="flex flex-col justify-center p-6 w-1/3 h-60 text-center mx-10 my-6  shadow-inner shadow-turquesa-100">
+              <p>
+                Antes tenía miedo de ir al quiropráctico, pero ahora siento un
+                gran alivio y mi salud ha mejorado notablemente. Quiero
+                recomendar al doctor [...], ya que su tratamiento es económico y
+                100% garantizado.
+              </p>
+              <p className="mt-3 font-semibold text-right leading-5">
+                Genesis Anchundia
+              </p>
             </div>
           </div>
         </section>
@@ -164,7 +186,7 @@ const LandingPage = () => {
           <div className="w-80 text-blanco md:text-lg text-base font-titulos font-semibold bg-turquesa-300 rounded-r-lg flex justify-center">
             <p className="py-3">Contactos</p>
           </div>
-          <div className="my-8 flex justify-center md:mx-52">
+          <div className=" my-16 flex justify-center md:mx-52">
             <a href="https://www.facebook.com" target="_blank">
               <div className="w-24 h-24 mx-10 my-6 rounded-full bg-turquesa-500 grid place-items-center">
                 <img src={logoFacebook} width={70}></img>
@@ -184,9 +206,9 @@ const LandingPage = () => {
               </div>
             </a>
           </div>
-          <div className="my-32 grid place-content-center">
+          {/* <div className="my-32 grid place-content-center">
             Ubicación en el mapa
-          </div>
+          </div> */}
         </section>
         {/* Final */}
         <footer className="bg-turquesa-500 h-52 grid grid-cols-2 place-content-center">
