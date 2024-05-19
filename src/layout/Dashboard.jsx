@@ -69,7 +69,7 @@ const Dashboard = () => {
                       : "font-medium"
                   } block hover:font-semibold`}
                 >
-                  Perfil
+                  Mi Perfil
                 </Link>
               </li>
               {rol === "Secretaria" && (

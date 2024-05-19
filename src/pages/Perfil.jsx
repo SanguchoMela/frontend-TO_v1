@@ -14,9 +14,9 @@ const Perfil = () => {
     <>
       <TitulosOutlet titulo="Perfil" />
       <div className="flex justify-around flex-wrap gap-7 md:flex-nowrap">
-        <div className="px-5 w-full md:w-1/2 md:place-content-center">
+        {/* <div className="px-5 w-full md:w-1/2 md:place-content-center">
           <Formulario />
-        </div>
+        </div> */}
         <div className="w-full md:w-1/2 justify-center px-5">
           <CardPerfil nombre={auth?.nombre} apellido={auth?.apellido} email={auth?.email} />
           {/* <Contrasena /> */}
