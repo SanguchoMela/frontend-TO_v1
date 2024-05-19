@@ -27,9 +27,7 @@ const PerfilPaciente = () => {
           },
         };
         const response = await axios.get(url, options);
-
         setPaciente(response.data.paciente);
-        // console.log(paciente)
       } catch (error) {
         setMensaje({ respuesta: error.response.paciente.msg, tipo: false });
         setTimeout();
@@ -42,11 +40,11 @@ const PerfilPaciente = () => {
     <>
       <TitulosOutlet titulo="Perfil del paciente" />
       <div className="flex justify-around flex-wrap gap-7 md:flex-nowrap items-center">
-        {rol === "Secretaria" && (
+        {/* {rol === "Secretaria" && (
           <div className="px-5 w-full md:w-1/2">
             <Formulario />
           </div>
-        )}
+        )} */}
         <div className="w-full md:w-1/2 justify-center px-5">
           {Object.keys(mensaje).length > 0 && (
             <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>
