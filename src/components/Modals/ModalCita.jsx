@@ -2,22 +2,24 @@ import axios from "axios";
 import moment from "moment";
 import Modal from "react-modal";
 import Mensaje from "../Alertas/Mensaje";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ActualizarCitaModal from "./ActualizarCitaModal";
+import AuthContext from "../../context/AuthProvider";
 
 Modal.setAppElement("#root");
 
 const ModalCita = ({ isOpen, onClose, idCita }) => {
+  const { rol } = useContext(AuthContext);
   const [mensaje, setMensaje] = useState({});
   const [cita, setCita] = useState(null);
   const [mostrarModalActualizar, setMostrarModalActualizar] = useState(false);
-  const [citaActualizar, setCitaActualizar] = useState(null)
+  const [citaActualizar, setCitaActualizar] = useState(null);
 
   const handleMostrarModalActualizar = () => {
     setMostrarModalActualizar(true);
-    setCitaActualizar(idCita)
+    setCitaActualizar(idCita);
   };
-  
+
   const handleCerrarModalActualizar = () => {
     setMostrarModalActualizar(false);
   };
@@ -149,22 +151,24 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
               <strong>Comentarios:</strong> {cita.comentarios}
             </p>
           </div>
-          <div className="mt-3 flex justify-end">
-            <button
-              onClick={handleMostrarModalActualizar}
-              className="px-4 py-2 text-blanco font-semibold bg-turquesa-fuerte rounded-xl cursor-pointer"
-            >
-              Actualizar Cita
-            </button>
-            <button
-              className="ml-3 px-4 py-2 text-blanco font-semibold bg-naranja rounded-xl cursor-pointer"
-              onClick={() => {
-                handleCancelarCita(idCita);
-              }}
-            >
-              Cancelar Cita
-            </button>
-          </div>
+          {rol === "Secretaria" && (
+            <div className="mt-3 flex justify-end">
+              <button
+                onClick={handleMostrarModalActualizar}
+                className="px-4 py-2 text-blanco font-semibold bg-turquesa-fuerte rounded-xl cursor-pointer"
+              >
+                Actualizar Cita
+              </button>
+              <button
+                className="ml-3 px-4 py-2 text-blanco font-semibold bg-naranja rounded-xl cursor-pointer"
+                onClick={() => {
+                  handleCancelarCita(idCita);
+                }}
+              >
+                Cancelar Cita
+              </button>
+            </div>
+          )}
           {mostrarModalActualizar && (
             <ActualizarCitaModal
               onClose={handleCerrarModalActualizar}
