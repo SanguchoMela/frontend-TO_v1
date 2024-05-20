@@ -1,9 +1,11 @@
 import axios from "axios";
 import { useState } from "react";
 import Mensaje from "../Alertas/Mensaje";
+import { useNavigate } from "react-router-dom";
 
 const ActualizarCitaModal = ({ onClose, idCita }) => {
   const [mensaje, setMensaje] = useState({});
+
   const [form, setForm] = useState({
     start: "",
     end: "",
@@ -19,7 +21,6 @@ const ActualizarCitaModal = ({ onClose, idCita }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
     try {
       const token = localStorage.getItem("token");
       const url = `${import.meta.env.VITE_BACKEND_URL}/citas/actualizar/${idCita}`;
@@ -29,15 +30,15 @@ const ActualizarCitaModal = ({ onClose, idCita }) => {
           Authorization: `Bearer ${token}`,
         },
       };
-
-      await axios.post(url, form, options);
+      
+      await axios.put(url, form, options);
 
       setMensaje({ respuesta: "Cita actualizada con exito", tipo: true });
-      console.log(mensaje);
       setTimeout(() => {
         setMensaje({});
         onClose()
-      }, 3000);
+        window.location.reload()
+      }, 2000);
     } catch (error) {
       console.log(error);
       setMensaje({ respuesta: "Error al actualizar la cita", tipo: false });
@@ -77,7 +78,7 @@ const ActualizarCitaModal = ({ onClose, idCita }) => {
                 id="start"
                 type="datetime-local"
                 name="start"
-                value={form.start}
+                value={form.start || ""}
                 onChange={handleChange}
               />
             </div>
@@ -90,7 +91,7 @@ const ActualizarCitaModal = ({ onClose, idCita }) => {
                 id="end"
                 type="datetime-local"
                 name="end"
-                value={form.end}
+                value={form.end || ""}
                 onChange={handleChange}
               />
             </div>
@@ -103,7 +104,7 @@ const ActualizarCitaModal = ({ onClose, idCita }) => {
                 name="comentarios"
                 // placeholder="Ingresa un comentario solo si es necesario"
                 id="comentarios"
-                value={form.comentarios}
+                value={form.comentarios || ""}
                 onChange={handleChange}
               ></textarea>
             </div>

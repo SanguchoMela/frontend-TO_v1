@@ -35,6 +35,7 @@ const AgendarCita = () => {
           Authorization: `Bearer ${token}`,
         },
       };
+      console.log(form)
       await axios.post(url, form, options);
       setMensaje({ respuesta: "Cita registrada exitosamente", tipo: true });
       setTimeout(() => {
@@ -146,7 +147,7 @@ const AgendarCita = () => {
                 name="comentarios"
                 // placeholder="Ingresa un comentario solo si es necesario"
                 id="comentarios"
-                value={form.comentarios}
+                value={form.comentarios || ""}
                 onChange={handleChange}
               ></textarea>
             </div>
