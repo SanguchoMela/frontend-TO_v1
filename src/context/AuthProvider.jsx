@@ -54,6 +54,7 @@ const AuthProvider = ({ children }) => {
 
   const fetchUserProfile = async (storedToken) => {
     try {
+      // Endpoint del backend
       const response = await axios.get(
         `${import.meta.env.VITE_BACKEND_URL}/perfil`,
         {
@@ -62,17 +63,17 @@ const AuthProvider = ({ children }) => {
           },
         },
       );
-      // console.log(response.data.isSecre);
+      // Guardar los datos de usuario autenticado
       setAuth(response.data);
-
+      // Clasificar al usuario según rol
       if (response.data.isSecre) {
         setRol("Secretaria")
       } else if (response.data.isDoctor) {
         setRol("Doctor")
       }
-
     } catch (error) {
-      console.error("Error fetching user profile:", error);
+      // Manejo de errores
+      console.error("Error al recuperar el perfil del usuario:", error);
     }
   };
 

@@ -1,7 +1,4 @@
-import { useState } from "react";
 import CardPerfil from "../components/Perfil/CardPerfil";
-import Contrasena from "../components/Perfil/Contraseña";
-import Formulario from "../components/Perfil/Formulario";
 import TitulosOutlet from "../components/Estilos/TitulosOutlet";
 import { useContext } from "react";
 import AuthContext from "../context/AuthProvider";
