@@ -1,12 +1,12 @@
 import Mensaje from "../components/Alertas/Mensaje";
 import CardPerfil from "../components/Perfil/CardPerfil";
-import Formulario from "../components/Perfil/Formulario";
 import TitulosOutlet from "../components/Estilos/TitulosOutlet";
 import { useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import AuthContext from "../context/AuthProvider";
-import FichaMedicaPaciente from "../components/FichaMedicaPaciente";
+import CitasPaciente from "../components/CitasPaciente";
+import RegMedicoPaciente from "../components/RegMedicoPaciente";
 
 const PerfilPaciente = () => {
   const { id } = useParams();
@@ -19,7 +19,7 @@ const PerfilPaciente = () => {
     const verPaciente = async () => {
       try {
         const token = localStorage.getItem("token");
-        const url = `${import.meta.env.VITE_BACKEND_URL}/paciente/${id}`;
+        const url = `${import.meta.env.VITE_BACKEND_URL}/detallePaciente/${id}`;
         const options = {
           headers: {
             "Content-Type": "application/json",
@@ -39,13 +39,8 @@ const PerfilPaciente = () => {
   return (
     <>
       <TitulosOutlet titulo="Perfil del paciente" />
-      <div className="flex justify-around flex-wrap gap-7 md:flex-nowrap items-center">
-        {/* {rol === "Secretaria" && (
-          <div className="px-5 w-full md:w-1/2">
-            <Formulario />
-          </div>
-        )} */}
-        <div className="w-full md:w-1/2 justify-center px-5">
+      <div className="flex justify-around h-5/6 flex-wrap gap-7 md:flex-nowrap">
+        <div className="px-5 w-full md:w-1/2 md:place-content-center">
           {Object.keys(mensaje).length > 0 && (
             <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>
           )}
@@ -55,11 +50,14 @@ const PerfilPaciente = () => {
             email={paciente?.email}
           />
         </div>
-        {rol === "Doctor" && (
-          <div className="px-5 w-full md:w-1/2">
-            <FichaMedicaPaciente />
-          </div>
-        )}
+        <div className="md:overflow-y-scroll h-full my-5 w-full md:w-1/2 md:place-content-center px-5">
+          {rol === "Doctor" && (
+            <RegMedicoPaciente />
+          )}
+          {rol === "Secretaria" && (
+            <CitasPaciente />
+          )}
+        </div>
       </div>
     </>
   );
