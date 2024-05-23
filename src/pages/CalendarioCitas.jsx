@@ -23,19 +23,20 @@ const CalendarioCitas = () => {
       };
 
       const response = await axios.get(url, options);
-      const citas = response.data.data;
+      let citas = response.data.data;
 
-      // console.log(citas)
+      // Mostrar solo las citas no canceladas
+      citas = citas.filter(cita => !cita.isCancelado)
 
       // Formateo de fechas para que coincida con el formato del calendario (moment o new Date)
-      const eventosFormateados = citas.map((cita) => ({
+      const citasFormateadas = citas.map((cita) => ({
         id: cita._id,
         title: `${cita.idPaciente.nombre} ${cita.idPaciente.apellido}`,
         start: new Date(cita.start),
         end: new Date(cita.end),
       }));
 
-      setEvents(eventosFormateados);
+      setEvents(citasFormateadas);
     } catch (error) {
       console.log(error);
       setMensaje({ respuesta: error.response.data.msg, tipo: false });

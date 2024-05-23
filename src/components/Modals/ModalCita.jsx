@@ -5,6 +5,7 @@ import Mensaje from "../Alertas/Mensaje";
 import React, { useContext, useEffect, useState } from "react";
 import ActualizarCitaModal from "./ActualizarCitaModal";
 import AuthContext from "../../context/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 Modal.setAppElement("#root");
 
@@ -14,6 +15,8 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
   const [cita, setCita] = useState(null);
   const [mostrarModalActualizar, setMostrarModalActualizar] = useState(false);
   const [citaActualizar, setCitaActualizar] = useState(null);
+  const [idPaciente, setIdPaciente] = useState(null)
+  const navigate = useNavigate()
 
   const handleMostrarModalActualizar = () => {
     setMostrarModalActualizar(true);
@@ -37,6 +40,8 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
 
       const response = await axios.get(url, options);
       const citaData = response.data.data;
+
+      setIdPaciente(citaData.idPaciente._id)
 
       setCita(citaData);
     } catch (error) {
@@ -151,6 +156,7 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
               <strong>Comentarios:</strong> {cita.comentarios}
             </p>
           </div>
+          {/* Botones para acciones dependiendo del rol */}
           {rol === "Secretaria" && (
             <div className="mt-3 flex justify-end">
               <button
@@ -169,7 +175,22 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
               </button>
             </div>
           )}
-          {mostrarModalActualizar && (
+          {rol === "Doctor" && (
+            <div className="mt-3 flex justify-end">
+              <button
+                onClick={() =>
+                  navigate(
+                    `/dashboard/perfilPaciente/${idPaciente}`
+                  )
+                }
+                className="px-4 py-2 text-blanco font-semibold bg-turquesa-fuerte rounded-xl cursor-pointer"
+              >
+                Información paciente
+              </button>
+            </div>
+          )}
+          {/* Modal dependiendo del rol */}
+          {rol === "Secretaria" && mostrarModalActualizar && (
             <ActualizarCitaModal
               onClose={handleCerrarModalActualizar}
               idCita={idCita}
