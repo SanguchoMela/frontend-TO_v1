@@ -35,7 +35,6 @@ const AgendarCita = () => {
           Authorization: `Bearer ${token}`,
         },
       };
-      console.log(form)
       await axios.post(url, form, options);
       setMensaje({ respuesta: "Cita registrada exitosamente", tipo: true });
       setTimeout(() => {
