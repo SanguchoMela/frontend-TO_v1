@@ -51,12 +51,7 @@ const PerfilPaciente = () => {
           />
         </div>
         <div className="md:overflow-y-scroll h-full my-5 w-full md:w-1/2 md:place-content-center px-5">
-          {rol === "Doctor" && (
-            <RegMedicoPaciente />
-          )}
-          {rol === "Secretaria" && (
-            <CitasPaciente />
-          )}
+          <CitasPaciente />
         </div>
       </div>
     </>
