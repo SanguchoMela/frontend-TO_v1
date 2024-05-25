@@ -1,13 +1,17 @@
 import axios from "axios";
 import moment from "moment";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import Mensaje from "./Alertas/Mensaje";
+import AuthContext from "../context/AuthProvider";
+import CrearRegMedicoModal from "./Modals/CrearRegMedicoModal";
 
 const CitasPaciente = () => {
   const { id } = useParams();
+  const { rol } = useContext(AuthContext);
   const [citasPaciente, setCitasPaciente] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     const verCitasPaciente = async () => {
@@ -27,12 +31,10 @@ const CitasPaciente = () => {
 
         // Mostrar las citas no canceladas en orden descendente
         citasPaciente = citasPaciente
-          .filter(cita => !cita.isCancelado)
-          .sort((a, b) => moment(a.start).isBefore(b.start) ? 1 : -1
-        );
+          .filter((cita) => !cita.isCancelado)
+          .sort((a, b) => (moment(a.start).isBefore(b.start) ? 1 : -1));
 
         setCitasPaciente(citasPaciente);
-
       } catch (error) {
         console.log(error);
       }
@@ -40,42 +42,78 @@ const CitasPaciente = () => {
     verCitasPaciente();
   }, [id]);
 
+  const handleAbrirModal = (event) => {
+    event.preventDefault()
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
   if (citasPaciente.length === 0) {
     return <Mensaje tipo={false}>{"No existen registros"}</Mensaje>;
   }
 
   return (
     <>
-      <div className="text-center my-3">
+      <div className="text-center">
         <h1 className="font-titulos font-bold text-lg">Historial de citas</h1>
         <hr className="text-turquesa-fuerte border" />
       </div>
       {citasPaciente.map((cita, index) => (
-        <form key={cita._id} className="py-2 px-6">
-          <div className="mb-1">
-            <label className="font-semibold">
-              Fecha de la cita:
-              <span className="font-normal">
-                {" "}
-                {moment(cita.start).format("LLLL")}
-              </span>
-            </label>
+        <div className="border rounded-md border-turquesa-fuerte m-4 p-5">
+          <div className="text-center   ">
+            <h1 className="font-titulos font-bold text-base">Cita</h1>
+            <hr className="text-turquesa-fuerte border" />
           </div>
-          <div className="mt-1">
-            <label className="font-semibold" htmlFor="comentarios">
-              Comentarios
-            </label>
-            <textarea
-              className="block w-full p-2 border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
-              name="comentarios"
-              id="comentarios"
-              value={cita.comentarios || ""}
-              readOnly
-            ></textarea>
+          <div key={cita._id}>
+            {/* <div>
+              <p>{index+1}</p>
+            </div> */}
+            <p>
+              <strong>Fecha de la cita: </strong>
+              {moment(cita.start).format("LLLL")}
+            </p>
+            <p>
+              <strong>Comentarios: </strong>
+              {cita.comentarios || ""}
+            </p>
           </div>
-          <hr className="text-turquesa-fuerte border mt-6" />
-        </form>
+          {rol === "Doctor" && (
+            <form>
+              <div className="text-center my-3">
+                <h1 className="font-titulos font-bold text-base">
+                  Registro médico
+                </h1>
+                <hr className="text-turquesa-fuerte border" />
+              </div>
+              <div className="mt-3 flex justify-center">
+                <button
+                  onClick={handleAbrirModal}
+                  className="px-4 py-2 text-blanco font-semibold bg-turquesa-fuerte rounded-xl cursor-pointer"
+                >
+                  Crear
+                </button>
+                <button
+                  className="ml-3 px-4 py-2 text-blanco font-semibold bg-naranja rounded-xl cursor-pointer"
+                  // onClick={() => {
+                  //   handleCancelarCita(idCita);
+                  // }}
+                >
+                  Actualizar
+                </button>
+              </div>
+            </form>
+          )}
+        </div>
       ))}
+      {}
+      <CrearRegMedicoModal
+        isOpen={modalOpen}
+        onClose={closeModal}
+        // idCita={selectedEvent.id}
+      />
     </>
   );
 };
