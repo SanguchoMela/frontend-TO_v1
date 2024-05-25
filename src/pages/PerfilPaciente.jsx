@@ -49,7 +49,7 @@ const PerfilPaciente = () => {
     <>
       <TitulosOutlet titulo="Perfil del paciente" />
       <div className="flex justify-around h-5/6 flex-wrap gap-7 md:flex-nowrap">
-        <div className="px-5 w-full md:w-1/2 md:place-content-center">
+        <div className="mx-5 w-full md:w-1/2 md:place-content-center">
           {Object.keys(mensaje).length > 0 && (
             <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>
           )}
@@ -65,7 +65,7 @@ const PerfilPaciente = () => {
             email={paciente?.email}
           />
         </div>
-        <div className="md:overflow-y-scroll h-full my-5 w-full md:w-1/2 md:place-content-center px-5">
+        <div className="md:overflow-y-scroll md:h-full md:my-5 w-full md:w-1/2 md:place-content-center px-5 mx-2">
           <CitasPaciente />
         </div>
       </div>

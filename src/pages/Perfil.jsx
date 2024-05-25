@@ -7,7 +7,6 @@ const Perfil = () => {
   const { auth } = useContext(AuthContext);
 
   const opciones = {
-    weekday: "long",
     year: "numeric",
     month: "long",
     day: "numeric",

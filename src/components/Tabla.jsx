@@ -85,7 +85,7 @@ const Tabla = () => {
                 <th>N°</th>
                 <th>Cédula</th>
                 <th>Nombre</th>
-                <th>Apellido</th>
+                <th>Correo electrónico</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -93,9 +93,11 @@ const Tabla = () => {
               {pacientes.map((paciente, index) => (
                 <tr key={paciente._id}>
                   <td>{index + 1}</td>
-                  <td>{paciente.ci}</td>
-                  <td>{paciente.nombre}</td>
-                  <td>{paciente.apellido}</td>
+                  <td>{paciente.cedula}</td>
+                  <td>
+                    {paciente.nombre} {paciente.apellido}
+                  </td>
+                  <td>{paciente.email}</td>
                   <td className="text-center">
                     <RiInformationFill
                       className="h-5 w-5 text-turquesa-fuerte inline mr-3 cursor-pointer"
