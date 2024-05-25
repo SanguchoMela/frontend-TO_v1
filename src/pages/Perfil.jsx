@@ -6,19 +6,19 @@ import AuthContext from "../context/AuthProvider";
 const Perfil = () => {
   const { auth } = useContext(AuthContext);
 
-    const opciones = {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    };
+  const opciones = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
 
-    const fechaNac = auth?.fechaNacimiento
-      ? new Date(auth.fechaNacimiento).toLocaleString("es-ES", {
-          ...opciones,
-          timeZone: "UTC",
-        })
-      : "";
+  const fechaNac = auth?.fechaNacimiento
+    ? new Date(auth.fechaNacimiento).toLocaleString("es-ES", {
+        ...opciones,
+        timeZone: "UTC",
+      })
+    : "";
 
   return (
     <>

@@ -2,18 +2,14 @@ import Mensaje from "../components/Alertas/Mensaje";
 import CardPerfil from "../components/Perfil/CardPerfil";
 import TitulosOutlet from "../components/Estilos/TitulosOutlet";
 import { useParams } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import AuthContext from "../context/AuthProvider";
 import CitasPaciente from "../components/CitasPaciente";
-import RegMedicoPaciente from "../components/RegMedicoPaciente";
 
 const PerfilPaciente = () => {
   const { id } = useParams();
   const [paciente, setPaciente] = useState(null);
   const [mensaje, setMensaje] = useState({});
-
-  const { rol } = useContext(AuthContext);
 
   useEffect(() => {
     const verPaciente = async () => {
@@ -36,6 +32,19 @@ const PerfilPaciente = () => {
     verPaciente();
   }, []);
 
+  const opciones = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+
+  const fechaNac = paciente?.fechaNacimiento
+    ? new Date(paciente.fechaNacimiento).toLocaleString("es-ES", {
+        ...opciones,
+        timeZone: "UTC",
+      })
+    : "";
+
   return (
     <>
       <TitulosOutlet titulo="Perfil del paciente" />
@@ -47,6 +56,12 @@ const PerfilPaciente = () => {
           <CardPerfil
             nombre={paciente?.nombre}
             apellido={paciente?.apellido}
+            cedula={paciente?.cedula}
+            fechaNacimiento={fechaNac}
+            lugarNacimiento={paciente?.lugarNacimiento}
+            estadoCivil={paciente?.estadoCivil}
+            direccion={paciente?.direccion}
+            telefono={paciente?.telefono}
             email={paciente?.email}
           />
         </div>
