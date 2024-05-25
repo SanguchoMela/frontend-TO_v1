@@ -6,7 +6,7 @@ const Buscador = () => {
       <input
         className="w-1/2 md:w-1/3 py-2 pl-2 border border-turquesa-fuerte rounded-l-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
         id="buscador"
-        type="text"
+        type="search"
         placeholder="Buscar paciente por cédula"
         name="buscador"
       />
