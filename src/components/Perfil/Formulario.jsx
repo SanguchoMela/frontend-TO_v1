@@ -31,18 +31,21 @@ const Formulario = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Endpoint del backend
       const url = `${import.meta.env.VITE_BACKEND_URL}/registro`;
+      // Enviar datos del formulario al endpoint
       await axios.post(url, form);
-      console.log(form);
+      // Mensaje de confirmación
       setMensaje({
         respuesta: "Paciente registrado exitosamente y correo enviado",
         tipo: true,
       });
+      // Redirigir a otra interfaz
       setTimeout(() => {
         navigate("/dashboard/listaPacientes");
       }, 3000);
     } catch (error) {
-      // setMensaje({ respuesta: error.response.data.msg, tipo: false });
+      // Manejo y muestra de errores (del endpoint y otros)
       if (error.response && error.response.data && error.response.data.msg) {
         setMensaje({ respuesta: error.response.data.msg, tipo: false });
       } else {
@@ -51,6 +54,7 @@ const Formulario = () => {
           tipo: false,
         });
       }
+      // Vaciar los datos del formulario
       setTimeout(() => {
         setMensaje({});
         setForm({});
@@ -185,7 +189,7 @@ const Formulario = () => {
           <input
             className="py-2 pl-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
             id="telefono"
-            type="text"
+            type="tel"
             placeholder="Ingresa el telefono"
             name="telefono"
             value={form.telefono || ""}

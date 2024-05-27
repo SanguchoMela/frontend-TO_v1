@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
 import Mensaje from "../Alertas/Mensaje";
-import { useNavigate } from "react-router-dom";
 
 const ActualizarCitaModal = ({ onClose, idCita }) => {
   const [mensaje, setMensaje] = useState({});
@@ -22,6 +21,7 @@ const ActualizarCitaModal = ({ onClose, idCita }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Endpoint del backend
       const token = localStorage.getItem("token");
       const url = `${import.meta.env.VITE_BACKEND_URL}/citas/actualizar/${idCita}`;
       const options = {
@@ -30,19 +30,19 @@ const ActualizarCitaModal = ({ onClose, idCita }) => {
           Authorization: `Bearer ${token}`,
         },
       };
-      
+      // Datos del formulario al endpont
       await axios.put(url, form, options);
-
+      // Mensaje de confirmación
       setMensaje({ respuesta: "Cita actualizada con exito", tipo: true });
+      // Cerrar el modal y recargar la ventana
       setTimeout(() => {
         setMensaje({});
         onClose()
         window.location.reload()
       }, 2000);
     } catch (error) {
-      console.log(error);
+      // Manejo y muestra de errores
       setMensaje({ respuesta: "Error al actualizar la cita", tipo: false });
-      console.log(mensaje);
       setTimeout(() => {
         setMensaje({});
         onClose()

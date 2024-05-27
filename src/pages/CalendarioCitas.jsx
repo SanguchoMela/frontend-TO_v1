@@ -13,6 +13,7 @@ const CalendarioCitas = () => {
 
   const mostrarCitas = async () => {
     try {
+      // Endpoint del backend
       const token = localStorage.getItem("token");
       const url = `${import.meta.env.VITE_BACKEND_URL}/citas/mostrar-todas`;
       const options = {
@@ -21,24 +22,23 @@ const CalendarioCitas = () => {
           Authorization: `Bearer ${token}`,
         },
       };
-
+      // Respuesta del endpoint
       const response = await axios.get(url, options);
+      // Guardar la respuesta del endpoint en una variable
       let citas = response.data.data;
-
       // Mostrar solo las citas no canceladas
-      citas = citas.filter(cita => !cita.isCancelado)
-
-      // Formateo de fechas para que coincida con el formato del calendario (moment o new Date)
+      citas = citas.filter((cita) => !cita.isCancelado);
+      // Formateo de fechas para que coincida con el formato del calendario
       const citasFormateadas = citas.map((cita) => ({
         id: cita._id,
         title: `${cita.idPaciente.nombre} ${cita.idPaciente.apellido}`,
         start: new Date(cita.start),
         end: new Date(cita.end),
       }));
-
+      // Guardar los eventos formateados en el estado
       setEvents(citasFormateadas);
     } catch (error) {
-      console.log(error);
+      // Manejo y muestra de errores
       setMensaje({ respuesta: error.response.data.msg, tipo: false });
       setTimeout(() => {
         setMensaje({});

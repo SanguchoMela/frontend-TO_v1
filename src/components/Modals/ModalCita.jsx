@@ -29,6 +29,7 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
 
   const mostrarCitaId = async () => {
     try {
+      // Endpoint del backend
       const token = localStorage.getItem("token");
       const url = `${import.meta.env.VITE_BACKEND_URL}/citas/mostrar/${idCita}`;
       const options = {
@@ -37,12 +38,12 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
           Authorization: `Bearer ${token}`,
         },
       };
-
       const response = await axios.get(url, options);
+      // Guardar la respuesta del endpoint en una variable
       const citaData = response.data.data;
-
-      setIdPaciente(citaData.idPaciente._id)
-
+      // Doctor: Guardar en el estado el ID del paciente para redirigir 
+      setIdPaciente(citaData.idPaciente._id);
+      // Guardar el detalle de la cita en un estado
       setCita(citaData);
     } catch (error) {
       console.log(error);
@@ -51,10 +52,13 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
 
   const handleCancelarCita = async (id) => {
     try {
+      // Ventana de confirmación del navegador
       const confirmar = window.confirm(
         "Vas a cancelar la cita, ¿estás seguro de realizar esta acción?"
       );
+      // Solo se ejecuta si confirma
       if (confirmar) {
+        // Endpoint del backend
         const token = localStorage.getItem("token");
         const url = `${import.meta.env.VITE_BACKEND_URL}/citas/cancelar/${id}`;
         const options = {
@@ -63,9 +67,9 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
             Authorization: `Bearer ${token}`,
           },
         };
-
+        // Respuesta del endpoint
         const response = await axios.post(url, {}, options);
-
+        // Mensaje de confirmación y cierre de modal
         setMensaje({ respuesta: response.data.msg, tipo: true });
         setTimeout(() => {
           setMensaje({});
@@ -73,19 +77,21 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
         }, 3000);
       }
     } catch (error) {
-      console.log(error);
+      // Manejo y muestra de errores
       setMensaje({ respuesta: error.response.data.msg, tipo: false });
       setTimeout(() => {
         setMensaje({});
-        // onClose()
       }, 3000);
     }
   };
 
+  // Se muestra el modal si las condiciones cambian
   useEffect(() => {
+    // Verifica el modal abierto e ID válido
     if (isOpen && idCita) {
       mostrarCitaId();
     }
+    // Efecto cuando las dependencias cambian
   }, [isOpen, idCita]);
 
   const customStyles = {

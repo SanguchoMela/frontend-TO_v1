@@ -11,9 +11,11 @@ const PerfilPaciente = () => {
   const [paciente, setPaciente] = useState(null);
   const [mensaje, setMensaje] = useState({});
 
+  // Efecto al mostrar el componente
   useEffect(() => {
     const verPaciente = async () => {
       try {
+        // Endpoint del backend
         const token = localStorage.getItem("token");
         const url = `${import.meta.env.VITE_BACKEND_URL}/detallePaciente/${id}`;
         const options = {
@@ -22,15 +24,20 @@ const PerfilPaciente = () => {
             Authorization: `Bearer ${token}`,
           },
         };
+        // Respuesta del endpoint
         const response = await axios.get(url, options);
+        // Guardar la información del paciente en el estado
         setPaciente(response.data.paciente);
       } catch (error) {
+        // Manejo y muestra de errores
         setMensaje({ respuesta: error.response.paciente.msg, tipo: false });
-        setTimeout();
+        setTimeout(() => {
+          setMensaje({})
+        }, 3000);
       }
     };
     verPaciente();
-  }, []);
+  }, [id]);
 
   const opciones = {
     year: "numeric",

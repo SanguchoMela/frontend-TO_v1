@@ -14,6 +14,7 @@ const Tabla = () => {
 
   const listarPacientes = async () => {
     try {
+      // Endpoint del backend
       const token = localStorage.getItem("token");
       const url = `${import.meta.env.VITE_BACKEND_URL}/listar-pacientes`;
       const options = {
@@ -22,22 +23,37 @@ const Tabla = () => {
           Authorization: `Bearer ${token}`,
         },
       };
-
+      // Respuesta del endpoint
       const response = await axios.get(url, options);
+      // Guardar la respuesta del endpoint en una variable
       const pacientes = response.data.data;
-
+      // Informacion de pacientes guardada en el estado
       setPacientes(pacientes);
     } catch (error) {
-      console.log(error);
+      // Manejo y muestra de errores
+      setMensaje({
+        respuesta: "Ocurrió un error al listar los pacientes",
+        tipo: false,
+      });
+      setTimeout(() => {
+        setMensaje({});
+      },3000);
     }
   };
 
+  useEffect(() => {
+    listarPacientes();
+  }, []);
+
   const handleEliminarPaciente = async (id) => {
     try {
+      // Ventana de confirmación del navegador
       const confirmar = window.confirm(
         "Vas a eliminar a un paciente, ¿estás seguro de realizar esta acción?"
       );
+      // Solo se ejecuta si confirma
       if (confirmar) {
+        // Endpoint del backend
         const token = localStorage.getItem("token");
         const url = `${import.meta.env.VITE_BACKEND_URL}/eliminarUsuario/${id}`;
         const options = {
@@ -46,9 +62,9 @@ const Tabla = () => {
             Authorization: `Bearer ${token}`,
           },
         };
-
+        // Respuesta del endpoint
         const response = await axios.delete(url, options);
-
+        // Mensaje de confirmación y recarga de la ventana
         setMensaje({ respuesta: response.data.msg, tipo: true });
         setTimeout(() => {
           setMensaje({});
@@ -56,17 +72,13 @@ const Tabla = () => {
         }, 3000);
       }
     } catch (error) {
-      console.log(error);
+      // Manejo y muestra de errores
       setMensaje({ respuesta: error.response.data.msg, tipo: false });
       setTimeout(() => {
         setMensaje({});
       }, 3000);
     }
   };
-
-  useEffect(() => {
-    listarPacientes();
-  }, []);
 
   return (
     <>

@@ -27,6 +27,7 @@ const AgendarCita = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Endpoint del backend
       const token = localStorage.getItem("token");
       const url = `${import.meta.env.VITE_BACKEND_URL}/citas/registrar`;
       const options = {
@@ -35,15 +36,20 @@ const AgendarCita = () => {
           Authorization: `Bearer ${token}`,
         },
       };
+      // Datos del formulario al endpont
       await axios.post(url, form, options);
+      // Mensaje de confirmación
       setMensaje({ respuesta: "Cita registrada exitosamente", tipo: true });
+      // Navegar a otra interfaz
       setTimeout(() => {
         navigate("/dashboard/citas");
       }, 3000);
     } catch (error) {
+      // Manejo y muestra de errores
       setMensaje({ respuesta: error.response.data.msg, tipo: false });
       setTimeout(() => {
         setMensaje({});
+        window.location.reload();
       }, 3000);
     }
   };

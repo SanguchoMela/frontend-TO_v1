@@ -12,10 +12,12 @@ const CitasPaciente = () => {
   const { rol } = useContext(AuthContext);
   const [citasPaciente, setCitasPaciente] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
+  const [mensaje, setMensaje] = useState({});
 
   useEffect(() => {
     const verCitasPaciente = async () => {
       try {
+        // Endpoint del backend
         const token = localStorage.getItem("token");
         const url = `${
           import.meta.env.VITE_BACKEND_URL
@@ -26,24 +28,32 @@ const CitasPaciente = () => {
             Authorization: `Bearer ${token}`,
           },
         };
+        // Respuesta del endpoint
         const response = await axios.get(url, options);
+        // Guardar la respuesta del endpoint en una variable
         let citasPaciente = response.data.data;
-
         // Mostrar las citas no canceladas en orden descendente
         citasPaciente = citasPaciente
           .filter((cita) => !cita.isCancelado)
           .sort((a, b) => (moment(a.start).isBefore(b.start) ? 1 : -1));
-
+        // Guardar las citas en el estado
         setCitasPaciente(citasPaciente);
       } catch (error) {
-        console.log(error);
+        // Manejo y muestra de errores
+        setMensaje({
+          respuesta: "Error al mostrar las citas del paciente",
+          tipo: false,
+        });
+        setTimeout(() => {
+          setMensaje({});
+        });
       }
     };
     verCitasPaciente();
   }, [id]);
 
   const handleAbrirModal = (event) => {
-    event.preventDefault()
+    event.preventDefault();
     setModalOpen(true);
   };
 
@@ -61,13 +71,21 @@ const CitasPaciente = () => {
         <h1 className="font-titulos font-bold text-lg">Historial de citas</h1>
         <hr className="text-turquesa-fuerte border" />
       </div>
+      <div className="w-1/2 m-auto my-1">
+        {Object.keys(mensaje).length > 0 && (
+          <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>
+        )}
+      </div>
       {citasPaciente.map((cita, index) => (
-        <div className="border rounded-md border-turquesa-fuerte m-4 p-5">
+        <div
+          key={cita._id}
+          className="border rounded-md border-turquesa-fuerte m-4 p-5"
+        >
           <div className="text-center   ">
             <h1 className="font-titulos font-bold text-base">Cita</h1>
             <hr className="text-turquesa-fuerte border" />
           </div>
-          <div key={cita._id}>
+          <div>
             {/* <div>
               <p>{index+1}</p>
             </div> */}
