@@ -18,7 +18,7 @@ const Header = () => {
         </ul>
         <ul className="flex items-center text-blanco font-semibold text-xs">
           <li>
-            <Link to="/" className="bg-naranja px-5 py-2 rounded-xl md:text-sm">
+            <Link to="/" className="bg-naranja px-5 py-2 rounded-xl md:text-base">
               Inicio
             </Link>
           </li>

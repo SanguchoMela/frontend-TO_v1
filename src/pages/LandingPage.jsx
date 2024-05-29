@@ -36,7 +36,7 @@ const LandingPage = () => {
             <li>
               <Link
                 to="/inicioSesion"
-                className="bg-naranja px-5 py-2 rounded-xl md:text-sm"
+                className="bg-naranja px-5 py-2 rounded-xl md:text-base"
               >
                 Iniciar Sesión
               </Link>

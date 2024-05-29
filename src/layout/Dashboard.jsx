@@ -146,7 +146,7 @@ const Dashboard = () => {
           <div className="m-2">
             <Link
               to="/"
-              className="p-3 ml-3 md:text-base text-center text-sm md:px-4 text-blanco font-semibold bg-naranja rounded-xl hover:shadow-lg hover:shadow-turquesa-fuerte"
+              className="px-5 py-2 ml-3 md:text-base text-center text-sm md:px-4 text-blanco font-semibold bg-naranja rounded-xl hover:shadow-lg hover:shadow-turquesa-fuerte"
               onClick={handleLogout}
             >
               Cerrar Sesión
