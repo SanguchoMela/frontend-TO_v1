@@ -93,6 +93,7 @@ const CrearRegMedicoModal = ({ isOpen, onClose, datosCita }) => {
         setMensaje({});
         setForm(formInicial);
         onClose()
+        window.location.reload()
       }, 2000);
     } catch (error) {
       console.log(error);
