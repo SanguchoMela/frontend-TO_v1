@@ -24,10 +24,6 @@ const Dashboard = () => {
       anchor: "Agendar cita",
     },
     {
-      slug: "/dashboard/listaCitas",
-      anchor: "Lista de citas",
-    },
-    {
       slug: "/dashboard/citas",
       anchor: "Calendario de citas",
     },
