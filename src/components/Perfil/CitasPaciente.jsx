@@ -13,6 +13,7 @@ const CitasPaciente = () => {
   const [citasPaciente, setCitasPaciente] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [mensaje, setMensaje] = useState({});
+  const [datosCita, setDatosCita] = useState(null)
 
   useEffect(() => {
     const verCitasPaciente = async () => {
@@ -52,9 +53,10 @@ const CitasPaciente = () => {
     verCitasPaciente();
   }, [id]);
 
-  const handleAbrirModal = (event) => {
+  const handleAbrirModalCrear = (cita) => {
     event.preventDefault();
     setModalOpen(true);
+    setDatosCita(cita);
   };
 
   const closeModal = () => {
@@ -108,7 +110,7 @@ const CitasPaciente = () => {
               </div>
               <div className="mt-3 flex justify-center">
                 <button
-                  onClick={handleAbrirModal}
+                  onClick={() => handleAbrirModalCrear(cita)}
                   className="px-4 py-2 text-blanco font-semibold bg-turquesa-fuerte rounded-xl cursor-pointer"
                 >
                   Crear
@@ -130,7 +132,7 @@ const CitasPaciente = () => {
       <CrearRegMedicoModal
         isOpen={modalOpen}
         onClose={closeModal}
-        // idCita={selectedEvent.id}
+        datosCita={datosCita}
       />
     </>
   );
