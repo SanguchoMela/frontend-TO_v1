@@ -163,7 +163,98 @@ const CrearRegMedicoModal = ({ isOpen, onClose, datosCita }) => {
             )}
           </div>
           <form onSubmit={handleSubmit}>
-            <div className="m-5 p-5 border border-turquesa-fuerte shadow-md">
+            <div className="m-5">
+              {/* Campos simples */}
+              <div className="mt-2">
+                <label className="text-sm font-semibold" htmlFor="dieta">
+                  Dieta
+                </label>
+                <input
+                  className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
+                  id="dieta"
+                  type="text"
+                  name="dieta"
+                  value={form.dieta || ""}
+                  onChange={handleChange}
+                />
+              </div>
+              <div>
+                <label className="text-sm font-semibold" htmlFor="actividad">
+                  Actividad
+                </label>
+                <input
+                  className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
+                  id="actividad"
+                  type="text"
+                  name="actividad"
+                  value={form.actividad || ""}
+                  onChange={handleChange}
+                />
+              </div>
+              <div>
+                <label className="text-sm font-semibold" htmlFor="cuidados">
+                  Cuidados
+                </label>
+                <input
+                  className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
+                  id="cuidados"
+                  type="text"
+                  name="cuidados"
+                  value={form.cuidados || ""}
+                  onChange={handleChange}
+                />
+              </div>
+              <div>
+                <label className="text-sm font-semibold" htmlFor="comments">
+                  Comentarios
+                </label>
+                <textarea
+                  className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
+                  id="comments"
+                  name="comments"
+                  value={form.comments || ""}
+                  onChange={handleChange}
+                />
+              </div>
+              {/* Campos que se guardan como objetos */}
+              {/* Objeto para información médica */}
+              <div className="mt-3 px-5 py-3 border border-turquesa-fuerte shadow-md">
+                <div>
+                  <p className="font-bold">Información médica</p>
+                  <div>
+                    <label
+                      className="text-sm font-semibold"
+                      htmlFor="informacionMedica-altura"
+                    >
+                      Altura
+                    </label>
+                    <input
+                      className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
+                      id="informacionMedica-altura"
+                      type="text"
+                      name="informacionMedica-altura"
+                      value={form.informacionMedica?.altura || ""}
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div>
+                    <label
+                      className="text-sm font-semibold"
+                      htmlFor="informacionMedica-peso"
+                    >
+                      Peso
+                    </label>
+                    <input
+                      className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
+                      id="informacionMedica-peso"
+                      type="text"
+                      name="informacionMedica-peso"
+                      value={form.informacionMedica?.peso || ""}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+              </div>
               {/* Campos que se guardan como arreglos */}
               {/* Arreglo para receta */}
               <div className="mt-3 px-5 py-3 border border-turquesa-fuerte shadow-md flex flex-col">
@@ -238,98 +329,6 @@ const CrearRegMedicoModal = ({ isOpen, onClose, datosCita }) => {
                 >
                   Añadir una receta
                 </button>
-              </div>
-              {/* Campos simples */}
-              <div className="mt-2">
-                <label className="text-sm font-semibold" htmlFor="dieta">
-                  Dieta
-                </label>
-                <input
-                  className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
-                  id="dieta"
-                  type="text"
-                  name="dieta"
-                  value={form.dieta || ""}
-                  onChange={handleChange}
-                />
-              </div>
-              <div>
-                <label className="text-sm font-semibold" htmlFor="actividad">
-                  Actividad
-                </label>
-                <input
-                  className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
-                  id="actividad"
-                  type="text"
-                  name="actividad"
-                  value={form.actividad || ""}
-                  onChange={handleChange}
-                />
-              </div>
-              <div>
-                <label className="text-sm font-semibold" htmlFor="cuidados">
-                  Cuidados
-                </label>
-                <input
-                  className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
-                  id="cuidados"
-                  type="text"
-                  name="cuidados"
-                  value={form.cuidados || ""}
-                  onChange={handleChange}
-                />
-              </div>
-              {/* Campos que se guardan como objetos */}
-              {/* Objeto para información médica */}
-              <div className="mt-3 px-5 py-3 border border-turquesa-fuerte shadow-md">
-                <div>
-                  <p className="font-bold">Información médica</p>
-                  <div>
-                    <label
-                      className="text-sm font-semibold"
-                      htmlFor="informacionMedica-altura"
-                    >
-                      Altura
-                    </label>
-                    <input
-                      className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
-                      id="informacionMedica-altura"
-                      type="text"
-                      name="informacionMedica-altura"
-                      value={form.informacionMedica?.altura || ""}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div>
-                    <label
-                      className="text-sm font-semibold"
-                      htmlFor="informacionMedica-peso"
-                    >
-                      Peso
-                    </label>
-                    <input
-                      className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
-                      id="informacionMedica-peso"
-                      type="text"
-                      name="informacionMedica-peso"
-                      value={form.informacionMedica?.peso || ""}
-                      onChange={handleChange}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div>
-                <label className="text-sm font-semibold" htmlFor="comments">
-                  Comentarios
-                </label>
-                <input
-                  className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
-                  id="comments"
-                  type="text"
-                  name="comments"
-                  value={form.comments || ""}
-                  onChange={handleChange}
-                />
               </div>
             </div>
             <div className="flex justify-end">
