@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import Mensaje from "../Alertas/Mensaje";
 import AuthContext from "../../context/AuthProvider";
 import CrearRegMedicoModal from "../Modals/CrearRegMedicoModal";
-import RegMedicoPaciente from "./RegMedicoPaciente";
+import RegMedicoPaciente from "../Modals/RegMedicoPaciente";
 
 const CitasPaciente = () => {
   const { id } = useParams();
