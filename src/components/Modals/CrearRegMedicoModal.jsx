@@ -5,9 +5,11 @@ import Mensaje from "../Alertas/Mensaje";
 
 Modal.setAppElement("#root");
 
-const CrearRegMedicoModal = ({ isOpen, onClose }) => {
+const CrearRegMedicoModal = ({ isOpen, onClose, datosCita }) => {
   const [mensaje, setMensaje] = useState({});
   const titulo = useRef(null);
+
+  console.log(datosCita);
 
   const formInicial = {
     idCita: "",
@@ -23,9 +25,20 @@ const CrearRegMedicoModal = ({ isOpen, onClose }) => {
     },
     comments: "",
   };
-
+  
   const [form, setForm] = useState(formInicial);
 
+  useEffect(() => { 
+    if (datosCita) {
+      setForm({
+        ...form,
+        idCita: datosCita._id,
+        idPaciente: datosCita.idPaciente,
+        idDoctor: datosCita.idDoctor._id,
+      });
+    }
+  }, [datosCita, isOpen]);
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     const [field, subfield, index] = name.split("-");
@@ -75,12 +88,11 @@ const CrearRegMedicoModal = ({ isOpen, onClose }) => {
 
       const response = await axios.post(url, form, options);
 
-      console.log(response.data);
-
       setMensaje({ respuesta: response.data.msg, tipo: true });
       setTimeout(() => {
         setMensaje({});
         setForm(formInicial);
+        onClose()
       }, 2000);
     } catch (error) {
       console.log(error);
@@ -103,8 +115,6 @@ const CrearRegMedicoModal = ({ isOpen, onClose }) => {
     onClose();
     setForm(formInicial);
   };
-
-  useEffect(() => {}, [isOpen]);
 
   const customStyles = {
     content: {
@@ -154,45 +164,6 @@ const CrearRegMedicoModal = ({ isOpen, onClose }) => {
           </div>
           <form onSubmit={handleSubmit}>
             <div className="m-5 p-5 border border-turquesa-fuerte shadow-md">
-              <div>
-                <label className="text-sm font-semibold" htmlFor="idCita">
-                  ID de la cita
-                </label>
-                <input
-                  className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
-                  id="idCita"
-                  type="text"
-                  name="idCita"
-                  value={form.idCita || ""}
-                  onChange={handleChange}
-                />
-              </div>
-              <div>
-                <label className="text-sm font-semibold" htmlFor="idDoctor">
-                  ID del doctor
-                </label>
-                <input
-                  className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
-                  id="idDoctor"
-                  type="text"
-                  name="idDoctor"
-                  value={form.idDoctor || ""}
-                  onChange={handleChange}
-                />
-              </div>
-              <div>
-                <label className="text-sm font-semibold" htmlFor="idPaciente">
-                  ID del paciente
-                </label>
-                <input
-                  className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
-                  id="idPaciente"
-                  type="text"
-                  name="idPaciente"
-                  value={form.idPaciente || ""}
-                  onChange={handleChange}
-                />
-              </div>
               {/* Campos que se guardan como arreglos */}
               {/* Arreglo para receta */}
               <div className="mt-3 px-5 py-3 border border-turquesa-fuerte shadow-md flex flex-col">
@@ -262,7 +233,7 @@ const CrearRegMedicoModal = ({ isOpen, onClose }) => {
                   ))}
                 <button
                   type="button"
-                  className="mt-4 px-3 py-2 text-sm text-blanco font-semibold bg-turquesa-fuerte rounded-xl cursor-pointer"
+                  className="mt-4 px-3 py-2 text-sm md:text-base text-blanco font-semibold bg-turquesa-fuerte rounded-xl cursor-pointer"
                   onClick={addRecetaField}
                 >
                   Añadir una receta
