@@ -3,9 +3,9 @@ import moment from "moment";
 import { useContext, useEffect } from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import Mensaje from "./Alertas/Mensaje";
-import AuthContext from "../context/AuthProvider";
-import CrearRegMedicoModal from "./Modals/CrearRegMedicoModal";
+import Mensaje from "../Alertas/Mensaje";
+import AuthContext from "../../context/AuthProvider";
+import CrearRegMedicoModal from "../Modals/CrearRegMedicoModal";
 
 const CitasPaciente = () => {
   const { id } = useParams();

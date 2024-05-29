@@ -4,7 +4,7 @@ import TitulosOutlet from "../components/Estilos/TitulosOutlet";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import CitasPaciente from "../components/CitasPaciente";
+import CitasPaciente from "../components/Perfil/CitasPaciente";
 
 const PerfilPaciente = () => {
   const { id } = useParams();
