@@ -140,10 +140,7 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
               <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>
             )}
           </div>
-          <div className="m-8 p-5 border border-turquesa-fuerte shadow-md">
-            <p>
-              <strong>ID de la cita:</strong> {`${cita._id}`}
-            </p>
+          <div className="mx-5 my-6 leading-7 ">
             <p>
               <strong>Paciente:</strong>{" "}
               {`${cita.idPaciente.nombre} ${cita.idPaciente.apellido}`}
@@ -182,7 +179,7 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
             </div>
           )}
           {rol === "Doctor" && (
-            <div className="mt-3 flex justify-end">
+            <div className="mt-4 flex justify-end">
               <button
                 onClick={() =>
                   navigate(
@@ -191,7 +188,7 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
                 }
                 className="px-4 py-2 text-blanco font-semibold bg-turquesa-fuerte rounded-xl cursor-pointer"
               >
-                Información paciente
+                Ver información del paciente
               </button>
             </div>
           )}

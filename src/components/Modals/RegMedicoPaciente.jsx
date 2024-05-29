@@ -89,7 +89,7 @@ const RegMedicoModal = ({ isOpen, onClose, idCita }) => {
           )}
         </div>
         {regMedico && (
-          <div className="m-5">
+          <div className="mx-5">
             <div className="px-3 leading-7">
               <p>
                 <strong>Dieta: </strong> {regMedico.dieta}
@@ -134,7 +134,7 @@ const RegMedicoModal = ({ isOpen, onClose, idCita }) => {
                 </div>
               ))}
             </div>
-            <div className="mt-3 flex justify-end">
+            <div className="mt-4 flex justify-end">
               <button
                 className="ml-3 px-4 py-2 text-blanco font-semibold bg-turquesa-fuerte rounded-xl cursor-pointer"
                 // onClick={() => {
