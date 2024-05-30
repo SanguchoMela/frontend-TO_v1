@@ -15,8 +15,8 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
   const [cita, setCita] = useState(null);
   const [mostrarModalActualizar, setMostrarModalActualizar] = useState(false);
   const [citaActualizar, setCitaActualizar] = useState(null);
-  const [idPaciente, setIdPaciente] = useState(null)
-  const navigate = useNavigate()
+  const [idPaciente, setIdPaciente] = useState(null);
+  const navigate = useNavigate();
 
   const handleMostrarModalActualizar = () => {
     setMostrarModalActualizar(true);
@@ -41,7 +41,7 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
       const response = await axios.get(url, options);
       // Guardar la respuesta del endpoint en una variable
       const citaData = response.data.data;
-      // Doctor: Guardar en el estado el ID del paciente para redirigir 
+      // Doctor: Guardar en el estado el ID del paciente para redirigir
       setIdPaciente(citaData.idPaciente._id);
       // Guardar el detalle de la cita en un estado
       setCita(citaData);
@@ -74,7 +74,8 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
         setTimeout(() => {
           setMensaje({});
           onClose();
-        }, 3000);
+          window.location.reload();
+        }, 2000);
       }
     } catch (error) {
       // Manejo y muestra de errores
@@ -182,9 +183,7 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
             <div className="mt-4 flex justify-end">
               <button
                 onClick={() =>
-                  navigate(
-                    `/dashboard/perfilPaciente/${idPaciente}`
-                  )
+                  navigate(`/dashboard/perfilPaciente/${idPaciente}`)
                 }
                 className="px-4 py-2 text-blanco font-semibold bg-turquesa-fuerte rounded-xl cursor-pointer"
               >
