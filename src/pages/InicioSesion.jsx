@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
-import Header from "../components/Header";
+import Header from "../components/Estilos/Header";
 import AuthContext from "../context/AuthProvider";
 import Mensaje from "../components/Alertas/Mensaje";
 import VerPassword from "../components/Modals/VerPassword";

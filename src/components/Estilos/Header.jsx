@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import logoTO from "../assets/imagenes/logoTO.svg";
+import logoTO from "../../assets/imagenes/logoTO.svg"
 
 const Header = () => {
   return (

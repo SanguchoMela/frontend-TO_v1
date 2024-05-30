@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import Mensaje from "../components/Alertas/Mensaje";
-import Header from "../components/Header";
+import Header from "../components/Estilos/Header";
 
 const RecuperarPass = () => {
   const [mensaje, setMensaje] = useState({});
