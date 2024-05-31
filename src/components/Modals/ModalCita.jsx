@@ -14,6 +14,7 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
   const [cita, setCita] = useState(null);
   const [editable, setEditable] = useState(false);
   const [citaActualizada, setCitaActualizada] = useState({});
+  const [fechaMinima, setFechaMinima] = useState("");
   const navigate = useNavigate();
 
   const mostrarCitaId = async () => {
@@ -136,6 +137,9 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
     // Verifica el modal abierto e ID válido
     if (isOpen && idCita) {
       mostrarCitaId();
+      const fechaHoy = new Date();
+      const fechaFormateada = fechaHoy.toISOString().slice(0, 16);
+      setFechaMinima(fechaFormateada);
     }
     // Efecto cuando las dependencias cambian
   }, [isOpen, idCita]);
@@ -208,6 +212,7 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
                 className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
                 id="start"
                 type={editable ? "datetime-local" : "text"}
+                min={fechaMinima}
                 name="start"
                 value={
                   editable
@@ -226,6 +231,7 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
                 className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
                 id="end"
                 type={editable ? "datetime-local" : "text"}
+                min={fechaMinima}
                 name="end"
                 value={
                   editable

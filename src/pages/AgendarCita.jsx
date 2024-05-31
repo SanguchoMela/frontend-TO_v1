@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Buscador from "../components/Modals/Buscador";
 import TitulosOutlet from "../components/Estilos/TitulosOutlet";
@@ -8,6 +8,7 @@ import Mensaje from "../components/Alertas/Mensaje";
 const AgendarCita = () => {
   const navigate = useNavigate();
   const [mensaje, setMensaje] = useState({});
+  const [fechaMinima, setFechaMinima] = useState("");
 
   const [form, setForm] = useState({
     start: "",
@@ -63,6 +64,12 @@ const AgendarCita = () => {
       idDoctor: "66136ac2e2bb69d9e5a225fb",
     });
   };
+
+useEffect(() => {
+  const fechaHoy = new Date();
+  const fechaFormateada = fechaHoy.toISOString().slice(0, 16);
+  setFechaMinima(fechaFormateada);
+}, []);
 
   return (
     <>
@@ -125,6 +132,7 @@ const AgendarCita = () => {
                 className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
                 id="start"
                 type="datetime-local"
+                min={fechaMinima}
                 name="start"
                 value={form.start}
                 onChange={handleChange}
@@ -138,6 +146,7 @@ const AgendarCita = () => {
                 className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
                 id="end"
                 type="datetime-local"
+                min={fechaMinima}
                 name="end"
                 value={form.end}
                 onChange={handleChange}
