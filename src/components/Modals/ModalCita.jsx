@@ -179,7 +179,7 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
         </button>
       </div>
       <hr className="text-turquesa-fuerte border" />
-      <div className="mt-4 mx-10">
+      <div className="mt-4 mx-10 text-center">
         {Object.keys(mensaje).length > 0 && (
           <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>
         )}
@@ -190,7 +190,7 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
         ) : null}
       </div>
       {cita && (
-        <div className="mx-5 my-2 leading-7">
+        <div className="mx-5 mt-2 leading-7">
           <div>
             <p>
               <strong>Paciente:</strong>{" "}
