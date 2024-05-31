@@ -55,7 +55,7 @@ const RegMedicoModal = ({ isOpen, onClose, idCita }) => {
 
       setMensaje({ tipo: true, respuesta: response.data.msg });
       setEditable(false);
-      verRegMedico(); 
+      verRegMedico();
 
       setTimeout(() => {
         setMensaje({});
@@ -67,7 +67,7 @@ const RegMedicoModal = ({ isOpen, onClose, idCita }) => {
       });
       setTimeout(() => {
         setMensaje({});
-        onClose()
+        onClose();
       }, 3000);
     } finally {
       irTitulo();
@@ -81,6 +81,15 @@ const RegMedicoModal = ({ isOpen, onClose, idCita }) => {
       const nuevaReceta = [...regActualizado.receta];
       nuevaReceta[index][field] = value;
       setRegActualizado({ ...regActualizado, receta: nuevaReceta });
+    } else if (name.startsWith("informacionMedica_")) {
+      const field = name.split("_")[1];
+      setRegActualizado({
+        ...regActualizado,
+        informacionMedica: {
+          ...regActualizado.informacionMedica,
+          [field]: value,
+        },
+      });
     } else {
       setRegActualizado({
         ...regActualizado,
@@ -174,7 +183,7 @@ const RegMedicoModal = ({ isOpen, onClose, idCita }) => {
             {/* Campos simples */}
             <div>
               <label className="text-base font-bold" htmlFor="dieta">
-                Dieta: 
+                Dieta:
               </label>
               <input
                 className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
@@ -229,22 +238,22 @@ const RegMedicoModal = ({ isOpen, onClose, idCita }) => {
             </div>
             {/* Campos que se guardan como objetos */}
             {/* Objeto para información médica */}
-            <div className="mt-3 px-5 py-3 border border-turquesa-fuerte shadow-md">
+            <div className="mt-2 px-5 py-3 border border-turquesa-fuerte shadow-md">
               <div>
                 <p className="font-bold text-center">Información médica</p>
                 <div>
                   <label
                     className="text-sm font-bold"
-                    htmlFor="informacionMedica-altura"
+                    htmlFor="informacionMedica_altura"
                   >
                     Altura
                   </label>
                   <input
                     className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
-                    id="informacionMedica-altura"
+                    id="informacionMedica_altura"
                     type="text"
-                    name="informacionMedica-altura"
-                    value={`${regActualizado.informacionMedica.altura} cm`}
+                    name="informacionMedica_altura"
+                    value={regActualizado.informacionMedica?.altura || ""}
                     onChange={handleInputChange}
                     disabled={!editable}
                   />
@@ -252,16 +261,16 @@ const RegMedicoModal = ({ isOpen, onClose, idCita }) => {
                 <div>
                   <label
                     className="text-sm font-bold"
-                    htmlFor="informacionMedica-peso"
+                    htmlFor="informacionMedica_peso"
                   >
                     Peso
                   </label>
                   <input
                     className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
-                    id="informacionMedica-peso"
+                    id="informacionMedica_peso"
                     type="text"
-                    name="informacionMedica-peso"
-                    value={`${regActualizado.informacionMedica.peso} kg`}
+                    name="informacionMedica_peso"
+                    value={regActualizado.informacionMedica?.peso || ""}
                     onChange={handleInputChange}
                     disabled={!editable}
                   />
@@ -270,7 +279,7 @@ const RegMedicoModal = ({ isOpen, onClose, idCita }) => {
             </div>
             {/* Campos que se guardan como arreglos */}
             {/* Arreglo para receta */}
-            <div className="mt-3 px-5 py-3 border border-turquesa-fuerte shadow-md flex flex-col">
+            <div className="mt-4 px-5 py-3 border border-turquesa-fuerte shadow-md flex flex-col">
               <p className="font-bold text-center">Receta</p>
               {regMedico.receta &&
                 regMedico.receta.map((receta, index) => (
@@ -278,16 +287,16 @@ const RegMedicoModal = ({ isOpen, onClose, idCita }) => {
                     <div>
                       <label
                         className="text-sm font-bold"
-                        htmlFor={`receta-nombre-${index}`}
+                        htmlFor={`receta_nombre_${index}`}
                       >
                         Nombre
                       </label>
                       <input
                         className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
-                        id={`receta-nombre-${index}`}
+                        id={`receta_nombre_${index}`}
                         type="text"
-                        name={`receta-nombre-${index}`}
-                        value={regActualizado.receta[index].nombre}
+                        name={`receta_${index}_nombre`}
+                        value={regActualizado.receta?.[index]?.nombre || ""}
                         onChange={handleInputChange}
                         disabled={!editable}
                       />
@@ -295,16 +304,16 @@ const RegMedicoModal = ({ isOpen, onClose, idCita }) => {
                     <div>
                       <label
                         className="text-sm font-bold"
-                        htmlFor={`receta-dosis-${index}`}
+                        htmlFor={`receta_dosis_${index}`}
                       >
                         Dosis
                       </label>
                       <input
                         className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
-                        id={`receta-dosis-${index}`}
+                        id={`receta_dosis_${index}`}
                         type="text"
-                        name={`receta-dosis-${index}`}
-                        value={regActualizado.receta[index].dosis}
+                        name={`receta_${index}_dosis`}
+                        value={regActualizado.receta?.[index]?.dosis || ""}
                         onChange={handleInputChange}
                         disabled={!editable}
                       />
@@ -312,16 +321,16 @@ const RegMedicoModal = ({ isOpen, onClose, idCita }) => {
                     <div>
                       <label
                         className="text-sm font-bold"
-                        htmlFor={`receta-frecuencia-${index}`}
+                        htmlFor={`receta_frecuencia_${index}`}
                       >
                         Frecuencia
                       </label>
                       <input
                         className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
-                        id={`receta-frecuencia-${index}`}
+                        id={`receta_frecuencia_${index}`}
                         type="text"
-                        name={`receta-frecuencia-${index}`}
-                        value={regActualizado.receta[index].frecuencia}
+                        name={`receta_${index}_frecuencia`}
+                        value={regActualizado.receta?.[index]?.frecuencia || ""}
                         onChange={handleInputChange}
                         disabled={!editable}
                       />
