@@ -3,7 +3,6 @@ import moment from "moment";
 import Modal from "react-modal";
 import Mensaje from "../Alertas/Mensaje";
 import React, { useContext, useEffect, useState } from "react";
-import ActualizarCitaModal from "./ActualizarCitaModal";
 import AuthContext from "../../context/AuthProvider";
 import { useNavigate } from "react-router-dom";
 
@@ -13,19 +12,9 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
   const { rol } = useContext(AuthContext);
   const [mensaje, setMensaje] = useState({});
   const [cita, setCita] = useState(null);
-  const [mostrarModalActualizar, setMostrarModalActualizar] = useState(false);
-  const [citaActualizar, setCitaActualizar] = useState(null);
-  const [idPaciente, setIdPaciente] = useState(null);
+  const [editable, setEditable] = useState(false);
+  const [citaActualizada, setCitaActualizada] = useState({});
   const navigate = useNavigate();
-
-  const handleMostrarModalActualizar = () => {
-    setMostrarModalActualizar(true);
-    setCitaActualizar(idCita);
-  };
-
-  const handleCerrarModalActualizar = () => {
-    setMostrarModalActualizar(false);
-  };
 
   const mostrarCitaId = async () => {
     try {
@@ -41,10 +30,9 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
       const response = await axios.get(url, options);
       // Guardar la respuesta del endpoint en una variable
       const citaData = response.data.data;
-      // Doctor: Guardar en el estado el ID del paciente para redirigir
-      setIdPaciente(citaData.idPaciente._id);
       // Guardar el detalle de la cita en un estado
       setCita(citaData);
+      setCitaActualizada(citaData);
     } catch (error) {
       console.log(error);
     }
@@ -86,6 +74,63 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
     }
   };
 
+  const handleActualizarCita = async (e) => {
+    e.preventDefault();
+    try {
+      // Endpoint del backend
+      const token = localStorage.getItem("token");
+      const url = `${
+        import.meta.env.VITE_BACKEND_URL
+      }/citas/actualizar/${idCita}`;
+      const options = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      // Datos del formulario al endpont
+      await axios.put(url, citaActualizada, options);
+      setMensaje({ respuesta: "Cita actualizada con exito", tipo: true });
+      setEditable(false);
+      // Cerrar el modal y recargar la ventana
+      setTimeout(() => {
+        setMensaje({});
+        mostrarCitaId();
+      }, 2000);
+    } catch (error) {
+      // Manejo y muestra de errores
+      setMensaje({ respuesta: "Error al actualizar la cita", tipo: false });
+      setTimeout(() => {
+        setMensaje({});
+        onClose();
+      }, 3000);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setCitaActualizada({
+      ...citaActualizada,
+      [name]: value,
+    });
+  };
+
+  const handleCerrar = () => {
+    onClose();
+    setEditable(false);
+    setMensaje({});
+  };
+
+  const handleCancelarActualizar = () => {
+    setEditable(false);
+    mostrarCitaId();
+  };
+
+  const handleActualizarClick = (e) => {
+    e.preventDefault();
+    setEditable(true);
+  };
+
   // Se muestra el modal si las condiciones cambian
   useEffect(() => {
     // Verifica el modal abierto e ID válido
@@ -122,68 +167,132 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
       style={customStyles}
       contentLabel="Detalles de la cita"
     >
-      {cita ? (
-        <div>
-          <div className="flex items-center">
-            <h3 className="font-titulos font-bold text-lg text-center flex-1">
-              Detalles de la cita
-            </h3>
-            <button
-              className="px-3 py-1 my-1 text-blanco font-semibold bg-naranja rounded-md cursor-pointer"
-              onClick={onClose}
-            >
-              x
-            </button>
-          </div>
-          <hr className="text-turquesa-fuerte border" />
-          <div className="mt-5 mx-10">
-            {Object.keys(mensaje).length > 0 && (
-              <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>
-            )}
-          </div>
-          <div className="mx-5 my-6 leading-7 ">
+      <div className="flex items-center">
+        <h3 className="font-titulos font-bold text-lg text-center flex-1">
+          Detalles de la cita
+        </h3>
+        <button
+          className="px-3 py-1 my-1 text-blanco font-semibold bg-naranja rounded-md cursor-pointer"
+          onClick={handleCerrar}
+        >
+          x
+        </button>
+      </div>
+      <hr className="text-turquesa-fuerte border" />
+      <div className="mt-4 mx-10">
+        {Object.keys(mensaje).length > 0 && (
+          <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>
+        )}
+        {editable ? (
+          <p className="text-turquesa-fuerte font-semibold">
+            Modifica los datos permitidos
+          </p>
+        ) : null}
+      </div>
+      {cita && (
+        <div className="mx-5 my-2 leading-7">
+          <div>
             <p>
               <strong>Paciente:</strong>{" "}
               {`${cita.idPaciente.nombre} ${cita.idPaciente.apellido}`}
             </p>
             <p>
-              <strong>Inicio:</strong> {moment(cita.start).format("LLLL")}
-            </p>
-            <p>
-              <strong>Fin:</strong> {moment(cita.end).format("LLLL")}
-            </p>
-            <p>
               <strong>Estado:</strong>{" "}
               {cita.isCancelado ? "Cancelada" : "Activa"}
             </p>
-            <p>
-              <strong>Comentarios:</strong> {cita.comentarios}
-            </p>
+            <div>
+              <label className="text-base font-semibold" htmlFor="start">
+                <strong>Inicio:</strong>
+              </label>
+              <input
+                className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
+                id="start"
+                type={editable ? "datetime-local" : "text"}
+                name="start"
+                value={
+                  editable
+                    ? citaActualizada.start?.slice(0, 16)
+                    : moment(citaActualizada.start).format("LLL")
+                }
+                onChange={handleInputChange}
+                disabled={!editable}
+              />
+            </div>
+            <div>
+              <label className="text-base font-semibold" htmlFor="end">
+                <strong>Inicio:</strong>
+              </label>
+              <input
+                className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
+                id="end"
+                type={editable ? "datetime-local" : "text"}
+                name="end"
+                value={
+                  editable
+                    ? citaActualizada.end?.slice(0, 16)
+                    : moment(citaActualizada.end).format("LLL")
+                }
+                onChange={handleInputChange}
+                disabled={!editable}
+              />
+            </div>
+            <div>
+              <label className="text-base font-semibold" htmlFor="comentarios">
+                <strong>Comentarios:</strong>
+              </label>
+              <textarea
+                className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
+                id="comentarios"
+                name="comentarios"
+                value={citaActualizada.comentarios}
+                onChange={handleInputChange}
+                disabled={!editable}
+              />
+            </div>
           </div>
           {/* Botones para acciones dependiendo del rol */}
           {rol === "Secretaria" && (
             <div className="mt-3 flex justify-end">
-              <button
-                onClick={handleMostrarModalActualizar}
-                className="px-4 py-2 text-blanco font-semibold bg-turquesa-fuerte rounded-xl cursor-pointer"
-              >
-                Actualizar Cita
-              </button>
-              <button
-                className="ml-3 px-4 py-2 text-blanco font-semibold bg-naranja rounded-xl cursor-pointer"
-                onClick={() => {
-                  handleCancelarCita(idCita);
-                }}
-              >
-                Cancelar Cita
-              </button>
+              {editable ? (
+                <>
+                  <button
+                    onClick={handleActualizarCita}
+                    className="px-4 py-2 text-blanco font-semibold bg-turquesa-fuerte rounded-xl cursor-pointer"
+                  >
+                    Guardar cambios
+                  </button>
+                  <button
+                    onClick={handleCancelarActualizar}
+                    className="ml-3 px-4 py-2 text-blanco font-semibold bg-naranja rounded-xl cursor-pointer"
+                  >
+                    Cancelar
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button
+                    onClick={handleActualizarClick}
+                    className="px-4 py-2 text-blanco font-semibold bg-turquesa-fuerte rounded-xl cursor-pointer"
+                  >
+                    Actualizar Cita
+                  </button>
+                  <button
+                    className="ml-3 px-4 py-2 text-blanco font-semibold bg-naranja rounded-xl cursor-pointer"
+                    onClick={() => {
+                      handleCancelarCita(idCita);
+                    }}
+                  >
+                    Cancelar Cita
+                  </button>
+                </>
+              )}
             </div>
           )}
           {rol === "Doctor" && (
             <div className="mt-4 flex justify-end">
               <button
                 onClick={() =>
-                  navigate(`/dashboard/perfilPaciente/${idPaciente}`)
+                  navigate(`/dashboard/perfilPaciente/${cita.idPaciente._id}`)
                 }
                 className="px-4 py-2 text-blanco font-semibold bg-turquesa-fuerte rounded-xl cursor-pointer"
               >
@@ -191,16 +300,7 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
               </button>
             </div>
           )}
-          {/* Modal dependiendo del rol */}
-          {rol === "Secretaria" && mostrarModalActualizar && (
-            <ActualizarCitaModal
-              onClose={handleCerrarModalActualizar}
-              idCita={idCita}
-            />
-          )}
         </div>
-      ) : (
-        <p>Cargando detalles de la cita...</p>
       )}
     </Modal>
   );
