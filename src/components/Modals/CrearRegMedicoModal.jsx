@@ -158,13 +158,13 @@ const CrearRegMedicoModal = ({ isOpen, onClose, datosCita }) => {
             </button>
           </div>
           <hr className="text-turquesa-fuerte border" />
-          <div className="mt-5 mx-10">
+          <div className="mt-4 mx-10 text-center">
             {Object.keys(mensaje).length > 0 && (
               <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>
             )}
           </div>
-          <form onSubmit={handleSubmit}>
-            <div className="m-5">
+          <form onSubmit={handleSubmit} className="mx-5 mt-2 leading-7">
+            <>
               {/* Campos simples */}
               <div className="mt-2">
                 <label className="text-sm font-semibold" htmlFor="dieta">
@@ -219,7 +219,7 @@ const CrearRegMedicoModal = ({ isOpen, onClose, datosCita }) => {
               </div>
               {/* Campos que se guardan como objetos */}
               {/* Objeto para información médica */}
-              <div className="mt-3 px-5 py-3 border border-turquesa-fuerte shadow-md">
+              <div className="mt-2 px-5 py-3 border border-turquesa-fuerte shadow-md">
                 <div>
                   <p className="font-bold">Información médica</p>
                   <div>
@@ -258,7 +258,7 @@ const CrearRegMedicoModal = ({ isOpen, onClose, datosCita }) => {
               </div>
               {/* Campos que se guardan como arreglos */}
               {/* Arreglo para receta */}
-              <div className="mt-3 px-5 py-3 border border-turquesa-fuerte shadow-md flex flex-col">
+              <div className="mt-4 px-5 py-3 border border-turquesa-fuerte shadow-md flex flex-col">
                 <p className="font-bold text-center">Receta</p>
                 {form.receta &&
                   form.receta.map((receta, index) => (
@@ -331,8 +331,8 @@ const CrearRegMedicoModal = ({ isOpen, onClose, datosCita }) => {
                   Añadir una receta
                 </button>
               </div>
-            </div>
-            <div className="flex justify-end">
+            </>
+            <div className="mt-5 flex justify-end">
               <input
                 className="px-3 py-2 text-sm md:text-base md:px-4 text-blanco font-semibold bg-turquesa-fuerte rounded-xl cursor-pointer"
                 type="submit"
