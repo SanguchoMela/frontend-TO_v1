@@ -55,10 +55,10 @@ const RegMedicoModal = ({ isOpen, onClose, idCita }) => {
 
       setMensaje({ tipo: true, respuesta: response.data.msg });
       setEditable(false);
+      verRegMedico(); 
 
       setTimeout(() => {
         setMensaje({});
-        verRegMedico();
       }, 2000);
     } catch (error) {
       setMensaje({
@@ -170,7 +170,7 @@ const RegMedicoModal = ({ isOpen, onClose, idCita }) => {
           ) : null}
         </div>
         {regMedico && (
-          <form className="mx-5 mt-2 leading-7">
+          <div className="mx-5 mt-2 leading-7">
             {/* Campos simples */}
             <div>
               <label className="text-base" htmlFor="dieta">
@@ -354,7 +354,7 @@ const RegMedicoModal = ({ isOpen, onClose, idCita }) => {
                 </button>
               )}
             </div>
-          </form>
+          </div>
         )}
       </Modal>
     </>
