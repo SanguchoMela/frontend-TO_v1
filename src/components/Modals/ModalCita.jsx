@@ -201,8 +201,8 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
               {cita.isCancelado ? "Cancelada" : "Activa"}
             </p>
             <div>
-              <label className="text-base font-semibold" htmlFor="start">
-                <strong>Inicio:</strong>
+              <label className="text-base font-bold" htmlFor="start">
+                Inicio:
               </label>
               <input
                 className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
@@ -219,8 +219,8 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
               />
             </div>
             <div>
-              <label className="text-base font-semibold" htmlFor="end">
-                <strong>Inicio:</strong>
+              <label className="text-base font-bold" htmlFor="end">
+                Fin:
               </label>
               <input
                 className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
@@ -237,8 +237,8 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
               />
             </div>
             <div>
-              <label className="text-base font-semibold" htmlFor="comentarios">
-                <strong>Comentarios:</strong>
+              <label className="text-base font-bold" htmlFor="comentarios">
+                Comentarios:
               </label>
               <textarea
                 className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"

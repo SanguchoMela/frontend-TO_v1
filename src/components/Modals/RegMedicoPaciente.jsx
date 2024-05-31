@@ -173,8 +173,8 @@ const RegMedicoModal = ({ isOpen, onClose, idCita }) => {
           <div className="mx-5 mt-2 leading-7">
             {/* Campos simples */}
             <div>
-              <label className="text-base" htmlFor="dieta">
-                <strong>Dieta: </strong>
+              <label className="text-base font-bold" htmlFor="dieta">
+                Dieta: 
               </label>
               <input
                 className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
@@ -187,8 +187,8 @@ const RegMedicoModal = ({ isOpen, onClose, idCita }) => {
               />
             </div>
             <div>
-              <label className="text-base" htmlFor="actividad">
-                <strong>Actividad:</strong>
+              <label className="text-base font-bold" htmlFor="actividad">
+                Actividad:
               </label>
               <input
                 className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
@@ -201,8 +201,8 @@ const RegMedicoModal = ({ isOpen, onClose, idCita }) => {
               />
             </div>
             <div>
-              <label className="text-base" htmlFor="cuidados">
-                <strong>Cuidados:</strong>
+              <label className="text-base font-bold" htmlFor="cuidados">
+                Cuidados:
               </label>
               <input
                 className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
@@ -215,8 +215,8 @@ const RegMedicoModal = ({ isOpen, onClose, idCita }) => {
               />
             </div>
             <div>
-              <label className="text-base" htmlFor="comments">
-                <strong>Comentarios:</strong>
+              <label className="text-base font-bold" htmlFor="comments">
+                Comentarios:
               </label>
               <textarea
                 className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
@@ -234,7 +234,7 @@ const RegMedicoModal = ({ isOpen, onClose, idCita }) => {
                 <p className="font-bold text-center">Información médica</p>
                 <div>
                   <label
-                    className="text-sm font-semibold"
+                    className="text-sm font-bold"
                     htmlFor="informacionMedica-altura"
                   >
                     Altura
@@ -251,7 +251,7 @@ const RegMedicoModal = ({ isOpen, onClose, idCita }) => {
                 </div>
                 <div>
                   <label
-                    className="text-sm font-semibold"
+                    className="text-sm font-bold"
                     htmlFor="informacionMedica-peso"
                   >
                     Peso
@@ -277,7 +277,7 @@ const RegMedicoModal = ({ isOpen, onClose, idCita }) => {
                   <div key={receta._id}>
                     <div>
                       <label
-                        className="text-sm font-semibold"
+                        className="text-sm font-bold"
                         htmlFor={`receta-nombre-${index}`}
                       >
                         Nombre
@@ -294,7 +294,7 @@ const RegMedicoModal = ({ isOpen, onClose, idCita }) => {
                     </div>
                     <div>
                       <label
-                        className="text-sm font-semibold"
+                        className="text-sm font-bold"
                         htmlFor={`receta-dosis-${index}`}
                       >
                         Dosis
@@ -311,7 +311,7 @@ const RegMedicoModal = ({ isOpen, onClose, idCita }) => {
                     </div>
                     <div>
                       <label
-                        className="text-sm font-semibold"
+                        className="text-sm font-bold"
                         htmlFor={`receta-frecuencia-${index}`}
                       >
                         Frecuencia
