@@ -9,8 +9,9 @@ const RegMedicoModal = ({ isOpen, onClose, idCita }) => {
   const [regMedico, setRegMedico] = useState(null);
   const [mensaje, setMensaje] = useState({});
   const titulo = useRef(null);
-
-  console.log(idCita);
+  const [editable, setEditable] = useState(false);
+  const [regActualizado, setRegActualizado] = useState({});
+  const [idRegMedico, setIdRegMedico] = useState(null);
 
   const verRegMedico = async () => {
     try {
@@ -26,15 +27,84 @@ const RegMedicoModal = ({ isOpen, onClose, idCita }) => {
       };
       const response = await axios.get(url, options);
 
-      console.log(response);
+      setIdRegMedico(response.data.data._id);
+
       setRegMedico(response.data.data);
+      setRegActualizado(response.data.data);
     } catch (error) {
       console.log(error);
     }
   };
 
+  const handleActualizarReg = async (e) => {
+    e.preventDefault();
+    try {
+      const token = localStorage.getItem("token");
+      const url = `${
+        import.meta.env.VITE_BACKEND_URL
+      }/registroMedico/editar/${idRegMedico}`;
+      const options = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const response = await axios.put(url, regActualizado, options);
+
+      setRegMedico(response.data.data);
+      setMensaje({ tipo: true, respuesta: response.data.msg });
+      setEditable(false);
+
+      setTimeout(() => {
+        handleCerrar();
+      }, 2000);
+    } catch (error) {
+      setMensaje({
+        tipo: false,
+        respuesta: "Error al actualizar el registro médico",
+      });
+      setTimeout(() => {
+        setMensaje({});
+      }, 3000);
+    } finally {
+      if (titulo.current) {
+        titulo.current.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    if (name.startsWith("receta_")) {
+      const [_, index, field] = name.split("_");
+      const nuevaReceta = [...regActualizado.receta];
+      nuevaReceta[index][field] = value;
+      setRegActualizado({ ...regActualizado, receta: nuevaReceta });
+    } else {
+      setRegActualizado({
+        ...regActualizado,
+        [name]: value,
+      });
+    }
+  };
+
   const handleCerrar = () => {
     onClose();
+    setEditable(false);
+    setMensaje({});
+  };
+
+  const handleCancelarActualizar = () => {
+    setEditable(false);
+    verRegMedico();
+  };
+
+  const handleActualizarClick = (e) => {
+    e.preventDefault();
+    setEditable(true);
+    if (titulo.current) {
+      titulo.current.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   useEffect(() => {
@@ -87,64 +157,199 @@ const RegMedicoModal = ({ isOpen, onClose, idCita }) => {
           {Object.keys(mensaje).length > 0 && (
             <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>
           )}
+          {editable ? (
+            <p className="py-2 text-turquesa-fuerte font-semibold">
+              Modifica los datos que desees
+            </p>
+          ) : null}
         </div>
         {regMedico && (
-          <div className="mx-5">
-            <div className="px-3 leading-7">
-              <p>
-                <strong>Dieta: </strong> {regMedico.dieta}
-              </p>
-              <p>
-                <strong>Actividad: </strong> {regMedico.actividad}
-              </p>
-              <p>
-                <strong>Cuidados: </strong> {regMedico.cuidados}
-              </p>
-              <div className="leading-6">
-                <strong>Comentarios: </strong>
-                <p>{regMedico.comments}</p>
+          <form className="mx-5">
+            {/* Campos simples */}
+            <div className="mt-2">
+              <label className="text-sm font-semibold" htmlFor="dieta">
+                Dieta
+              </label>
+              <input
+                className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
+                id="dieta"
+                type="text"
+                name="dieta"
+                value={regActualizado.dieta}
+                onChange={handleInputChange}
+                readOnly={!editable}
+              />
+            </div>
+            <div>
+              <label className="text-sm font-semibold" htmlFor="actividad">
+                Actividad
+              </label>
+              <input
+                className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
+                id="actividad"
+                type="text"
+                name="actividad"
+                value={regActualizado.actividad}
+                onChange={handleInputChange}
+                readOnly={!editable}
+              />
+            </div>
+            <div>
+              <label className="text-sm font-semibold" htmlFor="cuidados">
+                Cuidados
+              </label>
+              <input
+                className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
+                id="cuidados"
+                type="text"
+                name="cuidados"
+                value={regActualizado.cuidados}
+                onChange={handleInputChange}
+                readOnly={!editable}
+              />
+            </div>
+            <div>
+              <label className="text-sm font-semibold" htmlFor="comments">
+                Comentarios
+              </label>
+              <textarea
+                className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
+                id="comments"
+                name="comments"
+                value={regActualizado.comments}
+                onChange={handleInputChange}
+                readOnly={!editable}
+              />
+            </div>
+            {/* Campos que se guardan como objetos */}
+            {/* Objeto para información médica */}
+            <div className="mt-3 px-5 py-3 border border-turquesa-fuerte shadow-md">
+              <div>
+                <p className="font-bold">Información médica</p>
+                <div>
+                  <label
+                    className="text-sm font-semibold"
+                    htmlFor="informacionMedica-altura"
+                  >
+                    Altura
+                  </label>
+                  <input
+                    className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
+                    id="informacionMedica-altura"
+                    type="text"
+                    name="informacionMedica-altura"
+                    value={`${regActualizado.informacionMedica.altura} cm`}
+                    onChange={handleInputChange}
+                    readOnly={!editable}
+                  />
+                </div>
+                <div>
+                  <label
+                    className="text-sm font-semibold"
+                    htmlFor="informacionMedica-peso"
+                  >
+                    Peso
+                  </label>
+                  <input
+                    className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
+                    id="informacionMedica-peso"
+                    type="text"
+                    name="informacionMedica-peso"
+                    value={`${regActualizado.informacionMedica.peso} kg`}
+                    onChange={handleInputChange}
+                    readOnly={!editable}
+                  />
+                </div>
               </div>
             </div>
-            <div className="mt-3 px-5 py-3 border border-turquesa-fuerte shadow-md">
-              <strong className="block text-center mb-1">
-                Información Médica
-              </strong>
-              <p>
-                <strong>Altura: </strong>
-                {regMedico.informacionMedica.altura} cm
-              </p>
-              <p>
-                <strong>Peso: </strong>
-                {regMedico.informacionMedica.peso} kg
-              </p>
+            {/* Campos que se guardan como arreglos */}
+            {/* Arreglo para receta */}
+            <div className="mt-3 px-5 py-3 border border-turquesa-fuerte shadow-md flex flex-col">
+              <p className="font-bold text-center">Receta</p>
+              {regMedico.receta &&
+                regMedico.receta.map((receta, index) => (
+                  <div key={receta._id}>
+                    <p className="font-bold">{index + 1}</p>
+                    <div>
+                      <label
+                        className="text-sm font-semibold"
+                        htmlFor={`receta-nombre-${index}`}
+                      >
+                        Nombre
+                      </label>
+                      <input
+                        className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
+                        id={`receta-nombre-${index}`}
+                        type="text"
+                        name={`receta-nombre-${index}`}
+                        value={regActualizado.receta[index].nombre}
+                        onChange={handleInputChange}
+                        readOnly={!editable}
+                      />
+                    </div>
+                    <div>
+                      <label
+                        className="text-sm font-semibold"
+                        htmlFor={`receta-dosis-${index}`}
+                      >
+                        Dosis
+                      </label>
+                      <input
+                        className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
+                        id={`receta-dosis-${index}`}
+                        type="text"
+                        name={`receta-dosis-${index}`}
+                        value={regActualizado.receta[index].dosis}
+                        onChange={handleInputChange}
+                        readOnly={!editable}
+                      />
+                    </div>
+                    <div>
+                      <label
+                        className="text-sm font-semibold"
+                        htmlFor={`receta-frecuencia-${index}`}
+                      >
+                        Frecuencia
+                      </label>
+                      <input
+                        className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
+                        id={`receta-frecuencia-${index}`}
+                        type="text"
+                        name={`receta-frecuencia-${index}`}
+                        value={regActualizado.receta[index].frecuencia}
+                        onChange={handleInputChange}
+                        readOnly={!editable}
+                      />
+                    </div>
+                  </div>
+                ))}
             </div>
-            <div className="mt-3 px-5 py-3 border border-turquesa-fuerte shadow-md">
-              <strong className="block text-center mb-1">Recetas</strong>
-              {regMedico.receta.map((item) => (
-                <div key={item._id}>
-                  <p>
-                    <strong>Nombre:</strong> "{item.nombre}"
-                  </p>
-                  <p>
-                    <strong>Dosis:</strong> {item.dosis}
-                  </p>
-                  <p>
-                    <strong>Frecuencia:</strong> {item.frecuencia}
-                  </p>
-                </div>
-              ))}
+            <div className="mt-5 flex justify-end">
+              {editable ? (
+                <>
+                  <button
+                    className="px-4 py-2 text-blanco font-semibold bg-turquesa-fuerte rounded-xl cursor-pointer"
+                    onClick={handleActualizarReg}
+                  >
+                    Guardar cambios
+                  </button>
+                  <button
+                    className="ml-3 px-4 py-2 text-blanco font-semibold bg-naranja rounded-xl cursor-pointer"
+                    onClick={handleCancelarActualizar}
+                  >
+                    Cancelar
+                  </button>
+                </>
+              ) : (
+                <button
+                  className="px-4 py-2 text-blanco font-semibold bg-turquesa-fuerte rounded-xl cursor-pointer"
+                  onClick={handleActualizarClick}
+                >
+                  Actualizar registro
+                </button>
+              )}
             </div>
-            <div className="mt-4 flex justify-end">
-              <button
-                className="ml-3 px-4 py-2 text-blanco font-semibold bg-turquesa-fuerte rounded-xl cursor-pointer"
-                // onClick={() => {
-                //   handleCancelarCita(idCita);
-                // }}
-              >
-                Actualizar
-              </button>
-            </div>
-          </div>
+          </form>
         )}
       </Modal>
     </>
