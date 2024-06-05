@@ -110,9 +110,17 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    let fin = citaActualizada.end;
+
+    if (name === "start") {
+      const inicio = moment(value).format("YYYY-MM-DDTHH:mm");
+      fin = moment(inicio).add(1, "hours").format("YYYY-MM-DDTHH:mm");
+    }
+
     setCitaActualizada({
       ...citaActualizada,
       [name]: value,
+      end: fin
     });
   };
 
@@ -239,7 +247,7 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
                     : moment(cita.end).format("LLL")
                 }
                 onChange={handleInputChange}
-                disabled={!editable}
+                disabled
               />
             </div>
             <div>

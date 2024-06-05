@@ -1,10 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Buscador from "../components/Modals/Buscador";
 import TitulosOutlet from "../components/Estilos/TitulosOutlet";
 import Mensaje from "../components/Alertas/Mensaje";
 import TablaAgendar from "../components/TablaAgendar";
+import moment from "moment";
 
 const AgendarCita = () => {
   const navigate = useNavigate();
@@ -27,9 +27,18 @@ const AgendarCita = () => {
   };
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
+    let fin = form.end;
+
+    if (name === "start") {
+      const start = e.target.value
+      const inicio = moment(start).format("YYYY-MM-DDTHH:mm");
+      fin = moment(inicio).add(1, 'hours').format("YYYY-MM-DDTHH:mm");
+    }
     setForm({
       ...form,
-      [e.target.name]: e.target.value,
+      [name]: value,
+      end: fin,
     });
   };
 
@@ -157,6 +166,7 @@ const AgendarCita = () => {
                 name="end"
                 value={form.end}
                 onChange={handleChange}
+                disabled
               />
             </div>
             <div className="mt-1">
