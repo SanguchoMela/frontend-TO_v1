@@ -77,6 +77,7 @@ const CrearRegMedicoModal = ({ isOpen, onClose, datosCita }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Enpoint del backend
       const token = localStorage.getItem("token");
       const url = `${import.meta.env.VITE_BACKEND_URL}/registroMedico/crear`;
       const options = {
@@ -85,15 +86,15 @@ const CrearRegMedicoModal = ({ isOpen, onClose, datosCita }) => {
           Authorization: `Bearer ${token}`,
         },
       };
-
+      // Enviar datos del formulario al endpoint
       const response = await axios.post(url, form, options);
-
+      // Mensaje de confirmación
       setMensaje({ respuesta: response.data.msg, tipo: true });
       setTimeout(() => {
         setMensaje({});
         setForm(formInicial);
-        onClose()
-        window.location.reload()
+        onClose();
+        window.location.reload();
       }, 2000);
     } catch (error) {
       console.log(error);

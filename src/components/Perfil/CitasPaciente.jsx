@@ -23,8 +23,7 @@ const CitasPaciente = () => {
       // Endpoint del backend
       const token = localStorage.getItem("token");
       const url = `${
-        import.meta.env.VITE_BACKEND_URL
-      }/citas/mostrar-por-paciente/${id}`;
+        import.meta.env.VITE_BACKEND_URL}/citas/mostrar-por-paciente/${id}`;
       const options = {
         headers: {
           "Content-Type": "application/json",
