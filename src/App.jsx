@@ -16,6 +16,7 @@ import RecuperarPass from "./pages/RecuperarPass";
 import RestablecerPass from "./pages/RestablecerPass";
 import Auth from "./layout/Auth";
 import { PrivateRoute } from "./routes/PrivateRoute";
+import PrivateRouteWithRole from "./routes/PrivateRouteWithRole";
 
 function App() {
   return (
@@ -43,10 +44,22 @@ function App() {
                     <Route element={<Dashboard />}>
                       <Route index element={<Perfil />} />
                       <Route path="citas" element={<CalendarioCitas />} />
-                      <Route path="agendarCita" element={<AgendarCita />} />
+
+                      <Route
+                        path="agendarCita"
+                        element={
+                          <PrivateRouteWithRole>
+                            <AgendarCita />
+                          </PrivateRouteWithRole>
+                        }
+                      />
                       <Route
                         path="registrarPaciente"
-                        element={<RegistrarPaciente />}
+                        element={
+                          <PrivateRouteWithRole>
+                            <RegistrarPaciente />
+                          </PrivateRouteWithRole>
+                        }
                       />
                       <Route
                         path="listaPacientes"
