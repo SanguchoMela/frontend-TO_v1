@@ -201,7 +201,7 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
               {`${cita.idPaciente.nombre} ${cita.idPaciente.apellido}`}
             </p>
             <p>
-              <strong>Estado:</strong>{" "}
+              <strong>Estado de la cita:</strong>{" "}
               {cita.isCancelado ? "Cancelada" : "Activa"}
             </p>
             <div>
@@ -217,7 +217,7 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
                 value={
                   editable
                     ? citaActualizada.start?.slice(0, 16)
-                    : moment(citaActualizada.start).format("LLL")
+                    : moment(cita.start).format("LLL")
                 }
                 onChange={handleInputChange}
                 disabled={!editable}
@@ -236,7 +236,7 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
                 value={
                   editable
                     ? citaActualizada.end?.slice(0, 16)
-                    : moment(citaActualizada.end).format("LLL")
+                    : moment(cita.end).format("LLL")
                 }
                 onChange={handleInputChange}
                 disabled={!editable}

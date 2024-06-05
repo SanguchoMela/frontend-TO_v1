@@ -21,10 +21,8 @@ const AuthProvider = ({ children }) => {
   const login = async (email, contraseña) => {
     try {
       // Endpoint del backend
-      const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/login`,
-        { email, contraseña }
-      );
+      const url = `${import.meta.env.VITE_BACKEND_URL}/login`;
+      const response = await axios.post(url,{ email, contraseña });
       const userData = response.data;
       // Autorizar el inicio de sesión según rol y otorgar funciones 
       if (response.data.isSecre) {
@@ -55,14 +53,13 @@ const AuthProvider = ({ children }) => {
   const fetchUserProfile = async (storedToken) => {
     try {
       // Endpoint del backend
-      const response = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/perfil`,
-        {
-          headers: {
-            Authorization: `Bearer ${storedToken}`,
-          },
-        },
-      );
+      const url = `${import.meta.env.VITE_BACKEND_URL}/perfil`
+      const options = {
+        headers: {
+          Authorization: `Bearer ${storedToken}`,
+        }
+      }
+      const response = await axios.get(url,options);
       // Guardar los datos de usuario autenticado
       setAuth(response.data);
       // Clasificar al usuario según rol

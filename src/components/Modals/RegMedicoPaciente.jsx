@@ -15,22 +15,23 @@ const RegMedicoModal = ({ isOpen, onClose, idCita }) => {
 
   const verRegMedico = async () => {
     try {
+      // Endpoint del backend
       const token = localStorage.getItem("token");
-      const url = `${
-        import.meta.env.VITE_BACKEND_URL
-      }/registroMedico/${idCita}`;
+      const url = `${import.meta.env.VITE_BACKEND_URL}/registroMedico/${idCita}`;
       const options = {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       };
+      // Guardar la respuesta del endpoint en una variable
       const response = await axios.get(url, options);
+      // Guardar el detalle dek registro médico en un estado
       const registroData = response.data.data;
-
+      setRegMedico(registroData);
+      // Guardar el id del registro en un estado
       setIdRegMedico(registroData._id);
 
-      setRegMedico(registroData);
       setRegActualizado(registroData);
     } catch (error) {
       console.log(error);
@@ -40,22 +41,23 @@ const RegMedicoModal = ({ isOpen, onClose, idCita }) => {
   const handleActualizarReg = async (e) => {
     e.preventDefault();
     try {
+      // Endpoint del backend
       const token = localStorage.getItem("token");
-      const url = `${
-        import.meta.env.VITE_BACKEND_URL
-      }/registroMedico/editar/${idRegMedico}`;
+      const url = `${import.meta.env.VITE_BACKEND_URL}/registroMedico/editar/${idRegMedico}`;
       const options = {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       };
+      // Datos actualizados al endpoint
       const response = await axios.put(url, regActualizado, options);
+      // Guardar el detalle del registro médico en un estado
       setRegMedico(response.data.data);
-
-      setMensaje({ tipo: true, respuesta: response.data.msg });
       setEditable(false);
       verRegMedico();
+
+      setMensaje({ tipo: true, respuesta: response.data.msg });
 
       setTimeout(() => {
         setMensaje({});

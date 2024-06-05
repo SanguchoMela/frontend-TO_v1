@@ -4,11 +4,15 @@ import { useContext, useState, useEffect } from "react";
 import { RiDeleteBin2Fill, RiInformationFill } from "react-icons/ri";
 import Mensaje from "../components/Alertas/Mensaje";
 import AuthContext from "../context/AuthProvider";
+import Buscador from "./Modals/Buscador";
 
 const Tabla = () => {
   const navigate = useNavigate();
   const [mensaje, setMensaje] = useState({});
   const [pacientes, setPacientes] = useState([]);
+  const [pacientesFiltrados, setPacientesFiltrados] = useState([]);
+
+  console.log(pacientesFiltrados);
 
   const { rol } = useContext(AuthContext);
 
@@ -29,6 +33,7 @@ const Tabla = () => {
       const pacientes = response.data.data;
       // Informacion de pacientes guardada en el estado
       setPacientes(pacientes);
+      setPacientesFiltrados(pacientes);
     } catch (error) {
       // Manejo y muestra de errores
       setMensaje({
@@ -37,7 +42,7 @@ const Tabla = () => {
       });
       setTimeout(() => {
         setMensaje({});
-      },3000);
+      }, 3000);
     }
   };
 
@@ -82,6 +87,11 @@ const Tabla = () => {
 
   return (
     <>
+      <Buscador
+        pacientes={pacientes}
+        setPacientesFiltrados={setPacientesFiltrados}
+      />
+      {console.log(pacientesFiltrados)}
       {pacientes.length == 0 ? (
         <Mensaje tipo={false}>{"No existen registros"}</Mensaje>
       ) : (
@@ -102,32 +112,35 @@ const Tabla = () => {
               </tr>
             </thead>
             <tbody className="text-center">
-              {pacientes.map((paciente, index) => (
-                <tr key={paciente._id}>
-                  <td>{index + 1}</td>
-                  <td>{paciente.cedula}</td>
-                  <td>
-                    {paciente.nombre} {paciente.apellido}
-                  </td>
-                  <td>{paciente.email}</td>
-                  <td className="text-center">
-                    <RiInformationFill
-                      className="h-5 w-5 text-turquesa-fuerte inline mr-3 cursor-pointer"
-                      onClick={() =>
-                        navigate(`/dashboard/perfilPaciente/${paciente._id}`)
-                      }
-                    />
-                    {rol === "Secretaria" && (
-                      <RiDeleteBin2Fill
-                        className="h-5 w-5 text-turquesa-fuerte inline cursor-pointer"
-                        onClick={() => {
-                          handleEliminarPaciente(paciente._id);
-                        }}
+              {pacientesFiltrados &&
+                pacientesFiltrados.map((pacienteFil, index) => (
+                  <tr key={pacienteFil._id}>
+                    <td>{index + 1}</td>
+                    <td>{pacienteFil.cedula}</td>
+                    <td>
+                      {pacienteFil.nombre} {pacienteFil.apellido}
+                    </td>
+                    <td>{pacienteFil.email}</td>
+                    <td className="text-center">
+                      <RiInformationFill
+                        className="h-5 w-5 text-turquesa-fuerte inline mr-3 cursor-pointer"
+                        onClick={() =>
+                          navigate(
+                            `/dashboard/perfilPaciente/${pacienteFil._id}`
+                          )
+                        }
                       />
-                    )}
-                  </td>
-                </tr>
-              ))}
+                      {rol === "Secretaria" && (
+                        <RiDeleteBin2Fill
+                          className="h-5 w-5 text-turquesa-fuerte inline cursor-pointer"
+                          onClick={() => {
+                            handleEliminarPaciente(pacienteFil._id);
+                          }}
+                        />
+                      )}
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </>
