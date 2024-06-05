@@ -86,7 +86,7 @@ useEffect(() => {
           <h4 className="text-turquesa-fuerte font-titulos font-semibold">
             Detalle del paciente
           </h4>
-          <Buscador />
+          {/* <Buscador /> */}
 
           <div className="mx-6 my-6 grid grid-cols-2 gap-x-10">
             <div>

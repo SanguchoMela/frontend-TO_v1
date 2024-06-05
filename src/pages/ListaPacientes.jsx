@@ -6,7 +6,6 @@ const ListaPacientes = () => {
   return (
     <>
       <TitulosOutlet titulo="Lista de pacientes" />
-      <Buscador />
       <Tabla />
     </>
   );
