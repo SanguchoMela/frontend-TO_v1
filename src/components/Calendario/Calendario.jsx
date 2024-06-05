@@ -38,7 +38,9 @@ function Calendario(props) {
       messages={mensajes}
       // views={vistas}
       defaultView="week"
-      selectable={true}
+      selectable
+      min={new Date(2023, 1, 1, 10, 0)}
+      max={new Date(2023, 1, 1, 19, 0)}
     />
   );
 }
