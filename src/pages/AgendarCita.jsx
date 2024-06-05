@@ -1,9 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Buscador from "../components/Modals/Buscador";
 import TitulosOutlet from "../components/Estilos/TitulosOutlet";
 import Mensaje from "../components/Alertas/Mensaje";
+import TablaAgendar from "../components/TablaAgendar";
 
 const AgendarCita = () => {
   const navigate = useNavigate();
@@ -17,6 +18,13 @@ const AgendarCita = () => {
     idPaciente: "",
     idDoctor: "66136ac2e2bb69d9e5a225fb",
   });
+
+  const setearIDPaciete = (idPaciente) => {
+    setForm({
+      ...form,
+      idPaciente: idPaciente,
+    });
+  };
 
   const handleChange = (e) => {
     setForm({
@@ -65,17 +73,24 @@ const AgendarCita = () => {
     });
   };
 
-useEffect(() => {
-  const fechaHoy = new Date();
-  const fechaFormateada = fechaHoy.toISOString().slice(0, 16);
-  setFechaMinima(fechaFormateada);
-}, []);
+  useEffect(() => {
+    const fechaHoy = new Date();
+    const fechaFormateada = fechaHoy.toISOString().slice(0, 16);
+    setFechaMinima(fechaFormateada);
+  }, []);
 
   return (
     <>
       <TitulosOutlet titulo="Agendamiento de citas" />
 
-      <form onSubmit={handleSubmit}>
+      <div className="my-2 w-full text-center">
+        <span>No sabes cuando agendar una cita? &nbsp;</span>
+        <span className="text-turquesa-fuerte hover:underline hover:underline-turquesa-fuerte hover:font-semibold">
+          <Link to="/dashboard/citas">Ve los horarios disponibles</Link>
+        </span>
+      </div>
+
+      <form onSubmit={handleSubmit} className="mx-6">
         <div className="w-1/2 m-auto my-1">
           {Object.keys(mensaje).length > 0 && (
             <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>
@@ -86,22 +101,8 @@ useEffect(() => {
           <h4 className="text-turquesa-fuerte font-titulos font-semibold">
             Detalle del paciente
           </h4>
-          {/* <Buscador /> */}
 
-          <div className="mx-6 my-6 grid grid-cols-2 gap-x-10">
-            <div>
-              <label className="text-sm font-semibold" htmlFor="idDoctor">
-                ID del doctor
-              </label>
-              <input
-                className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
-                id="idDoctor"
-                type="text"
-                name="idDoctor"
-                value={form.idDoctor}
-                readOnly
-              />
-            </div>
+          <div className="my-5 grid grid-cols-2 gap-x-10">
             <div>
               <label className="text-sm font-semibold" htmlFor="idPaciente">
                 ID del paciente
@@ -115,6 +116,12 @@ useEffect(() => {
                 onChange={handleChange}
               />
             </div>
+            <div className="overflow-y-scroll px-3 h-40">
+              <label className="text-sm font-semibold" htmlFor="idPaciente">
+                Selecciona a un paciente
+              </label>
+              <TablaAgendar pacienteSeleccionado={setearIDPaciete} />
+            </div>
           </div>
         </div>
 
@@ -123,7 +130,7 @@ useEffect(() => {
             Detalle de la cita
           </h4>
 
-          <div className="mx-6 mt-3 mb-5 grid grid-cols-2 gap-x-10">
+          <div className="mt-3 mb-5 grid grid-cols-2 gap-x-10">
             <div>
               <label className="text-sm font-semibold" htmlFor="start">
                 Fecha y hora de inicio
