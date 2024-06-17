@@ -8,14 +8,8 @@ import logoWhats from "../assets/iconos/whatsapp.png";
 
 const LandingPage = () => {
   const secInicio = useRef();
-  const secServicios = useRef();
-  const secOpiniones = useRef();
-  const secContactos = useRef();
 
   const irInicio = () => secInicio.current.scrollIntoView();
-  const irServicios = () => secServicios.current.scrollIntoView();
-  const irOpiniones = () => secOpiniones.current.scrollIntoView();
-  const irContactos = () => secContactos.current.scrollIntoView();
 
   return (
     <>
@@ -57,7 +51,7 @@ const LandingPage = () => {
             </h3>
           </div>
           <div className="flex items-center m-16 md:m-12">
-            <p className="pr-20 md:pr-56 text-sm text-turquesa-fuerte md:text-base leading-5 text-center">
+            <div className="pr-20 md:pr-56 text-sm text-turquesa-fuerte md:text-base leading-5 text-center">
               Somos un Centro Terapeutico con especialidades en:
               <ul className="text-center">
                 <li>Quiropraxia Inka</li>
@@ -76,7 +70,7 @@ const LandingPage = () => {
               <br />
               Nuestro eslogan principal es: <br />
               <strong className="font-titulos">Manos que curan con Amor</strong>
-            </p>
+            </div>
             <img
               src={equipoTO}
               width={250}
@@ -92,12 +86,6 @@ const LandingPage = () => {
           <div className="my-8 md:text-base text-sm flex justify-center flex-col items-center md:flex-row md:my-16">
             <div className="flex flex-col justify-center py-6 px-8 h-60 text-center mx-8 my-6 bg-turquesa-100 md:w-1/5 w-1/2 md:h-96">
               <p className="font-titulos  font-semibold">Quiropraxia Inka</p>
-              {/* <p className="pt-4">
-                Tratamiento fundado por el Dr. Ivan Reyna Mercado. Se basa en un
-                tratamiento integral no intrusivo de ajustes al sistema
-                Oseo-Muscular que permite mejorar radicalmente la calidad de
-                vida de las personas.
-              </p> */}
               <ul className="md:pt-3 leading-8">
                 <li>Hernias de disco cervical y lumbar</li>
                 <li>Lumbalgias</li>
@@ -121,16 +109,6 @@ const LandingPage = () => {
               <p className="font-titulos font-semibold">
                 Praxis vertebral tibetana
               </p>
-              {/* <p>
-                Método manual aplicado en la columna, basado en una Técnica
-                Oriental Tibetana milenaria. Un precursor llamado Yhom Thanm
-                Mnegom Po coincidió con la afirmación que luego hiciera
-                Hipócrates (padre de la medicina) aseverando que en la columna
-                vertebral se encontraba la raíz de casi todas las enfermedades.
-                En Argentina el Dr. Pistacchia corroboró la eficacia de dicho
-                método, fundando en 2000 el Centro de estudios e investigación
-                Praxis Vertebral.
-              </p> */}
               <ul className="md:pt-3 leading-8">
                 <li>Rectificación cervical</li>
                 <li>Estrechamiento de canal lumbar</li>
@@ -223,18 +201,9 @@ const LandingPage = () => {
               <p>Sábados de 11:00am a 18:00pm</p>
             </div>
           </div>
-          <ul className="text-center text-blanco leading-7 md:text-base text-sm font-medium">
+          <ul className="text-center text-blanco leading-7 md:text-base text-sm font-medium flex flex-col justify-center">
             <li onClick={irInicio} className="cursor-pointer">
               Inicio
-            </li>
-            <li onClick={irServicios} className="cursor-pointer">
-              Servicios
-            </li>
-            <li onClick={irOpiniones} className="cursor-pointer">
-              Opiniones
-            </li>
-            <li onClick={irContactos} className="cursor-pointer">
-              Contáctanos
             </li>
             <li>
               <Link to="/inicioSesion">Iniciar Sesión</Link>
