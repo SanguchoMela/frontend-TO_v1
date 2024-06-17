@@ -79,7 +79,7 @@ const LandingPage = () => {
           </div>
         </section>
         {/* Servicios */}
-        <section ref={secServicios}>
+        <section>
           <div className="w-80 text-blanco md:text-lg text-base font-titulos font-semibold bg-turquesa-300 rounded-r-lg flex justify-center">
             <p className="py-3">Servicios</p>
           </div>
@@ -121,7 +121,7 @@ const LandingPage = () => {
           </div>
         </section>
         {/* Opiniones */}
-        <section ref={secOpiniones}>
+        <section>
           <div className="w-80 text-blanco md:text-lg text-base font-titulos font-semibold bg-turquesa-300 rounded-r-lg flex justify-center">
             <p className="py-3">Opiniones</p>
           </div>
@@ -160,7 +160,7 @@ const LandingPage = () => {
           </div>
         </section>
         {/* Contactos */}
-        <section ref={secContactos}>
+        <section>
           <div className="w-80 text-blanco md:text-lg text-base font-titulos font-semibold bg-turquesa-300 rounded-r-lg flex justify-center">
             <p className="py-3">Contactos</p>
           </div>
