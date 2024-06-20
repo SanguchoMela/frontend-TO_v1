@@ -12,10 +12,10 @@ const CardPerfil = ({
   return (
     <>
       <div className="relative h-72 my-8">
-        <div className="h-full bg-turquesa-100 rounded-xl rounded-tr-3xl">
-          <div className="absolute w-48 h-48 -top-8 -right-5 bg-blanco border-2 border-turquesa-300 rounded-full">
+        <div className="h-full bg-turquesa-100 rounded-xl">
+          {/* <div className="absolute w-48 h-48 -top-8 -right-5 bg-blanco border-2 border-turquesa-300 rounded-full">
             <img src="" alt="" />
-          </div>
+          </div> */}
           <div className="absolute inset-0 flex flex-col justify-center px-8 leading-7">
             <p>
               <strong>Nombre: </strong>{nombre} {apellido}
