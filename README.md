@@ -18,6 +18,8 @@ Las funciones exclusivas para el rol doctor son:
 - Ver a los pacientes registrados en el centro
 - Gestión de registros médicos (crear, ver y actualizar registros)
 
+**Despliegue:** https://termooasis.netlify.app/
+
 ## Tecnologías usadas en el proyecto 
 
 | Tecnología       | Descripción                        | Ícono |
