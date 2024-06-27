@@ -22,13 +22,13 @@ Las funciones exclusivas para el rol doctor son:
 
 ## Tecnologías usadas en el proyecto 
 
-| Tecnología       | Descripción                        | Ícono |
-|------------------|------------------------------------|-------|
-| **Git**          | Sistema de control de versiones    | Alt   |
-| **Node.js**      | Entorno de ejecución de JavaScript | Alt   |
-| **JavaScript**   | Lenguaje de programación           | Alt   |
-| **React**        | Framework de JavaScript            | Alt   |
-| **Tailwind CSS** | Framework de CSS                   | Alt   |
+| Tecnología       | Descripción                        | Ícono                                                                                                                                     |
+|------------------|------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
+| **Git**          | Sistema de control de versiones    | <p align="center"><img src="https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png" width="80px"></p>                              |
+| **Node.js**      | Entorno de ejecución de JavaScript | <p align="center"><img src="https://www.positronx.io/wp-content/uploads/2022/04/17053-01.jpg" width="100px"></p>                          |
+| **JavaScript**   | Lenguaje de programación           | <p align="center"><img src="https://th.bing.com/th/id/OIP.I5XOh9o_kbTNsXnsIc53aAHaHa?rs=1&pid=ImgDetMain" width="70px"></p>               |
+| **React**        | Framework de JavaScript            | <p align="center"><img src="https://th.bing.com/th/id/OIP.VKEOM0WYU3EMGnR9wIPX9AHaHa?w=1000&h=1000&rs=1&pid=ImgDetMain" width="80px"></p> |
+| **Tailwind CSS** | Framework de CSS                   | <p align="center"><img src="https://cdn.sanity.io/images/f9ggxyof/production/92bfda9df5caa5735f2dc5d47b1edad318c68a96-2240x1260.png?auto=format" width="120px"></p> |
 
 ## Ejecución 
 
