@@ -17,7 +17,7 @@ const Formulario = () => {
     estadoCivil: "",
     direccion: "",
     telefono: "",
-    contraseña: "",
+    contrasenia: "",
     isPaciente: "true",
   });
 
@@ -203,7 +203,7 @@ const Formulario = () => {
               type="password"
               placeholder="Ingresa tu contraseña"
               name="contraseña"
-              value={form.contraseña || ""}
+              value={form.contrasenia || ""}
               onChange={handleChange}
               className="py-2 pl-2 block w-full border border-turquesa-fuerte rounded-l-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
             />
