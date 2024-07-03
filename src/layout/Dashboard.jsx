@@ -73,7 +73,8 @@ const Dashboard = () => {
                   <li className="py-2">
                     <div
                       className={`${
-                        urlActual === "/dashboard/citas"
+                        urlActual === "/dashboard/citas" ||
+                        urlActual === "/dashboard/agendarCita" 
                           ? "py-3 bg-turquesa-fuerte font-semibold"
                           : ""
                       }`}
