@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import TitulosOutlet from "../components/Estilos/TitulosOutlet";
 import Mensaje from "../components/Alertas/Mensaje";
@@ -12,10 +12,11 @@ const AgendarCita = () => {
   const [mensaje, setMensaje] = useState({});
   const [fechaMinima, setFechaMinima] = useState("");
   const { rol } = useContext(AuthContext);
+  const titulo = useRef(null);
 
-  let isAutorizado = '';
+  let isAutorizado = "";
 
-  if (rol === 'Secretaria') {
+  if (rol === "Secretaria") {
     isAutorizado = true;
   }
 
@@ -39,9 +40,9 @@ const AgendarCita = () => {
     let fin = form.end;
 
     if (name === "start") {
-      const start = e.target.value
+      const start = e.target.value;
       const inicio = moment(start).format("YYYY-MM-DDTHH:mm");
-      fin = moment(inicio).add(1, 'hours').format("YYYY-MM-DDTHH:mm");
+      fin = moment(inicio).add(1, "hours").format("YYYY-MM-DDTHH:mm");
     }
     setForm({
       ...form,
@@ -78,6 +79,8 @@ const AgendarCita = () => {
         setMensaje({});
         window.location.reload();
       }, 3000);
+    } finally {
+      irTitulo();
     }
   };
 
@@ -89,6 +92,13 @@ const AgendarCita = () => {
       idPaciente: "",
       idDoctor: "66136ac2e2bb69d9e5a225fb",
     });
+    irTitulo();
+  };
+
+  const irTitulo = () => {
+    if (titulo.current) {
+      titulo.current.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   useEffect(() => {
@@ -99,6 +109,7 @@ const AgendarCita = () => {
 
   return (
     <>
+      <div ref={titulo}></div>
       <TitulosOutlet titulo="Agendamiento de citas" />
 
       <div className="my-2 w-full text-center">
@@ -108,88 +119,91 @@ const AgendarCita = () => {
         </span>
       </div>
 
-      <form onSubmit={handleSubmit} className="mx-6">
-        <div className="w-1/2 m-auto my-1">
+      <form onSubmit={handleSubmit} className="md:h-min h-4/5">
+        <div className="w-2/3 md:w-1/2 m-auto my-1">
           {Object.keys(mensaje).length > 0 && (
             <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>
           )}
         </div>
 
-        <div>
-          <h4 className="text-turquesa-fuerte font-titulos font-semibold">
-            Detalle del paciente
-          </h4>
+        <div className="flex justify-around gap-x-10 mx-6 my-3 flex-wrap md:flex-nowrap">
+          <div className="w-full">
+            <h4 className="text-turquesa-fuerte font-titulos font-semibold">
+              Detalle del paciente
+            </h4>
 
-          <div className="my-5 grid grid-cols-2 gap-x-10">
-            <div>
-              <label className="text-sm font-semibold" htmlFor="idPaciente">
-                ID del paciente
-              </label>
-              <input
-                className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
-                id="idPaciente"
-                type="text"
-                name="idPaciente"
-                value={form.idPaciente}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="overflow-y-scroll px-3 h-40">
-              <label className="text-sm font-semibold" htmlFor="idPaciente">
-                Selecciona a un paciente
-              </label>
-              <TablaAgendar pacienteSeleccionado={setearIDPaciete} />
+            <div className="mt-2">
+              <div>
+                <label className="text-sm font-semibold" htmlFor="idPaciente">
+                  ID del paciente
+                </label>
+                <input
+                  className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
+                  id="idPaciente"
+                  type="text"
+                  name="idPaciente"
+                  value={form.idPaciente}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="mt-1">
+                <label className="text-sm font-semibold" htmlFor="idPaciente">
+                  Selecciona a un paciente
+                </label>
+                <div className="overflow-y-scroll h-44 mb-5">
+                  <TablaAgendar pacienteSeleccionado={setearIDPaciete} />
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+          <div className="w-full">
+            <h4 className="text-turquesa-fuerte font-titulos font-semibold">
+              Detalle de la cita
+            </h4>
 
-        <div>
-          <h4 className="text-turquesa-fuerte font-titulos font-semibold">
-            Detalle de la cita
-          </h4>
-
-          <div className="mt-3 mb-5 grid grid-cols-2 gap-x-10">
-            <div>
-              <label className="text-sm font-semibold" htmlFor="start">
-                Fecha y hora de inicio
-              </label>
-              <input
-                className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
-                id="start"
-                type="datetime-local"
-                min={fechaMinima}
-                name="start"
-                value={form.start}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <label className="text-sm font-semibold" htmlFor="end">
-                Fecha y hora de fin
-              </label>
-              <input
-                className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
-                id="end"
-                type="datetime-local"
-                min={fechaMinima}
-                name="end"
-                value={form.end}
-                onChange={handleChange}
-                disabled
-              />
-            </div>
-            <div className="mt-1">
-              <label className="text-sm font-semibold" htmlFor="comentarios">
-                Comentarios
-              </label>
-              <textarea
-                className="block w-full p-2 border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
-                name="comentarios"
-                // placeholder="Ingresa un comentario solo si es necesario"
-                id="comentarios"
-                value={form.comentarios || ""}
-                onChange={handleChange}
-              ></textarea>
+            <div className="mt-2 mb-5">
+              <div>
+                <label className="text-sm font-semibold" htmlFor="start">
+                  Fecha y hora de inicio
+                </label>
+                <input
+                  className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
+                  id="start"
+                  type="datetime-local"
+                  min={fechaMinima}
+                  name="start"
+                  value={form.start}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="mt-1">
+                <label className="text-sm font-semibold" htmlFor="end">
+                  Fecha y hora de fin
+                </label>
+                <input
+                  className="p-2 w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
+                  id="end"
+                  type="datetime-local"
+                  min={fechaMinima}
+                  name="end"
+                  value={form.end}
+                  onChange={handleChange}
+                  disabled
+                />
+              </div>
+              <div className="mt-1">
+                <label className="text-sm font-semibold" htmlFor="comentarios">
+                  Comentarios
+                </label>
+                <textarea
+                  className="block w-full p-2 border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
+                  name="comentarios"
+                  // placeholder="Ingresa un comentario solo si es necesario"
+                  id="comentarios"
+                  value={form.comentarios || ""}
+                  onChange={handleChange}
+                ></textarea>
+              </div>
             </div>
           </div>
         </div>
