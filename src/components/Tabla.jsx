@@ -11,10 +11,14 @@ const Tabla = () => {
   const [mensaje, setMensaje] = useState({});
   const [pacientes, setPacientes] = useState([]);
   const [pacientesFiltrados, setPacientesFiltrados] = useState([]);
+  const { rol } = useContext(AuthContext);
 
   console.log(pacientesFiltrados);
 
-  const { rol } = useContext(AuthContext);
+  let isSecre = ''
+  if (rol === "Secretaria") {
+    isSecre = 'true'
+  }
 
   const listarPacientes = async () => {
     try {
@@ -25,6 +29,7 @@ const Tabla = () => {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
+          isSecre: isAutorizado,
         },
       };
       // Respuesta del endpoint
@@ -46,10 +51,6 @@ const Tabla = () => {
     }
   };
 
-  useEffect(() => {
-    listarPacientes();
-  }, []);
-
   const handleEliminarPaciente = async (id) => {
     try {
       // Ventana de confirmación del navegador
@@ -65,6 +66,7 @@ const Tabla = () => {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
+            isSecre: isSecre
           },
         };
         // Respuesta del endpoint
@@ -84,6 +86,14 @@ const Tabla = () => {
       }, 3000);
     }
   };
+
+  let isAutorizado = "";
+  useEffect(() => {
+    if (rol === "Secretaria" || rol === "Doctor") {
+      isAutorizado = "true";
+      listarPacientes();
+    }
+  }, [rol]);
 
   return (
     <>

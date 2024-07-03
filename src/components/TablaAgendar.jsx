@@ -1,12 +1,14 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AiOutlineSelect } from "react-icons/ai";
 import Buscador from "./Modals/Buscador";
+import AuthContext from "../context/AuthProvider";
 
 const TablaAgendar = ({ pacienteSeleccionado }) => {
   const [pacientes, setPacientes] = useState([]);
   const [pacientesFiltrados, setPacientesFiltrados] = useState([]);
   const [search, setSearch] = useState("");
+  const { rol } = useContext(AuthContext);
 
   const obtenerPacientes = async () => {
     try {
@@ -17,6 +19,7 @@ const TablaAgendar = ({ pacienteSeleccionado }) => {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
+          isSecre: isAutorizado
         },
       };
       // Respuesta del endpoint
@@ -43,9 +46,13 @@ const TablaAgendar = ({ pacienteSeleccionado }) => {
     pacienteSeleccionado(idPaciente);
   };
 
+  let isAutorizado = "";
   useEffect(() => {
-    obtenerPacientes();
-  }, []);
+    if (rol === "Secretaria" || rol === "Doctor") {
+      isAutorizado = "true";
+      obtenerPacientes();
+    }
+  }, [rol]);
 
   return (
     <div className="flex flex-col">

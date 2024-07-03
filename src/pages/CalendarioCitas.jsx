@@ -1,15 +1,17 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Calendario from "../components/Calendario/Calendario";
 import TitulosOutlet from "../components/Estilos/TitulosOutlet";
 import Mensaje from "../components/Alertas/Mensaje";
 import ModalCita from "../components/Modals/ModalCita";
+import AuthContext from "../context/AuthProvider";
 
 const CalendarioCitas = () => {
   const [mensaje, setMensaje] = useState({});
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
+  const { rol } = useContext(AuthContext);
 
   const mostrarCitas = async () => {
     try {
@@ -20,6 +22,7 @@ const CalendarioCitas = () => {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
+          isSecre: isAutorizado,
         },
       };
       // Respuesta del endpoint
@@ -35,6 +38,7 @@ const CalendarioCitas = () => {
         start: new Date(cita.start),
         end: new Date(cita.end),
       }));
+      console.log(citas[2]._id)
       // Guardar los eventos formateados en el estado
       setEvents(citasFormateadas);
     } catch (error) {
@@ -46,9 +50,13 @@ const CalendarioCitas = () => {
     }
   };
 
+  let isAutorizado = ''
   useEffect(() => {
-    mostrarCitas();
-  }, []);
+    if (rol === "Secretaria" || rol === "Doctor") {
+      isAutorizado = 'true';
+      mostrarCitas();
+    }
+  }, [rol]);
 
   const handleEventClick = (event) => {
     setSelectedEvent(event); // Al hacer clic en una cita, establece el estado de la cita seleccionada

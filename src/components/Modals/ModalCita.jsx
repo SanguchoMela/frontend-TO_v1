@@ -17,6 +17,11 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
   const [fechaMinima, setFechaMinima] = useState("");
   const navigate = useNavigate();
 
+  let isSecre = "";
+  if (rol === "Secretaria") {
+    isSecre = "true";
+  }
+
   const mostrarCitaId = async () => {
     try {
       // Endpoint del backend
@@ -26,6 +31,7 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
         headers: {
           "Content-Type": "aplication/json",
           Authorization: `Bearer ${token}`,
+          isSecre: isAutorizado,
         },
       };
       const response = await axios.get(url, options);
@@ -54,10 +60,11 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
+            isSecre: isSecre
           },
         };
         // Respuesta del endpoint
-        const response = await axios.post(url, {}, options);
+        const response = await axios.put(url, {}, options);
         // Mensaje de confirmación y cierre de modal
         setMensaje({ respuesta: response.data.msg, tipo: true });
         setTimeout(() => {
@@ -140,17 +147,21 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
     setEditable(true);
   };
 
+  let isAutorizado = ''
   // Se muestra el modal si las condiciones cambian
   useEffect(() => {
     // Verifica el modal abierto e ID válido
-    if (isOpen && idCita) {
-      mostrarCitaId();
-      const fechaHoy = new Date();
-      const fechaFormateada = fechaHoy.toISOString().slice(0, 16);
-      setFechaMinima(fechaFormateada);
+    if (rol === "Secretaria" || rol === "Doctor") {
+      isAutorizado = 'true'
+      if (isOpen && idCita) {
+        mostrarCitaId();
+        const fechaHoy = new Date();
+        const fechaFormateada = fechaHoy.toISOString().slice(0, 16);
+        setFechaMinima(fechaFormateada);
+      }
     }
     // Efecto cuando las dependencias cambian
-  }, [isOpen, idCita]);
+  }, [rol, isOpen, idCita]);
 
   const customStyles = {
     content: {

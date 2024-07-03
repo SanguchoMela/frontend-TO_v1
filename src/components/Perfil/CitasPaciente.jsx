@@ -23,11 +23,12 @@ const CitasPaciente = () => {
       // Endpoint del backend
       const token = localStorage.getItem("token");
       const url = `${
-        import.meta.env.VITE_BACKEND_URL}/citas/mostrar-por-paciente/${id}`;
+        import.meta.env.VITE_BACKEND_URL}/citas/paciente/${id}`;
       const options = {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
+          isDoctor: isAutorizado,
         },
       };
       // Respuesta del endpoint
@@ -52,9 +53,13 @@ const CitasPaciente = () => {
     }
   };
 
+  let isAutorizado = "";
   useEffect(() => {
-    verCitasPaciente();
-  }, [id]);
+    if (rol === "Secretaria" || rol === "Doctor") {
+      isAutorizado = 'true'
+      verCitasPaciente();
+    }
+  }, [rol,id]);
 
   const handleAbrirModalCrear = (cita) => {
     event.preventDefault();

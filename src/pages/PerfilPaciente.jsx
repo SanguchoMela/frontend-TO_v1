@@ -2,42 +2,50 @@ import Mensaje from "../components/Alertas/Mensaje";
 import CardPerfil from "../components/Perfil/CardPerfil";
 import TitulosOutlet from "../components/Estilos/TitulosOutlet";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import CitasPaciente from "../components/Perfil/CitasPaciente";
+import AuthContext from "../context/AuthProvider";
 
 const PerfilPaciente = () => {
   const { id } = useParams();
   const [paciente, setPaciente] = useState(null);
   const [mensaje, setMensaje] = useState({});
+  const { rol } = useContext(AuthContext);
 
+  const verPaciente = async () => {
+    try {
+      // Endpoint del backend
+      const token = localStorage.getItem("token");
+      const url = `${import.meta.env.VITE_BACKEND_URL}/detallePaciente/${id}`;
+      const options = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          isSecre: isAutorizado,
+        },
+      };
+      // Respuesta del endpoint
+      const response = await axios.get(url, options);
+      // Guardar la información del paciente en el estado
+      setPaciente(response.data.paciente);
+    } catch (error) {
+      // Manejo y muestra de errores
+      setMensaje({ respuesta: error.response.paciente.msg, tipo: false });
+      setTimeout(() => {
+        setMensaje({});
+      }, 3000);
+    }
+  };
+
+  let isAutorizado = "";
   // Efecto al mostrar el componente
   useEffect(() => {
-    const verPaciente = async () => {
-      try {
-        // Endpoint del backend
-        const token = localStorage.getItem("token");
-        const url = `${import.meta.env.VITE_BACKEND_URL}/detallePaciente/${id}`;
-        const options = {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        };
-        // Respuesta del endpoint
-        const response = await axios.get(url, options);
-        // Guardar la información del paciente en el estado
-        setPaciente(response.data.paciente);
-      } catch (error) {
-        // Manejo y muestra de errores
-        setMensaje({ respuesta: error.response.paciente.msg, tipo: false });
-        setTimeout(() => {
-          setMensaje({})
-        }, 3000);
-      }
-    };
-    verPaciente();
-  }, [id]);
+    if (rol === "Secretaria" || rol === "Doctor") {
+      isAutorizado = "true";
+      verPaciente();
+    }
+  }, [rol, id]);
 
   const opciones = {
     year: "numeric",

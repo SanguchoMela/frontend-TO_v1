@@ -1,22 +1,30 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import TitulosOutlet from "../components/Estilos/TitulosOutlet";
 import Mensaje from "../components/Alertas/Mensaje";
 import TablaAgendar from "../components/TablaAgendar";
 import moment from "moment";
+import AuthContext from "../context/AuthProvider";
 
 const AgendarCita = () => {
   const navigate = useNavigate();
   const [mensaje, setMensaje] = useState({});
   const [fechaMinima, setFechaMinima] = useState("");
+  const { rol } = useContext(AuthContext);
+
+  let isAutorizado = '';
+
+  if (rol === 'Secretaria') {
+    isAutorizado = true;
+  }
 
   const [form, setForm] = useState({
     start: "",
     end: "",
     comentarios: "",
     idPaciente: "",
-    idDoctor: "66136ac2e2bb69d9e5a225fb",
+    idDoctor: import.meta.env.ID_DOCTOR,
   });
 
   const setearIDPaciete = (idPaciente) => {
@@ -52,6 +60,7 @@ const AgendarCita = () => {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
+          isSecre: isAutorizado.toString(),
         },
       };
       // Datos del formulario al endpont

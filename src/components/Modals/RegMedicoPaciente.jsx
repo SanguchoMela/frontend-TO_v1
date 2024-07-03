@@ -2,6 +2,8 @@ import axios from "axios";
 import Modal from "react-modal";
 import { useEffect, useRef, useState } from "react";
 import Mensaje from "../Alertas/Mensaje";
+import { useContext } from "react";
+import AuthContext from "../../context/AuthProvider";
 
 Modal.setAppElement("#root");
 
@@ -12,16 +14,25 @@ const RegMedicoModal = ({ isOpen, onClose, idCita }) => {
   const [editable, setEditable] = useState(false);
   const [regActualizado, setRegActualizado] = useState({});
   const [idRegMedico, setIdRegMedico] = useState(null);
+  const { rol } = useContext(AuthContext);
+
+  let isDoctor = "";
+  if (rol === "Doctor") {
+    isDoctor = "true";
+  }
 
   const verRegMedico = async () => {
     try {
       // Endpoint del backend
       const token = localStorage.getItem("token");
-      const url = `${import.meta.env.VITE_BACKEND_URL}/registroMedico/${idCita}`;
+      const url = `${
+        import.meta.env.VITE_BACKEND_URL
+      }/registroMedico/${idCita}`;
       const options = {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
+          isDoctor: isDoctor,
         },
       };
       // Guardar la respuesta del endpoint en una variable
@@ -43,11 +54,13 @@ const RegMedicoModal = ({ isOpen, onClose, idCita }) => {
     try {
       // Endpoint del backend
       const token = localStorage.getItem("token");
-      const url = `${import.meta.env.VITE_BACKEND_URL}/registroMedico/editar/${idRegMedico}`;
+      const url = `${
+        import.meta.env.VITE_BACKEND_URL}/registroMedico/editar/${idRegMedico}`;
       const options = {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
+          isDoctor: isDoctor,
         },
       };
       // Datos actualizados al endpoint
@@ -124,6 +137,7 @@ const RegMedicoModal = ({ isOpen, onClose, idCita }) => {
     irTitulo();
   };
 
+  let isAutorizado = "";
   useEffect(() => {
     if (isOpen) {
       verRegMedico();

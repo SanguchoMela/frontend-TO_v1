@@ -2,12 +2,20 @@ import axios from "axios";
 import Modal from "react-modal";
 import { useEffect, useRef, useState } from "react";
 import Mensaje from "../Alertas/Mensaje";
+import { useContext } from "react";
+import AuthContext from "../../context/AuthProvider";
 
 Modal.setAppElement("#root");
 
 const CrearRegMedicoModal = ({ isOpen, onClose, datosCita }) => {
   const [mensaje, setMensaje] = useState({});
   const titulo = useRef(null);
+  const { rol } = useContext(AuthContext);
+
+  let isDoctor = "";
+  if (rol === "Doctor") {
+    isDoctor = "true";
+  }
 
   console.log(datosCita);
 
@@ -84,6 +92,7 @@ const CrearRegMedicoModal = ({ isOpen, onClose, datosCita }) => {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
+          isDoctor: isDoctor
         },
       };
       // Enviar datos del formulario al endpoint
