@@ -17,7 +17,7 @@ const Buscador = ({ pacientes, setPacientesFiltrados, onSearchChange }) => {
 
   return (
     <>
-      <div className="my-2 flex justify-center">
+      <div className="mb-2 mt-1 flex justify-center">
         <input
           className="w-full py-2 pl-2 border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
           id="buscador"

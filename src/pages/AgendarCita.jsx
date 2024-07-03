@@ -147,10 +147,10 @@ const AgendarCita = () => {
                 />
               </div>
               <div className="mt-1">
-                <label className="text-sm font-semibold" htmlFor="idPaciente">
-                  Selecciona a un paciente
-                </label>
-                <div className="overflow-y-scroll h-44 mb-5">
+                <p className="text-sm font-semibold" htmlFor="idPaciente">
+                  Busca el ID del paciente por su cédula
+                </p>
+                <div className="overflow-y-scroll h-44 mb-5 pr-1">
                   <TablaAgendar pacienteSeleccionado={setearIDPaciete} />
                 </div>
               </div>
