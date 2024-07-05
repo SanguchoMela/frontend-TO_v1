@@ -14,7 +14,7 @@ const InicioSesion = () => {
 
   const [form, setForm] = useState({
     email: "",
-    contraseña: "",
+    password: "",
   });
 
   const handleChange = (e) => {
@@ -29,7 +29,7 @@ const InicioSesion = () => {
 
     const formData = new FormData(event.currentTarget);
     const email = formData.get("email");
-    const password = formData.get("contraseña");
+    const password = formData.get("password");
 
     try {
       await login(email, password);
@@ -74,8 +74,8 @@ const InicioSesion = () => {
                   <input
                     type={showPass ? "text" : "password"}
                     placeholder="Ingresa tu contraseña"
-                    name="contraseña"
-                    value={form.contraseña || ""}
+                    name="password"
+                    value={form.password || ""}
                     onChange={handleChange}
                     className="py-2 pl-2 block w-full border border-turquesa-fuerte rounded-l-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
                   />

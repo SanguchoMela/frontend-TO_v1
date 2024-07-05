@@ -18,7 +18,7 @@ const Formulario = () => {
     estadoCivil: "",
     direccion: "",
     telefono: "",
-    contrasenia: "",
+    password: "",
     isPaciente: "true",
   });
 
@@ -79,7 +79,10 @@ const Formulario = () => {
 
   return (
     <>
-      <div ref={titulo} className="mt-2 w-full text-center text-turquesa-fuerte">
+      <div
+        ref={titulo}
+        className="mt-2 w-full text-center text-turquesa-fuerte"
+      >
         <span>Ingresa los datos del paciente que desees registrar</span>
       </div>
       <div className="md:w-1/2 w-2/3 m-auto mt-2 mb-5">
@@ -229,8 +232,8 @@ const Formulario = () => {
                 <input
                   type="password"
                   placeholder="Ingresa tu contraseña"
-                  name="contraseña"
-                  value={form.contrasenia || ""}
+                  name="password"
+                  value={form.password || ""}
                   onChange={handleChange}
                   className="py-2 pl-2 block w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
                 />

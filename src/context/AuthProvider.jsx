@@ -18,11 +18,11 @@ const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  const login = async (email, contraseña) => {
+  const login = async (email, password) => {
     try {
       // Endpoint del backend
       const url = `${import.meta.env.VITE_BACKEND_URL}/login`;
-      const response = await axios.post(url,{ email, contraseña });
+      const response = await axios.post(url, { email, password });
       const userData = response.data;
       // Autorizar el inicio de sesión según rol y otorgar funciones 
       if (response.data.isSecre) {

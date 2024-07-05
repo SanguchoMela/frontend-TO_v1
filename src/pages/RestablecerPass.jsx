@@ -17,8 +17,8 @@ const RestablecerPass = () => {
   const [showConfirmPass, setShowConfirmPass] = useState(false);
 
   const [form, setForm] = useState({
-    contraseña: "",
-    confirmContraseña: "",
+    password: "",
+    confirmPassword: "",
   });
 
   const handleChange = (e) => {
@@ -108,8 +108,8 @@ const RestablecerPass = () => {
                     <input
                       type={showPass ? "text" : "password"}
                       placeholder="Ingresa tu contraseña nueva"
-                      value={form.contraseña || ""}
-                      name="contraseña"
+                      value={form.password || ""}
+                      name="password"
                       onChange={handleChange}
                       className="py-2 pl-2 block w-full border border-turquesa-fuerte rounded-l-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
                     />
@@ -126,8 +126,8 @@ const RestablecerPass = () => {
                     <input
                       type={showConfirmPass ? "text" : "password"}
                       placeholder="Confirma tu contraseña nueva"
-                      value={form.confirmContraseña || ""}
-                      name="confirmContraseña"
+                      value={form.confirmPassword || ""}
+                      name="confirmPassword"
                       onChange={handleChange}
                       className=" py-2 pl-2 block w-full border border-turquesa-fuerte rounded-l-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
                     />
