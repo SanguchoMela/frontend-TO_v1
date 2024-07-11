@@ -28,20 +28,39 @@ const LandingPage = () => {
           </ul>
           <ul className="flex items-center text-blanco font-semibold text-xs">
             <li>
-              <Link
-                to="/inicioSesion"
-                className="bg-naranja px-5 py-2 rounded-xl md:text-base"
-              >
-                Iniciar Sesión
-              </Link>
+              <button className="bg-naranja px-5 py-2 pl-3 rounded-xl md:text-base flex items-center overflow-hidden transition-all duration-200 hover:bg-opacity-90">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-box-arrow-in-right"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"
+                  />
+                </svg>
+                <span className="ml-3">
+                  <Link to="/inicioSesion">Iniciar Sesión</Link>{" "}
+                </span>
+              </button>
             </li>
           </ul>
         </nav>
       </header>
-      <main className="bg-blanco">
+      <main>
         {/* Presentacion */}
-        <section ref={secInicio} className="h-screen grid place-content-center">
-          <div className="mt-14 text-center">
+        <section
+          ref={secInicio}
+          className="h-screen grid place-content-center mx-20 md:mx-0"
+        >
+          <div className="mt-12 md:mt-10 text-center">
             <div className="text-5xl text-stroke font-titulos font-bold flex justify-center md:text-6xl">
               <h2 className="px-2 text-verde-amarillo">Termo</h2>
               <h2 className="px-2 text-naranja">Oasis</h2>
@@ -50,30 +69,48 @@ const LandingPage = () => {
               Centro de terapias alternativas
             </h3>
           </div>
-          <div className="flex items-center m-16 md:m-12">
-            <div className="pr-20 md:pr-56 text-sm text-turquesa-fuerte md:text-base leading-5 text-center">
-              Somos un Centro Terapeutico con especialidades en:
-              <ul className="text-center">
-                <li>Quiropraxia Inka</li>
-                <li>TK Emocional</li>
-                <li>Praxis vertebral Tibetana</li>
-              </ul>
-              <br />
-              Tratamos problemas como:
-              <ul>
-                <li>Escoliosis</li>
-                <li>Saltalgias</li>
-                <li>Nervio Ciático</li>
-                <li>Estrés</li>
-                <li>Crecimiento en adolescentes o niños</li>
-              </ul>
-              <br />
-              Nuestro eslogan principal es: <br />
-              <strong className="font-titulos">Manos que curan con Amor</strong>
+          <div className="flex flex-row justify-evenly items-center mt-10 gap-16 md:mt-14 md:gap-32">
+            <div className="flex flex-col">
+              <p className="text-xl text-turquesa-500 font-titulos font-semibold md:text-2xl">
+                Manos que curan con amor
+              </p>
+              <div className="text-sm text-turquesa-500 md:text-base mt-3">
+                Somos un Centro Terapeutico que se especializa en:
+                <br />
+                Quiropraxia Inka, TK Emocional y Praxis vertebral Tibetana,
+                <br />
+                para tratar problemas como:
+                <br />
+                escoliosis, saltalgias, nervio ciático, estrés <br />y
+                crecimiento en adolescentes y niños.
+              </div>
+              <div className="my-6 md:text-base text-sm text-turquesa-500">
+                <p className="font-semibold">
+                  Necesitas tener a mano la información de tus citas?
+                </p>
+                <p className="">
+                  Descarga nuestra aplicación movil y permanece <br /> cerca de
+                  nosotros
+                </p>
+                <button className="mt-2 px-5 py-2 text-center text-blanco font-bold bg-naranja rounded-xl hover:bg-opacity-90 flex items-center md:text-base text-xs">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-download"
+                    viewBox="0 0 16 16"
+                  >
+                    <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5" />
+                    <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z" />
+                  </svg>
+                  <span className="ml-3">Descargar</span>
+                </button>
+              </div>
             </div>
             <img
               src={equipoTO}
-              width={250}
+              width={200}
               className="rounded-xl md:w-96"
             ></img>
           </div>
