@@ -46,10 +46,10 @@ const InicioSesion = () => {
       <div className="w-1/2 h-screen flex justify-center items-center">
         <div className="w-full md:w-1/2">
           {error && <Mensaje tipo={mensaje.tipo}>{error}</Mensaje>}
-          <h1 className="py-4 text-lg text-center font-titulos font-bold">
+          <h1 className="py-4 md:text-lg text-center font-titulos font-bold">
             Iniciar Sesión
           </h1>
-          <div className="px-8 py-7 border border-turquesa-fuerte shadow-md shadow-turquesa-fuerte">
+          <div className="min-width px-8 py-7 border border-turquesa-fuerte shadow-md shadow-turquesa-fuerte">
             <p className="pb-4 text-turquesa-fuerte font-semibold">
               Ingresa a tu cuenta
             </p>
@@ -65,7 +65,7 @@ const InicioSesion = () => {
                   name="email"
                   value={form.email || ""}
                   onChange={handleChange}
-                  className="py-2 pl-2 block w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
+                  className="text-sm md:text-base py-2 pl-2 block w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
                 />
               </div>
               <div className="mt-1">
@@ -77,7 +77,7 @@ const InicioSesion = () => {
                     name="password"
                     value={form.password || ""}
                     onChange={handleChange}
-                    className="py-2 pl-2 block w-full border border-turquesa-fuerte rounded-l-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
+                    className="text-sm md:text-base py-2 pl-2 block w-full border border-turquesa-fuerte rounded-l-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
                   />
                   <div>
                     <VerPassword show={showPass} switchShow={setShowPass} />
@@ -90,7 +90,7 @@ const InicioSesion = () => {
                 </span>
               </div>
               <div>
-                <button className="py-2 w-full text-center text-blanco font-bold bg-turquesa-500 rounded-lg hover:bg-turquesa-fuerte">
+                <button className="py-2 w-full text-sm md:text-base text-center text-blanco font-bold bg-turquesa-500 rounded-lg hover:bg-turquesa-fuerte">
                   Ingresar
                 </button>
               </div>

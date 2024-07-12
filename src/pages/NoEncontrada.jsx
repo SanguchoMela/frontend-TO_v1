@@ -21,17 +21,17 @@ const NoEncontrada = () => {
         </nav>
       </header>
       <div className="w-1/2 h-screen flex justify-center items-center">
-        <div className="w-full md:w-1/2 px-8 py-6 border border-turquesa-fuerte shadow-md shadow-turquesa-fuerte">
-          <h1 className="text-lg text-center font-titulos font-semibold">
+        <div className="w-full md:w-1/2 px-8 py-6 min-width border border-turquesa-fuerte shadow-md shadow-turquesa-fuerte">
+          <h1 className="md:text-lg text-center font-titulos font-semibold">
             Página no encontrada
           </h1>
           <div className="py-3 flex justify-center">
-            <TiWarning className="text-turquesa-fuerte w-24 h-24" />
+            <TiWarning className="text-turquesa-fuerte md:w-24 md:h-24 w-16 h-16"/>
           </div>
-          <p className="text-center text-sm text-turquesa-fuerte font-medium">
+          <p className="text-center text-sm md:text-base text-turquesa-fuerte font-medium">
             Lo sentimos, la página que estás buscando no pudo ser encontrada
           </p>
-          <div className="mt-3 py-2 text-center text-blanco font-bold bg-turquesa-500 rounded-lg hover:bg-turquesa-fuerte">
+          <div className="mt-3 py-2 text-center text-sm md:text-base text-blanco font-bold bg-turquesa-500 rounded-lg hover:bg-turquesa-fuerte">
             <Link to="/">Volver al inicio</Link>
           </div>
         </div>

@@ -92,11 +92,11 @@ const RestablecerPass = () => {
             <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>
           )}
 
-          <h1 className="py-4 text-lg text-center font-titulos font-bold">
+          <h1 className="py-4 md:text-lg text-center font-titulos font-bold">
             Restablece tu contraseña
           </h1>
 
-          <div className="px-8 py-7 border border-turquesa-fuerte shadow-md shadow-turquesa-fuerte">
+          <div className="px-8 py-7 min-width border border-turquesa-fuerte shadow-md shadow-turquesa-fuerte">
             <div className="pb-2 flex justify-center">
               <img src={logoPass} width={100} />
             </div>
@@ -111,7 +111,7 @@ const RestablecerPass = () => {
                       value={form.password || ""}
                       name="password"
                       onChange={handleChange}
-                      className="py-2 pl-2 block w-full border border-turquesa-fuerte rounded-l-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
+                      className="text-sm md:text-base py-2 pl-2 block w-full border border-turquesa-fuerte rounded-l-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
                     />
                     <div>
                       <VerPassword show={showPass} switchShow={setShowPass} />
@@ -129,7 +129,7 @@ const RestablecerPass = () => {
                       value={form.confirmPassword || ""}
                       name="confirmPassword"
                       onChange={handleChange}
-                      className=" py-2 pl-2 block w-full border border-turquesa-fuerte rounded-l-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
+                      className="text-sm md:text-base py-2 pl-2 block w-full border border-turquesa-fuerte rounded-l-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
                     />
                     <div>
                       <VerPassword
@@ -140,7 +140,7 @@ const RestablecerPass = () => {
                   </div>
                 </div>
                 <div className="mt-4">
-                  <button className="py-2 w-full text-center text-blanco font-bold bg-turquesa-500 rounded-lg hover:bg-turquesa-fuerte">
+                  <button className="py-2 w-full text-center text-sm md:text-base text-blanco font-bold bg-turquesa-500 rounded-lg hover:bg-turquesa-fuerte">
                     Restablecer contraseña
                   </button>
                 </div>

@@ -21,3 +21,8 @@ td {
   border: 1px solid #267373;
   padding: 0.25rem;
 }
+
+
+.min-width {
+  min-width: 16.8rem;
+}

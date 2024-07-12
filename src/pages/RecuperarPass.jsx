@@ -43,11 +43,11 @@ const RecuperarPass = () => {
             <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>
           )}
 
-          <h1 className="py-4 text-lg text-center font-titulos font-bold">
+          <h1 className="py-4 md:text-lg text-center font-titulos font-bold">
             Recuperar contraseña
           </h1>
-          <div className="px-8 py-7 border border-turquesa-fuerte shadow-md shadow-turquesa-fuerte">
-            <p className="pb-4 text-turquesa-fuerte font-medium">
+          <div className="px-8 py-7 border min-width border-turquesa-fuerte shadow-md shadow-turquesa-fuerte">
+            <p className="pb-4 md:text-base text-sm text-turquesa-fuerte font-medium">
               Ingresa tu correo electrónico para que puedas recuperar tu cuenta
             </p>
             <form onSubmit={handleSubmit}>
@@ -58,13 +58,13 @@ const RecuperarPass = () => {
                 <input
                   type="email"
                   placeholder="Ingresa tu correo electrónico"
-                  className=" py-2 pl-2 block w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa"
+                  className="text-sm md:text-base py-2 pl-2 block w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa"
                   name="email"
                   onChange={handleChange}
                 />
               </div>
               <div className="mt-4">
-                <button className="py-2 w-full text-center text-blanco font-bold bg-turquesa-500 rounded-lg hover:bg-turquesa-fuerte">
+                <button className="py-2 w-full text-center text-sm md:text-base text-blanco font-bold bg-turquesa-500 rounded-lg hover:bg-turquesa-fuerte">
                   Enviar correo electrónico
                 </button>
               </div>

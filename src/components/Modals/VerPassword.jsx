@@ -6,7 +6,7 @@ const VerPassword = ({ show, switchShow }) => {
       onClick={() => {
         switchShow(!show);
       }}
-      className="p-3 flex justify-center items-center border-r border-y border-turquesa-fuerte rounded-r-lg"
+      className="p-2 md:p-3 flex justify-center items-center border-r border-y border-turquesa-fuerte rounded-r-lg cursor-pointer"
     >
       {show ? (
         <BiHide className="h-5 w-5 text-turquesa-fuerte" />
