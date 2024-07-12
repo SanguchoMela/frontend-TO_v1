@@ -25,7 +25,7 @@ const AgendarCita = () => {
     end: "",
     comentarios: "",
     idPaciente: "",
-    idDoctor: import.meta.env.ID_DOCTOR,
+    idDoctor: import.meta.env.VITE_ID_DOCTOR || "",
   });
 
   const setearIDPaciete = (idPaciente) => {
@@ -90,7 +90,7 @@ const AgendarCita = () => {
       end: "",
       comentarios: "",
       idPaciente: "",
-      idDoctor: "66136ac2e2bb69d9e5a225fb",
+      idDoctor: import.meta.env.VITE_ID_DOCTOR || "",
     });
     irTitulo();
   };
