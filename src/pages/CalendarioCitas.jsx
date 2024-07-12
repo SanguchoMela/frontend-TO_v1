@@ -15,7 +15,6 @@ const CalendarioCitas = () => {
 
   const mostrarCitas = async () => {
     try {
-      // Endpoint del backend
       const token = localStorage.getItem("token");
       const url = `${import.meta.env.VITE_BACKEND_URL}/citas/mostrar-todas`;
       const options = {
@@ -25,42 +24,52 @@ const CalendarioCitas = () => {
           isSecre: isAutorizado,
         },
       };
-      // Respuesta del endpoint
+
       const response = await axios.get(url, options);
-      // Guardar la respuesta del endpoint en una variable
       let citas = response.data.data;
-      // Mostrar solo las citas no canceladas
+      console.log("Citas obtenidas:", citas);
+
       citas = citas.filter((cita) => !cita.isCancelado);
-      // Formateo de fechas para que coincida con el formato del calendario
-      const citasFormateadas = citas.map((cita) => ({
-        id: cita._id,
-        title: `${cita.idPaciente.nombre} ${cita.idPaciente.apellido}`,
-        start: new Date(cita.start),
-        end: new Date(cita.end),
-      }));
-      console.log(citas[2]._id)
-      // Guardar los eventos formateados en el estado
+      console.log("Citas no canceladas:", citas);
+
+      const citasFormateadas = citas
+        .map((cita) => {
+          if (cita.idPaciente) {
+            return {
+              id: cita._id,
+              title: `${cita.idPaciente.nombre} ${cita.idPaciente.apellido}`,
+              start: new Date(cita.start),
+              end: new Date(cita.end),
+            };
+          } else {
+            console.warn("Cita con idPaciente nulo:", cita);
+            return null; 
+          }
+        })
+        .filter((cita) => cita !== null);
+
+      console.log("Citas formateadas:", citasFormateadas);
       setEvents(citasFormateadas);
     } catch (error) {
-      // Manejo y muestra de errores
-      setMensaje({ respuesta: error.response.data.msg, tipo: false });
+      console.error("Error al mostrar las citas:", error);
+      setMensaje({ respuesta: "No se pudieron cargar las citas", tipo: false });
       setTimeout(() => {
         setMensaje({});
       }, 3000);
     }
   };
 
-  let isAutorizado = ''
+  let isAutorizado = "";
   useEffect(() => {
     if (rol === "Secretaria" || rol === "Doctor") {
-      isAutorizado = 'true';
+      isAutorizado = "true";
       mostrarCitas();
     }
   }, [rol]);
 
   const handleEventClick = (event) => {
-    setSelectedEvent(event); // Al hacer clic en una cita, establece el estado de la cita seleccionada
-    setModalOpen(true); // Abre el modal al hacer clic en una cita
+    setSelectedEvent(event);
+    setModalOpen(true);
   };
 
   const closeModal = () => {
