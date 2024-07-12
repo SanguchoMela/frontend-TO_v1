@@ -104,7 +104,9 @@ const LandingPage = () => {
                     <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5" />
                     <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z" />
                   </svg>
-                  <a href="/apk/apk-termooasis.apk" className="ml-3">Descargar</a>
+                  <a href="/apk/apk-termooasis.apk" className="ml-3">
+                    Descargar
+                  </a>
                 </button>
               </div>
             </div>
@@ -118,12 +120,12 @@ const LandingPage = () => {
         {/* Servicios */}
         <section>
           <div className="w-80 text-blanco md:text-lg text-base font-titulos font-semibold bg-turquesa-300 rounded-r-lg flex justify-center">
-            <p className="py-3">Servicios</p>
+            <p className="md:py-3 py-2">Servicios</p>
           </div>
           <div className="my-8 md:text-base text-sm flex justify-center flex-col items-center md:flex-row md:my-16">
-            <div className="flex flex-col justify-center py-6 px-8 h-60 text-center mx-8 my-6 bg-turquesa-100 md:w-1/5 w-1/2 md:h-96">
+            <div className="flex flex-col justify-center py-6 px-8 h-60 min-w-64 text-center mx-8 my-6 bg-turquesa-100 md:w-1/5 w-1/2 md:h-96">
               <p className="font-titulos  font-semibold">Quiropraxia Inka</p>
-              <ul className="md:pt-3 leading-8">
+              <ul className="md:pt-3 leading-6 md:leading-8">
                 <li>Hernias de disco cervical y lumbar</li>
                 <li>Lumbalgias</li>
                 <li>Cervicalgia</li>
@@ -132,9 +134,9 @@ const LandingPage = () => {
                 <li>Pubialgia</li>
               </ul>
             </div>
-            <div className="flex flex-col justify-center py-6 px-8 h-60 text-center mx-8 my-6 bg-turquesa-100 md:w-1/5 w-1/2 md:h-96 p-6">
+            <div className="flex flex-col justify-center py-6 px-8 h-60 min-w-64 text-center mx-8 my-6 bg-turquesa-100 md:w-1/5 w-1/2 md:h-96 p-6">
               <p className="font-titulos font-semibold">TK Emocional</p>
-              <ul className="md:pt-3 leading-8">
+              <ul className="md:pt-3 leading-6 md:leading-8">
                 <li>Depresión crónica</li>
                 <li>Enfermedades auto inmunes</li>
                 <li>Insomnio</li>
@@ -142,11 +144,11 @@ const LandingPage = () => {
                 <li>Y más</li>
               </ul>
             </div>
-            <div className="flex flex-col justify-center py-6 px-8 h-64 text-center mx-8 my-6 bg-turquesa-100 md:w-1/5 w-1/2 md:h-96 p-6">
+            <div className="flex flex-col justify-center py-6 px-8 h-64 min-w-64 text-center mx-8 my-6 bg-turquesa-100 md:w-1/5 w-1/2 md:h-96 p-6">
               <p className="font-titulos font-semibold">
                 Praxis vertebral tibetana
               </p>
-              <ul className="md:pt-3 leading-8">
+              <ul className="md:pt-3 leading-6 md:leading-8">
                 <li>Rectificación cervical</li>
                 <li>Estrechamiento de canal lumbar</li>
                 <li>Hiperlordosis Cervical</li>
@@ -160,37 +162,37 @@ const LandingPage = () => {
         {/* Opiniones */}
         <section>
           <div className="w-80 text-blanco md:text-lg text-base font-titulos font-semibold bg-turquesa-300 rounded-r-lg flex justify-center">
-            <p className="py-3">Opiniones</p>
+            <p className="md:py-3 py-2">Opiniones</p>
           </div>
           <div className="my-8 md:my-16 md:text-base text-sm flex justify-center flex-wrap md:flex-nowrap md:mx-52">
-            <div className="flex flex-col justify-center p-6 w-1/3 h-60  text-center mx-10 my-6  shadow-inner shadow-turquesa-100">
+            <div className="flex flex-col justify-center p-6 w-1/3 h-60 min-w-64 text-center mx-10 my-6  shadow-inner shadow-turquesa-100">
               <p>
                 "Agradecemos a los especialistas de Termo Oasis, confiamos en
                 sus servicios y agradecemos por la atención brindada a cada uno
                 de nuestros jóvenes."
               </p>
-              <p className="mt-3 font-semibold text-right leading-5">
+              <p className="mt-2 font-semibold text-right md:text-sm text-xs">
                 Club de Basketball <br /> Nightmares
               </p>
             </div>
-            <div className="flex flex-col justify-center p-6 w-1/3 h-60 text-center mx-10 my-6  shadow-inner shadow-turquesa-100">
+            <div className="flex flex-col justify-center p-6 w-1/3 h-60 min-w-64 text-center mx-10 my-6  shadow-inner shadow-turquesa-100">
               <p>
                 "Muy agradecida y bendecida por haberles encontrado a ustedes y
                 que me hayan dado la solución para mi hijo después de haber
                 pasado momentos muy difíciles."
               </p>
-              <p className="mt-3 font-semibold text-right leading-5">
+              <p className="mt-2 font-semibold text-right md:text-sm text-xs">
                 Madre de <br /> Mayquel Saca
               </p>
             </div>
-            <div className="flex flex-col justify-center p-6 w-1/3 h-60 text-center mx-10 my-6  shadow-inner shadow-turquesa-100">
+            <div className="flex flex-col justify-center p-6 w-1/3 h-60 min-w-64 text-center mx-10 my-6  shadow-inner shadow-turquesa-100">
               <p>
                 Antes tenía miedo de ir al quiropráctico, pero ahora siento un
                 gran alivio y mi salud ha mejorado notablemente. Quiero
                 recomendar al doctor [...], ya que su tratamiento es económico y
                 100% garantizado.
               </p>
-              <p className="mt-3 font-semibold text-right leading-5">
+              <p className="mt-2 font-semibold text-right md:text-sm text-xs">
                 Genesis Anchundia
               </p>
             </div>
@@ -199,25 +201,25 @@ const LandingPage = () => {
         {/* Contactos */}
         <section>
           <div className="w-80 text-blanco md:text-lg text-base font-titulos font-semibold bg-turquesa-300 rounded-r-lg flex justify-center">
-            <p className="py-3">Contactos</p>
+            <p className="md:py-3 py-2">Contactos</p>
           </div>
-          <div className=" my-16 flex justify-center md:mx-52">
+          <div className="my-10 md:my-16 flex justify-center md:mx-52">
             <a href="https://www.facebook.com" target="_blank">
-              <div className="w-24 h-24 mx-10 my-6 rounded-full bg-turquesa-500 grid place-items-center">
-                <img src={logoFacebook} width={70}></img>
+              <div className="md:w-24 md:h-24 w-16 h-16 mx-10 my-6 rounded-full bg-turquesa-500 grid place-items-center">
+                <img src={logoFacebook} width={45} className="md:w-16"></img>
               </div>
             </a>
             <a
               href="https://www.instagram.com/termo_oasis?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
               target="_blank"
             >
-              <div className="w-24 h-24 mx-10 my-6 rounded-full bg-turquesa-500 grid place-items-center">
-                <img src={logoInsta} width={65}></img>
+              <div className="md:w-24 md:h-24 w-16 h-16 mx-10 my-6 rounded-full bg-turquesa-500 grid place-items-center">
+                <img src={logoInsta} width={40} className="md:w-16"></img>
               </div>
             </a>
             <a href="https://www.whatsapp.com" target="_blank">
-              <div className="w-24 h-24 mx-10 my-6 rounded-full bg-turquesa-500 grid place-items-center">
-                <img src={logoWhats} width={65}></img>
+              <div className="md:w-24 md:h-24 w-16 h-16 mx-10 my-6 rounded-full bg-turquesa-500 grid place-items-center">
+                <img src={logoWhats} width={40} className="md:w-16"></img>
               </div>
             </a>
           </div>
@@ -227,12 +229,12 @@ const LandingPage = () => {
         </section>
         {/* Final */}
         <footer className="bg-turquesa-500 h-52 grid grid-cols-2 place-content-center">
-          <div className="mx-7 text-center">
+          <div className="text-center ml-20 md:ml-0">
             <p className="text-naranja md:text-lg text-base font-bold">
               Horarios de Atención
             </p>
             <div className="h-2"></div>
-            <div className="mx-16 text-blanco md:text-base text-sm font-medium">
+            <div className="md:mx-16 text-blanco md:text-base text-sm font-medium">
               <p>De lunes a viernes de 10:30am a 17:00pm</p>
               <div className="h-2"></div>
               <p>Sábados de 11:00am a 18:00pm</p>
