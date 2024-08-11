@@ -8,7 +8,7 @@ moment.updateLocale("es", {
   // weekdaysMin: "Do_Lu_Ma_Mi_Ju_Vi_Sá".split("_"),
   months:
     "Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Diciembre".split(
-      "_",
+      "_"
     ),
   monthsShort: "Ene_Feb_Mar_Abr_May_Jun_Jul_Ago_Sep_Oct_Nov_Dic".split("_"),
 });
@@ -26,7 +26,7 @@ const mensajes = {
   event: "Paciente",
 };
 
-// const vistas = ['week','day','agenda']
+const vistas = ["week", "day", "agenda"];
 
 function Calendario(props) {
   const localizer = momentLocalizer(moment);
@@ -36,7 +36,7 @@ function Calendario(props) {
       {...props}
       localizer={localizer}
       messages={mensajes}
-      // views={vistas}
+      views={vistas}
       defaultView="week"
       selectable
       min={new Date(2023, 1, 1, 10, 0)}
