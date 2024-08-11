@@ -42,8 +42,8 @@ const CalendarioCitas = () => {
               end: new Date(cita.end),
             };
           } else {
-            console.warn("Cita con idPaciente nulo:", cita);
-            return null; 
+            console.log("Cita con ID de paciente nulo:", cita);
+            return null;
           }
         })
         .filter((cita) => cita !== null);

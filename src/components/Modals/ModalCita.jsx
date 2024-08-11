@@ -22,6 +22,22 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
     isSecre = "true";
   }
 
+  let isAutorizado = "";
+  // Se muestra el modal si las condiciones cambian
+  useEffect(() => {
+    // Verifica el modal abierto e ID válido
+    if (rol === "Secretaria" || rol === "Doctor") {
+      isAutorizado = "true";
+      if (isOpen && idCita) {
+        mostrarCitaId();
+        const fechaHoy = new Date();
+        const fechaFormateada = fechaHoy.toISOString().slice(0, 16);
+        setFechaMinima(fechaFormateada);
+      }
+    }
+    // Efecto cuando las dependencias cambian
+  }, [rol, isOpen, idCita]);
+
   const mostrarCitaId = async () => {
     try {
       // Endpoint del backend
@@ -42,6 +58,7 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
       setCitaActualizada(citaData);
     } catch (error) {
       console.log(error);
+      // setMensaje({ respuesta: response.data.msg });
     }
   };
 
@@ -60,7 +77,7 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
-            isSecre: isSecre
+            isSecre: isSecre,
           },
         };
         // Respuesta del endpoint
@@ -94,6 +111,7 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
+          isSecre: isSecre,
         },
       };
       // Datos del formulario al endpont
@@ -107,7 +125,7 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
       }, 2000);
     } catch (error) {
       // Manejo y muestra de errores
-      setMensaje({ respuesta: "Error al actualizar la cita", tipo: false });
+      setMensaje({ respuesta: error.response.data.msg, tipo: false });
       setTimeout(() => {
         setMensaje({});
         onClose();
@@ -124,11 +142,14 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
       fin = moment(inicio).add(1, "hours").format("YYYY-MM-DDTHH:mm");
     }
 
-    setCitaActualizada({
-      ...citaActualizada,
-      [name]: value,
-      end: fin
-    });
+    if (name != "isCancelado") {
+      setCitaActualizada({
+        ...citaActualizada,
+        [name]: value,
+        end: fin,
+      });
+    }
+    console.log(citaActualizada);
   };
 
   const handleCerrar = () => {
@@ -146,22 +167,6 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
     e.preventDefault();
     setEditable(true);
   };
-
-  let isAutorizado = ''
-  // Se muestra el modal si las condiciones cambian
-  useEffect(() => {
-    // Verifica el modal abierto e ID válido
-    if (rol === "Secretaria" || rol === "Doctor") {
-      isAutorizado = 'true'
-      if (isOpen && idCita) {
-        mostrarCitaId();
-        const fechaHoy = new Date();
-        const fechaFormateada = fechaHoy.toISOString().slice(0, 16);
-        setFechaMinima(fechaFormateada);
-      }
-    }
-    // Efecto cuando las dependencias cambian
-  }, [rol, isOpen, idCita]);
 
   const customStyles = {
     content: {
