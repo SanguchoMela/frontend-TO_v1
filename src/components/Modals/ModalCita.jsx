@@ -122,6 +122,7 @@ const ModalCita = ({ isOpen, onClose, idCita }) => {
       setTimeout(() => {
         setMensaje({});
         mostrarCitaId();
+        window.location.reload();
       }, 2000);
     } catch (error) {
       // Manejo y muestra de errores
