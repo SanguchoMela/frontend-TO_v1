@@ -9,9 +9,9 @@ const VerPassword = ({ show, switchShow }) => {
       className="p-2 md:p-3 flex justify-center items-center border-r border-y border-turquesa-fuerte rounded-r-lg cursor-pointer"
     >
       {show ? (
-        <BiHide className="h-5 w-5 text-turquesa-fuerte" />
+        <BiHide className="h-6 w-6 md:h-5 md:w-5 text-turquesa-fuerte" />
       ) : (
-        <BiShow className="h-5 w-5 text-turquesa-fuerte" />
+        <BiShow className="h-6 w-6 md:h-5 md:w-5 text-turquesa-fuerte" />
       )}
     </div>
   );

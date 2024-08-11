@@ -77,7 +77,7 @@ const AgendarCita = () => {
       setMensaje({ respuesta: error.response.data.msg, tipo: false });
       setTimeout(() => {
         setMensaje({});
-        window.location.reload();
+        // window.location.reload();
       }, 3000);
     } finally {
       irTitulo();

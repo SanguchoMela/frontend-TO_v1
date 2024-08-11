@@ -2,11 +2,14 @@ import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Mensaje from "../Alertas/Mensaje";
 import axios from "axios";
+import VerPassword from "../Modals/VerPassword";
 
 const Formulario = () => {
   const navigate = useNavigate();
   const [mensaje, setMensaje] = useState({});
   const titulo = useRef(null);
+
+  const [showPass, setShowPass] = useState(false);
 
   const [form, setForm] = useState({
     nombre: "",
@@ -19,7 +22,9 @@ const Formulario = () => {
     direccion: "",
     telefono: "",
     password: "",
-    isPaciente: "true",
+    isPaciente: true,
+    isDoctor: false,
+    isSecre: false,
   });
 
   const handleChange = (e) => {
@@ -35,10 +40,10 @@ const Formulario = () => {
       // Endpoint del backend
       const url = `${import.meta.env.VITE_BACKEND_URL}/registro`;
       // Enviar datos del formulario al endpoint
-      await axios.post(url, form);
+      const response = await axios.post(url, form);
       // Mensaje de confirmación
       setMensaje({
-        respuesta: "Paciente registrado exitosamente y correo enviado",
+        respuesta: response.data.msg,
         tipo: true,
       });
       // Redirigir a otra interfaz
@@ -58,11 +63,11 @@ const Formulario = () => {
       // Vaciar los datos del formulario
       setTimeout(() => {
         setMensaje({});
-        setForm({});
-        window.location.reload();
+        // setForm({});
+        // window.location.reload();
       }, 3000);
     } finally {
-      irTitulo()
+      irTitulo();
     }
   };
 
@@ -73,9 +78,9 @@ const Formulario = () => {
   };
 
   const handleCancel = () => {
-    setForm({})
-    irTitulo()
-  }
+    setForm({});
+    irTitulo();
+  };
 
   return (
     <>
@@ -230,16 +235,16 @@ const Formulario = () => {
               <label className="text-sm font-semibold">Contraseña</label>
               <div className="flex">
                 <input
-                  type="password"
+                  type={showPass ? "text" : "password"}
                   placeholder="Ingresa tu contraseña"
                   name="password"
                   value={form.password || ""}
                   onChange={handleChange}
-                  className="py-2 pl-2 block w-full border border-turquesa-fuerte rounded-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
+                  className="py-2 pl-2 block w-full border border-turquesa-fuerte rounded-l-lg focus:outline-none focus:ring-1 focus:ring-turquesa-100"
                 />
-                {/* <div>
-            <VerPassword show={showPass} switchShow={setShowPass} />
-          </div> */}
+                <div>
+                  <VerPassword show={showPass} switchShow={setShowPass} />
+                </div>
               </div>
             </div>
           </div>
