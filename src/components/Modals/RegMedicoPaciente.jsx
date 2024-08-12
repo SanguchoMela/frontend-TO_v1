@@ -77,12 +77,15 @@ const RegMedicoModal = ({ isOpen, onClose, idCita }) => {
       }, 2000);
     } catch (error) {
       setMensaje({
-        respuesta: "Error al actualizar el registro médico",
         tipo: false,
+        respuesta:
+          error.response?.data?.msg ||
+          "Ocurrió un error al actualizar el registro",
       });
       setTimeout(() => {
         setMensaje({});
-        onClose();
+        // onClose();
+        handleCancelarActualizar();
       }, 3000);
     } finally {
       irTitulo();
