@@ -33,10 +33,10 @@ const CrearRegMedicoModal = ({ isOpen, onClose, datosCita }) => {
     },
     comments: "",
   };
-  
+
   const [form, setForm] = useState(formInicial);
 
-  useEffect(() => { 
+  useEffect(() => {
     if (datosCita) {
       setForm({
         ...form,
@@ -46,7 +46,7 @@ const CrearRegMedicoModal = ({ isOpen, onClose, datosCita }) => {
       });
     }
   }, [datosCita, isOpen]);
-  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     const [field, subfield, index] = name.split("-");
@@ -92,7 +92,7 @@ const CrearRegMedicoModal = ({ isOpen, onClose, datosCita }) => {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
-          isDoctor: isDoctor
+          isDoctor: isDoctor,
         },
       };
       // Enviar datos del formulario al endpoint
@@ -108,12 +108,13 @@ const CrearRegMedicoModal = ({ isOpen, onClose, datosCita }) => {
     } catch (error) {
       console.log(error);
       setMensaje({
-        respuesta: "Error al crear el registro médico",
+        respuesta:
+          error.response.data.msg || "Error al crear el registro médico",
         tipo: false,
       });
       setTimeout(() => {
         setMensaje({});
-        setForm(formInicial);
+        // setForm(formInicial);
       }, 3000);
     } finally {
       if (titulo.current) {
