@@ -144,6 +144,7 @@ const AgendarCita = () => {
                   name="idPaciente"
                   value={form.idPaciente}
                   onChange={handleChange}
+                  disabled
                 />
               </div>
               <div className="mt-1">

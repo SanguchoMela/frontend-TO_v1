@@ -171,6 +171,7 @@ const Formulario = () => {
                 name="fechaNacimiento"
                 value={form.fechaNacimiento || ""}
                 onChange={handleChange}
+                max="2023-12-31"
               />
             </div>
           </div>
