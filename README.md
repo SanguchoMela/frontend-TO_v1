@@ -66,7 +66,7 @@ Este archivo se debe ubicar en la raíz de la carpeta del componente. `frontend-
 - **Conexión con el backend:** `VITE_BACKEND_URL = url_backend`
 
 > [!note]
-> El backend que se desarrolló a la par de este componente lo puedes encontrar en el repositorio `[Backend Termo Oasis](https://github.com/edusebass/backendTermoOasis.git)`
+> El backend que se desarrolló a la par de este componente lo puedes encontrar en el repositorio [Backend Termo Oasis](https://github.com/edusebass/backendTermoOasis.git)
 
 ## Capturas de pantalla
 
