@@ -1,9 +1,15 @@
-import { useContext, useState } from "react";
-import { Link, Outlet, Navigate, useLocation, useParams } from "react-router-dom";
+import { useContext } from "react";
+import {
+  Link,
+  Outlet,
+  Navigate,
+  useLocation,
+  useParams,
+} from "react-router-dom";
 import logoTO from "../assets/imagenes/logoTO.svg";
 import logoUsuario from "../assets/iconos/usuario.png";
-import Dropdown from "../components/Modals/Dropdown";
 import AuthContext from "../context/AuthProvider";
+import MenuDesp from "../components/Modals/MenuDesp";
 
 const Dashboard = () => {
   const location = useLocation();
@@ -58,7 +64,7 @@ const Dashboard = () => {
           </div>
           <div>
             <ul className="text-center mx-3 text-blanco">
-              <li className="py-2">
+              <li className="mt-6 mb-7">
                 <Link
                   to="/dashboard"
                   className={`${
@@ -72,31 +78,30 @@ const Dashboard = () => {
               </li>
               {rol === "Secretaria" && (
                 <>
-                  <li className="py-2">
+                  <li className="mb-7">
                     <div
                       className={`${
                         urlActual === "/dashboard/citas" ||
                         urlActual === "/dashboard/agendarCita"
-                          ? "py-3 bg-turquesa-fuerte font-semibold"
+                          ? "py-3 bg-turquesa-fuerte"
                           : ""
                       }`}
                     >
-                      <Dropdown dropdownTitle={"Citas"} items={itemsCitas} />
+                      <MenuDesp title={"Citas"} items={itemsCitas} />
                     </div>
                   </li>
-                  <li className="pt-2 pb-6">
+                  <li>
                     <div
                       className={`${
                         urlActual === "/dashboard/registrarPaciente" ||
                         urlActual === "/dashboard/listaPacientes" ||
                         urlActual === "/dashboard/perfilPaciente"
-                          ? "py-3 bg-turquesa-fuerte font-semibold"
+                          ? "py-3 bg-turquesa-fuerte"
                           : ""
                       }`}
                     >
-                      {/* <Link to='/dashboard/pacientes' className={`${urlActual === '/dashboard/opiniones' ? 'font-semibold bg-turquesa-fuerte py-3' : 'font-medium'} block hover:font-semibold`}>Pacientes</Link> */}
-                      <Dropdown
-                        dropdownTitle={"Pacientes"}
+                      <MenuDesp
+                        title={"Pacientes"}
                         items={itemsPacientesSecre}
                       />
                     </div>
