@@ -10,9 +10,9 @@ const MenuDesp = ({ title, items = [] }) => {
             <MenuButton className="inline-flex justify-center font-medium">
               {title}
               {open ? (
-                <ChevronDownIcon aria-hidden="true" className="-mr-1 h-6 w-6" />
-              ) : (
                 <ChevronUpIcon aria-hidden="true" className="-mr-1 h-6 w-6" />
+              ) : (
+                <ChevronDownIcon aria-hidden="true" className="-mr-1 h-6 w-6" />
               )}
             </MenuButton>
           </div>
