@@ -74,7 +74,7 @@ Este archivo se debe ubicar en la raíz de la carpeta del componente. `frontend-
 
 - Landing page
 
-![landing-page](src/assets/imagenes_readme/landing-page.png)
+![landing-page](src/assets/imagenes_readme/landing-page2.png)
 
 - Iniciar sesión
 
@@ -94,7 +94,7 @@ Este archivo se debe ubicar en la raíz de la carpeta del componente. `frontend-
 
 - Agendamiento de citas
 
-![agendar-cita](src/assets/imagenes_readme/agendar-cita.png)
+![agendar-cita](src/assets/imagenes_readme/agendar-cita2.png)
 
 - Calendario de citas
 
@@ -102,7 +102,7 @@ Este archivo se debe ubicar en la raíz de la carpeta del componente. `frontend-
 
 - Registrar paciente
 
-![registrar-paciente](src/assets/imagenes_readme/registrar-paciente.png)
+![registrar-paciente](src/assets/imagenes_readme/registrar-paciente2.png)
 
 - Lista de pacientes
 
