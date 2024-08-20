@@ -5,13 +5,19 @@ const Buscador = ({ pacientes, setPacientesFiltrados, onSearchChange }) => {
 
   const handleChange = (event) => {
     setSearch(event.target.value);
-    onSearchChange(event.target.value);
+    if (onSearchChange) {
+      onSearchChange(event.target.value);
+    }
   };
 
   useEffect(() => {
-    const resultadosFiltrados = pacientes.filter((paciente) =>
-      paciente.cedula.includes(search)
-    );
+    const resultadosFiltrados = pacientes.filter((paciente) => {
+      const cedulaMatch = paciente.cedula && paciente.cedula.includes(search);
+      const apellidoMatch =
+        paciente.apellido &&
+        paciente.apellido.toLowerCase().includes(search.toLowerCase());
+      return cedulaMatch || apellidoMatch;
+    });
     setPacientesFiltrados(resultadosFiltrados);
   }, [search, pacientes, setPacientesFiltrados]);
 
@@ -24,7 +30,7 @@ const Buscador = ({ pacientes, setPacientesFiltrados, onSearchChange }) => {
           type="search"
           value={search}
           onChange={handleChange}
-          placeholder="Buscar paciente por cédula"
+          placeholder="Buscar paciente por cédula o apellido"
           name="buscador"
         />
       </div>
