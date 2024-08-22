@@ -149,7 +149,7 @@ const AgendarCita = () => {
               </div>
               <div className="mt-1">
                 <p className="text-sm font-semibold" htmlFor="idPaciente">
-                  Busca el ID del paciente por su cédula
+                  Busca el ID del paciente por su cédula o apellido
                 </p>
                 <div className="overflow-y-scroll h-44 mb-5 pr-1 md:mb-0">
                   <TablaAgendar pacienteSeleccionado={setearIDPaciete} />
