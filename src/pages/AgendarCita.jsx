@@ -14,7 +14,7 @@ const AgendarCita = () => {
   const [fechaMinima, setFechaMinima] = useState("");
   const { rol } = useContext(AuthContext);
   const titulo = useRef(null);
-  const [error, setError] = useState({});
+  const [error, setError] = useState("");
 
   let isAutorizado = "";
 
@@ -51,7 +51,7 @@ const AgendarCita = () => {
         setError("No puedes seleccionar un domingo");
         return;
       }
-      setError({});
+      setError("");
 
       if (moment(inicio).day() !== 6) {
         if (
@@ -70,7 +70,7 @@ const AgendarCita = () => {
           setError("El último horario de entre semana inicia a las 4:00 PM");
           return;
         }
-        setError({});
+        setError("");
       }
 
       if (moment(inicio).day() === 6) {
@@ -89,7 +89,7 @@ const AgendarCita = () => {
           setError("El último horario del sábado inicia a las 5:00 PM");
           return;
         }
-        setError({});
+        setError("");
       }
 
       if (minutos !== 0 && minutos !== 30) {
@@ -97,7 +97,7 @@ const AgendarCita = () => {
         return;
       }
 
-      setError({});
+      setError("");
       fin = moment(inicio).add(1, "hours").format("YYYY-MM-DDTHH:mm");
     }
     setForm({
