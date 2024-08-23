@@ -44,19 +44,54 @@ const AgendarCita = () => {
     if (name === "start") {
       const start = e.target.value;
       const inicio = moment(start).format("YYYY-MM-DDTHH:mm");
+      const horaInicio = moment(inicio).hour();
+      const minutos = moment(inicio).minutes();
 
       if (moment(inicio).day() === 0) {
         setError("No puedes seleccionar un domingo");
         return;
       }
+      setError({});
 
-      const horaInicio = moment(inicio).hour();
-      if (horaInicio < 10 || horaInicio >= 19) {
-        setError("La hora debe ser entre las 10:00 AM y las 6:00 PM");
-        return;
+      if (moment(inicio).day() !== 6) {
+        if (
+          (horaInicio === 10 && minutos < 30) ||
+          (horaInicio >= 17 && minutos > 0) ||
+          horaInicio < 10 ||
+          horaInicio > 16
+        ) {
+          setError(
+            "El horario de entre semana debe estar entre las 10:30 AM y las 4:00 PM"
+          );
+          return;
+        }
+
+        if (horaInicio === 16 && minutos === 30) {
+          setError("El último horario de entre semana inicia a las 4:00 PM");
+          return;
+        }
+        setError({});
       }
 
-      const minutos = moment(inicio).minutes();
+      if (moment(inicio).day() === 6) {
+        if (
+          (horaInicio >= 17 && minutos > 0) ||
+          horaInicio < 11 ||
+          horaInicio > 17
+        ) {
+          setError(
+            "El horario del sábado debe estar entre las 11:00 AM y las 5:00 PM"
+          );
+          return;
+        }
+
+        if (horaInicio === 17 && minutos === 30) {
+          setError("El último horario del sábado inicia a las 5:00 PM");
+          return;
+        }
+        setError({});
+      }
+
       if (minutos !== 0 && minutos !== 30) {
         setError("Los minutos deben ser 00 o 30");
         return;
