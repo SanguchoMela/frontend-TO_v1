@@ -6,6 +6,7 @@ import Mensaje from "../components/Alertas/Mensaje";
 import TablaAgendar from "../components/TablaAgendar";
 import moment from "moment";
 import AuthContext from "../context/AuthProvider";
+import Error from "../components/Alertas/Error";
 
 const AgendarCita = () => {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ const AgendarCita = () => {
   const [fechaMinima, setFechaMinima] = useState("");
   const { rol } = useContext(AuthContext);
   const titulo = useRef(null);
+  const [error, setError] = useState({});
 
   let isAutorizado = "";
 
@@ -42,6 +44,25 @@ const AgendarCita = () => {
     if (name === "start") {
       const start = e.target.value;
       const inicio = moment(start).format("YYYY-MM-DDTHH:mm");
+
+      if (moment(inicio).day() === 0) {
+        setError("No puedes seleccionar un domingo");
+        return;
+      }
+
+      const horaInicio = moment(inicio).hour();
+      if (horaInicio < 10 || horaInicio >= 19) {
+        setError("La hora debe ser entre las 10:00 AM y las 6:00 PM");
+        return;
+      }
+
+      const minutos = moment(inicio).minutes();
+      if (minutos !== 0 && minutos !== 30) {
+        setError("Los minutos deben ser 00 o 30");
+        return;
+      }
+
+      setError({});
       fin = moment(inicio).add(1, "hours").format("YYYY-MM-DDTHH:mm");
     }
     setForm({
@@ -161,6 +182,10 @@ const AgendarCita = () => {
             <h4 className="text-turquesa-fuerte font-titulos font-semibold">
               Detalle de la cita
             </h4>
+
+            <div className="px-5 w-4/5 m-auto my-2">
+              {error.length > 0 && <Error mensaje={error} />}
+            </div>
 
             <div className="mt-2 mb-5">
               <div>
